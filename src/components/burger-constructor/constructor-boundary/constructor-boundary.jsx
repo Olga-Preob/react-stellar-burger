@@ -1,5 +1,6 @@
-import PropTypes from 'prop-types';
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
+import { ingredientPropType } from '../../../utils/prop-types'
+import PropTypes from 'prop-types';
 
 
 function ConstructorBoundary({ ingredient, position }) {
@@ -16,7 +17,7 @@ function ConstructorBoundary({ ingredient, position }) {
 
 
 ConstructorBoundary.propTypes = {
-  ingredient: PropTypes.object.isRequired,
+  ingredient: PropTypes.shape({ ingredientPropType }).isRequired,
   position: PropTypes.string.isRequired
 }
 

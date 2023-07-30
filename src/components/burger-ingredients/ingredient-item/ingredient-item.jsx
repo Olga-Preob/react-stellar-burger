@@ -1,4 +1,5 @@
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { ingredientPropType } from '../../../utils/prop-types';
 import PropTypes from 'prop-types';
 import styles from './ingredient-item.module.css';
 
@@ -28,7 +29,7 @@ function IngredientItem({ ingredient, setIngredientId, onClick }) {
 
 
 IngredientItem.propTypes = {
-  ingredient: PropTypes.object.isRequired,
+  ingredient: PropTypes.shape({ ingredientPropType }).isRequired,
   setIngredientId: PropTypes.func.isRequired,
   onClick: PropTypes.func.isRequired
 }

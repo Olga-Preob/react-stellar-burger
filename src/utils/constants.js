@@ -4,6 +4,6 @@ document.body.append(reactModalsInit);
 
 const reactModals = document.getElementById('react-modals');
 
-const dataUrl = 'https://norma.nomoreparties.space/api/ingredients';
+const baseUrl = 'https://norma.nomoreparties.space/api';
 
-export { reactModals, dataUrl }
+export { reactModals, baseUrl }

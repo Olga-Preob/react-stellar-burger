@@ -1,5 +1,7 @@
 import React from 'react';
 import IngredientItem from '../ingredient-item/ingredient-item';
+import { ingredientPropType } from '../../../utils/prop-types';
+import PropTypes from 'prop-types';
 import styles from './ingredients-group.module.css';
 
 
@@ -24,5 +26,14 @@ const IngredientsGroup = React.forwardRef(({ heading, groupId, ingredients, setI
     </section>
   );
 });
+
+
+IngredientsGroup.propTypes = {
+  heading: PropTypes.string.isRequired,
+  groupId: PropTypes.string.isRequired,
+  ingredients: PropTypes.arrayOf(ingredientPropType).isRequired,
+  setIngredientId: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired
+}
 
 export default IngredientsGroup;

@@ -1,12 +1,8 @@
 import { useState, useEffect } from 'react';
+import { getIngredients } from '../../utils/burger-api';
 import AppHeader from '../app-header/app-header';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
-import IngredientDetails from '../ingredient-details/ingredient-details';
-import OrderDetails from '../order-details/order-details';
-import useModal from '../../hooks/useModal';
-import Modal from '../modal/modal';
-import{ reactModals, dataUrl } from '../../utils/constants';
 import styles from './app.module.css';
 
 
@@ -16,32 +12,23 @@ function App() {
     hasError: false,
   });
   const [ingredientsData, setIngredientsData] = useState([]);
-  const [ingredientId, setIngredientId] = useState();
-
-  const ingredientInfoModal = useModal(false);
-  const orderInfoModal = useModal(false);
 
   const bunItem = ingredientsData.filter((ingredient) => ingredient.type === 'bun')[0];
   const fillingItems = ingredientsData.filter((ingredient) => (ingredient.type === 'sauce' || ingredient.type === 'main')).slice(6, 13);
 
-  const getIngredientsData = () => {
-    fetch(dataUrl)
-      .then((res) => {
-        setState({
-          ...state,
-          isLoading: true,
-          hasError: false
-        });
+  useEffect(() => {
+    setState({
+      ...state,
+      isLoading: true,
+      hasError: false
+    });
 
-        if (!res.ok) {
-          return Promise.reject(`Что-то пошло не так: ${res.status}`);
-        }
-        return res.json();
-      })
+    getIngredients()
       .then((data) => {
         return setIngredientsData(Object.assign([], data.data));
       })
       .catch((err) => {
+        console.error(err);
         return setState({
           ...state,
           hasError: true
@@ -53,10 +40,6 @@ function App() {
           isLoading: false
         });
       });
-  };
-
-  useEffect(() => {
-    getIngredientsData();
   }, []);
 
   return (
@@ -73,43 +56,12 @@ function App() {
         ingredientsData.length &&
         (
           <div className={styles.wrap}>
-            <BurgerIngredients
-              ingredients={ingredientsData}
-              setIngredientId={setIngredientId}
-              onClick={() => [ingredientInfoModal.onOpen()]}
-            />
-            <BurgerConstructor
-              bunItem={bunItem}
-              fillingItems={fillingItems}
-              onClick={() => [orderInfoModal.onOpen()]}
-            />
+            <BurgerIngredients ingredients={ingredientsData} />
+            <BurgerConstructor bunItem={bunItem} fillingItems={fillingItems} />
           </div>
         )
       }
       </main>
-      {
-        <>
-          <Modal
-            header='Детали ингредиента'
-            isModalOpen={ingredientInfoModal.isModalOpen}
-            onClose={() => [ingredientInfoModal.onClose()]}
-            nodeReactModals={reactModals}
-          >
-            {
-              ingredientId &&
-                <IngredientDetails ingredient={ingredientsData.find((ingredient) => ingredient._id === ingredientId)} />
-            }
-          </Modal>
-          <Modal
-            header=''
-            isModalOpen={orderInfoModal.isModalOpen}
-            onClose={() => [orderInfoModal.onClose()]}
-            nodeReactModals={reactModals}
-          >
-            <OrderDetails />
-          </Modal>
-        </>
-      }
     </div>
   );
 }

@@ -2,11 +2,12 @@ import { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import ModalOverlay from '../modal-overlay/modal-overlay';
+import{ reactModals } from '../../utils/constants';
 import PropTypes from 'prop-types';
 import styles from './modal.module.css';
 
 
-function Modal({ header, isModalOpen, onClose, nodeReactModals, children }) {
+function Modal({ header, isModalOpen, onClose, children }) {
   useEffect(() => {
     if (!isModalOpen) {
       return;
@@ -47,7 +48,7 @@ function Modal({ header, isModalOpen, onClose, nodeReactModals, children }) {
         </div>
       </>
     ),
-    nodeReactModals
+    reactModals
   );
 }
 
@@ -56,7 +57,6 @@ Modal.propTypes = {
   header: PropTypes.string.isRequired,
   isModalOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
-  nodeReactModals: PropTypes.instanceOf(Element).isRequired,
   children: PropTypes.node
 }
 

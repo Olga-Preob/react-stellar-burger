@@ -2,6 +2,7 @@ import {
   ConstructorElement,
   DragIcon
 } from '@ya.praktikum/react-developer-burger-ui-components';
+import { ingredientPropType } from '../../../utils/prop-types';
 import PropTypes from 'prop-types';
 import styles from './constructor-filling.module.css';
 
@@ -21,7 +22,7 @@ function ConstructorFilling({ ingredient }) {
 
 
 ConstructorFilling.propTypes = {
-  ingredient: PropTypes.object.isRequired
+  ingredient: PropTypes.shape({ ingredientPropType }).isRequired
 }
 
 export default ConstructorFilling;
