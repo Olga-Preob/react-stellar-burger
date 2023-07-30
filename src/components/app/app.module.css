@@ -5,3 +5,21 @@
   background-color: #131316;
   color: #f2f2f3;
 }
+
+.main {
+  display: flex;
+  justify-content: center;
+}
+
+.wrap {
+  max-width: 1240px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 40px;
+}
+
+.message_type_stateInfo {
+  text-shadow: 0px 4px 32px rgba(51, 51, 255, .5),
+               0px 0px 8px rgba(51, 51, 255, .25),
+               0px 0px 16px rgba(51, 51, 255, .25);
+}

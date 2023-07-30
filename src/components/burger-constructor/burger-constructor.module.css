@@ -1,0 +1,53 @@
+.mainGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.fillingGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  max-height: calc(100vh - 536px);
+  position: relative;
+  overflow-y: auto;
+  scrollbar-gutter: stable both-edges;
+  left: calc(var(--offset-base-size) * 4);
+  margin-left: calc(var(--offset-base-size) * -4);
+  gap: 16px;
+  padding-left: 0;
+}
+
+.fillingGroup::-webkit-scrollbar-thumb {
+  border-radius: 0;
+  border: 0;
+}
+
+.item {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.checkout {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  gap: 40px;
+}
+
+.price {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.price svg {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  object-position: center;
+}

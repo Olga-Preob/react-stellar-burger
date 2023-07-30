@@ -1,0 +1,50 @@
+.description {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.wrap {
+  width: 100%;
+  max-width: 520px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.image {
+  width: 100%;
+  max-width: 480px;
+  min-height: 240px;
+  object-fit: contain;
+  object-position: center;
+}
+
+.header {
+  width: 100%;
+  text-align: center;
+}
+
+.list {
+  display: grid;
+  grid-template-columns: 120px repeat(3, minmax(112px, 120px));
+  gap: 20px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  overflow: hidden;
+}
+
+.text {
+  max-width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
