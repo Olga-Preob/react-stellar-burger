@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import styles from './modal.module.css';
 
 
-function Modal({ header, isModalOpen, onClose, children }) {
+function Modal({ header, isModalOpen, closeModal, children }) {
   useEffect(() => {
     if (!isModalOpen) {
       return;
@@ -15,7 +15,7 @@ function Modal({ header, isModalOpen, onClose, children }) {
 
     const keyDownEsc = (evt) => {
       if (evt.key === 'Escape') {
-        onClose();
+        closeModal();
       }
     }
 
@@ -31,7 +31,7 @@ function Modal({ header, isModalOpen, onClose, children }) {
       <>
         <ModalOverlay
           isModalOpen={isModalOpen}
-          onClose={onClose}
+          closeModal={closeModal}
         />
         <div className={`${styles.wrap} ${isModalOpen && styles.open}`}>
           <section className={styles.modal}>
@@ -39,7 +39,7 @@ function Modal({ header, isModalOpen, onClose, children }) {
               <h3 className={`${styles.title} text text_type_main-large`}>
                 {header}
               </h3>
-              <button className={styles.button} type='button' onClick={onClose}>
+              <button className={styles.button} type='button' onClick={closeModal}>
                 <CloseIcon type='primary' />
               </button>
             </div>
@@ -56,7 +56,7 @@ function Modal({ header, isModalOpen, onClose, children }) {
 Modal.propTypes = {
   header: PropTypes.string.isRequired,
   isModalOpen: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
+  closeModal: PropTypes.func.isRequired,
   children: PropTypes.node
 }
 

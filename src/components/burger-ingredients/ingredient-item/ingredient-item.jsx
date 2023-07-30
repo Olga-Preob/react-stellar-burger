@@ -1,3 +1,4 @@
+import React from 'react';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { ingredientPropType } from '../../../utils/prop-types';
 import PropTypes from 'prop-types';
@@ -34,4 +35,4 @@ IngredientItem.propTypes = {
   onClick: PropTypes.func.isRequired
 }
 
-export default IngredientItem;
+export default React.memo(IngredientItem);

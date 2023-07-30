@@ -1,7 +1,7 @@
 import { baseUrl } from './constants';
 
 
-const getResponseData = (res) => {
+function getResponseData(res) {
   if (!res.ok) {
     return Promise.reject(`Что-то пошло не так: ${res.status}`);
   }

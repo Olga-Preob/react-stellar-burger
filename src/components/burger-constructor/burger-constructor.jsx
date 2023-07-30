@@ -48,7 +48,7 @@ function BurgerConstructor({ bunItem, fillingItems }) {
             </p>
             <CurrencyIcon type='primary' />
           </div>
-          <Button htmlType='button' type='primary' size='large' onClick={() => [orderInfoModal.onOpen()]}>
+          <Button htmlType='button' type='primary' size='large' onClick={() => orderInfoModal.onOpen()}>
             Оформить заказ
           </Button>
         </section>
@@ -58,7 +58,7 @@ function BurgerConstructor({ bunItem, fillingItems }) {
         <Modal
           header=''
           isModalOpen={orderInfoModal.isModalOpen}
-          onClose={() => [orderInfoModal.onClose()]}
+          closeModal={() => orderInfoModal.onClose()}
         >
           <OrderDetails />
         </Modal>

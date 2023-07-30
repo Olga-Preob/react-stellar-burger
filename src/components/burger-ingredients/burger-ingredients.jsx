@@ -95,7 +95,7 @@ function BurgerIngredients({ ingredients }) {
         <Modal
           header='Детали ингредиента'
           isModalOpen={ingredientInfoModal.isModalOpen}
-          onClose={() => [ingredientInfoModal.onClose()]}
+          closeModal={() => ingredientInfoModal.onClose()}
         >
           {
             ingredientId &&
