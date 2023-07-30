@@ -1,0 +1,18 @@
+.tabs {
+  display: flex;
+}
+
+.groups {
+  max-height: calc(100vh - 284px);
+  scrollbar-gutter: stable both-edges;
+  overflow-y: auto;
+}
+
+.groups::-webkit-scrollbar-thumb {
+  border-radius: 0;
+  border: 0;
+}
+
+.groups::-webkit-scrollbar-track {
+  margin-bottom: 52px;
+}

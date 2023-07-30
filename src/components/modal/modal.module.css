@@ -1,0 +1,62 @@
+.wrap {
+  position: fixed;
+  width: 100%;
+  max-width: 720px;
+  height: fit-content;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #1C1C21;
+  border: 1px solid rgba(76, 76, 255, .2);
+  border-radius: 40px;
+  box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, .04),
+              0px 4px 8px 0px rgba(0, 0, 0, .04),
+              0px 16px 24px 0px rgba(0, 0, 0, .04),
+              0px 24px 32px 0px rgba(0, 0, 0, .04);
+  opacity: 0;
+  visibility: hidden;
+  transition: visibility .3s linear, opacity .3s linear;
+  z-index: 50;
+}
+
+.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal {
+  display: flex;
+  justify-content: center;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 640px;
+  min-height: 64px;
+  gap: 36px;
+}
+
+.title {
+  width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.button {
+  width: 24px;
+  height: 24px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: opacity .3s ease-in;
+  padding: 0;
+  margin: 0;
+}
+
+.button:hover {
+  opacity: .5;
+}

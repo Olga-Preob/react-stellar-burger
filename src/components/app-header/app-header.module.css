@@ -1,0 +1,63 @@
+.header {
+  background-color: #1C1C21;
+  box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.04),
+              0px 4px 8px 0px rgba(0, 0, 0, 0.04),
+              0px 16px 24px 0px rgba(0, 0, 0, 0.04),
+              0px 24px 32px 0px rgba(0, 0, 0, 0.04);
+}
+
+.nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.menu {
+  width: 100%;
+  max-width: 1280px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nestedMenu {
+  display: flex;
+  list-style: none;
+  gap: 8px;
+  padding: 0;
+  margin: 0;
+}
+
+.item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo {
+  background: transparent;
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.button {
+  display: flex;
+  gap: 8px;
+  transition: none;
+}
+
+.button:hover svg {
+  fill: #fff;
+}
+
+.start {
+  justify-self: flex-start;
+}
+
+.end {
+  justify-self: flex-end;
+}
