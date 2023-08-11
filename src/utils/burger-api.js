@@ -1,4 +1,4 @@
-import { baseUrl } from './constants';
+import { baseUrl, headers } from './constants';
 
 
 function getResponseData(res) {
@@ -9,8 +9,20 @@ function getResponseData(res) {
 }
 
 function getIngredients() {
-  return fetch(`${baseUrl}/ingredients`)
-    .then((res) => getResponseData(res));
+  return fetch(`${baseUrl}/ingredients`, {
+    method: 'GET',
+    headers: headers
+  }).then((res) => getResponseData(res));
 }
 
-export { getIngredients }
+function placeAnOrder(ingredientsArrId) {
+  return fetch(`${baseUrl}/orders`, {
+    method: 'POST',
+    headers: headers,
+    body: JSON.stringify({
+      'ingredients': ingredientsArrId
+    })
+  }).then((res) => getResponseData(res));
+}
+
+export { getIngredients, placeAnOrder }

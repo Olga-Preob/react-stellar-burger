@@ -1,21 +1,22 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useInView } from 'react-intersection-observer'
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
+import { IngredientsDataContext } from '../../services/app-context';
 import IngredientsGroup from './ingredients-group/ingredients-group';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import Modal from '../modal/modal';
 import useModal from '../../hooks/useModal';
-import { ingredientPropType } from '../../utils/prop-types';
-import PropTypes from 'prop-types';
 import styles from './burger-ingredients.module.css';
 
 
-function BurgerIngredients({ ingredients }) {
+function BurgerIngredients() {
   const inViewOptions = {
     threshold: 0.2,
     trackVisibility: true,
     delay: 100
   };
+
+  const { ingredientsData } = useContext(IngredientsDataContext);
 
   const [current, setCurrent] = useState('bun');
   const [ingredientId, setIngredientId] = useState();
@@ -25,6 +26,10 @@ function BurgerIngredients({ ingredients }) {
   const [sauceRef, inViewSauce] = useInView(inViewOptions);
 
   const ingredientInfoModal = useModal(false);
+
+  const bun = ingredientsData.filter((ingredient) => ingredient.type === 'bun');
+  const sauce = ingredientsData.filter((ingredient) => ingredient.type === 'sauce');
+  const main = ingredientsData.filter((ingredient) => ingredient.type === 'main');
 
   useEffect(() => {
     if (inViewBun) {
@@ -70,7 +75,7 @@ function BurgerIngredients({ ingredients }) {
             groupId='bun'
             setIngredientId={setIngredientId}
             onClick={onClickHandler}
-            ingredients={ingredients.filter((ingredient) => ingredient.type === 'bun')}
+            ingredients={bun}
           />
           <IngredientsGroup
             ref={sauceRef}
@@ -78,7 +83,7 @@ function BurgerIngredients({ ingredients }) {
             groupId='sauce'
             setIngredientId={setIngredientId}
             onClick={onClickHandler}
-            ingredients={ingredients.filter((ingredient) => ingredient.type === 'sauce')}
+            ingredients={sauce}
           />
           <IngredientsGroup
             ref={mainRef}
@@ -86,7 +91,7 @@ function BurgerIngredients({ ingredients }) {
             groupId='main'
             setIngredientId={setIngredientId}
             onClick={onClickHandler}
-            ingredients={ingredients.filter((ingredient) => ingredient.type === 'main')}
+            ingredients={main}
           />
         </div>
       </section>
@@ -99,17 +104,12 @@ function BurgerIngredients({ ingredients }) {
         >
           {
             ingredientId &&
-              <IngredientDetails ingredient={ingredients.find((ingredient) => ingredient._id === ingredientId)} />
+              <IngredientDetails ingredient={ingredientsData.find((ingredient) => ingredient._id === ingredientId)} />
           }
         </Modal>
       }
     </>
   );
-}
-
-
-BurgerIngredients.propTypes = {
-  ingredients: PropTypes.arrayOf(ingredientPropType).isRequired
 }
 
 export default BurgerIngredients;

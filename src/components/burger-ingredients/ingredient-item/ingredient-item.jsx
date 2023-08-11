@@ -1,14 +1,32 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { BurgerInfoContext } from '../../../services/app-context';
 import { ingredientPropType } from '../../../utils/prop-types';
 import PropTypes from 'prop-types';
 import styles from './ingredient-item.module.css';
 
 
 function IngredientItem({ ingredient, setIngredientId, onClick }) {
+  const { orderСomposition, setOrderСomposition } = useContext(BurgerInfoContext);
+
   const onClickHandler = () => {
     onClick();
+
     setIngredientId(ingredient._id);
+
+    if (ingredient.type === 'bun') {
+      setOrderСomposition({
+        ...orderСomposition,
+        bun: ingredient
+      });
+    } else {
+      const newArrOfIngredients = Object.assign([], orderСomposition.ingredients);
+      newArrOfIngredients.push(ingredient);
+      setOrderСomposition({
+        ...orderСomposition,
+        ingredients: newArrOfIngredients
+      });
+    }
   }
 
   return (

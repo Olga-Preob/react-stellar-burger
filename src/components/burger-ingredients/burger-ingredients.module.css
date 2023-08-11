@@ -4,7 +4,7 @@
 
 .groups {
   max-height: calc(100vh - 284px);
-  scrollbar-gutter: stable both-edges;
+  scrollbar-gutter: stable;
   overflow-y: auto;
 }
 
@@ -14,5 +14,5 @@
 }
 
 .groups::-webkit-scrollbar-track {
-  margin-bottom: 52px;
+  margin-bottom: 40px;
 }

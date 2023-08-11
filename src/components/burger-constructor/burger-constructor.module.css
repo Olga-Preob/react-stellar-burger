@@ -10,11 +10,11 @@
 .fillingGroup {
   display: flex;
   flex-direction: column;
-  align-items: stretch;
+  width: 100%;
   max-height: calc(100vh - 536px);
   position: relative;
   overflow-y: auto;
-  scrollbar-gutter: stable both-edges;
+  scrollbar-gutter: stable;
   left: calc(var(--offset-base-size) * 4);
   margin-left: calc(var(--offset-base-size) * -4);
   gap: 16px;
@@ -46,8 +46,8 @@
 }
 
 .price svg {
-  width: 36px;
-  height: 36px;
+  min-width: 36px;
+  min-height: 36px;
   object-fit: contain;
   object-position: center;
 }

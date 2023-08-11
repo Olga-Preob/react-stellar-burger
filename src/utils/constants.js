@@ -5,5 +5,8 @@ document.body.append(reactModalsInit);
 const reactModals = document.getElementById('react-modals');
 
 const baseUrl = 'https://norma.nomoreparties.space/api';
+const headers = {
+  'Content-Type': 'application/json'
+}
 
-export { reactModals, baseUrl }
+export { reactModals, baseUrl, headers }
