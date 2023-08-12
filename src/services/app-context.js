@@ -1,7 +1,7 @@
 import { createContext } from 'react';
 
 
-const IngredientsDataContext = createContext(null);
+const ingredientsContext = createContext(null);
 const BurgerInfoContext = createContext(null);
 
-export { IngredientsDataContext, BurgerInfoContext }
+export { ingredientsContext, BurgerInfoContext }

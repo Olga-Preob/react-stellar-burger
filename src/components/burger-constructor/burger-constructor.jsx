@@ -1,5 +1,4 @@
 import { useEffect, useContext } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { BurgerInfoContext } from '../../services/app-context';
 import ConstructorBoundary from './constructor-boundary/constructor-boundary';
@@ -13,25 +12,27 @@ import styles from './burger-constructor.module.css';
 function BurgerConstructor() {
   const orderInfoModal = useModal(false);
 
-  const { orderСomposition, placeAnOrder } = useContext(BurgerInfoContext);
+  const { orderСomposition, createOrder } = useContext(BurgerInfoContext);
   const { setOrderData } = useContext(BurgerInfoContext);
   const { totalPriceState, totalPriceDispatch } = useContext(BurgerInfoContext);
 
   const onClickHandler = () => {
-    const orderСompositionId = [];
-    orderСompositionId.push(orderСomposition.bun._id);
-    orderСomposition.ingredients.forEach((ingredient) => {
-      orderСompositionId.push(ingredient._id);
-    });
-
-    placeAnOrder(orderСompositionId)
-      .then((res) => {
-        setOrderData(Object.assign({}, res));
-        orderInfoModal.onOpen();
-      })
-      .catch((err) => {
-        console.error(err);
+    if ((orderСomposition.bun) && (orderСomposition.ingredients.length)) {
+      const orderСompositionId = [];
+      orderСompositionId.push(orderСomposition.bun._id);
+      orderСomposition.ingredients.forEach((ingredient) => {
+        orderСompositionId.push(ingredient._id);
       });
+
+      createOrder(orderСompositionId)
+        .then((res) => {
+          setOrderData(Object.assign({}, res));
+          orderInfoModal.onOpen();
+        })
+        .catch((err) => {
+          console.error(err);
+        })
+    }
   }
 
   useEffect(() => {
@@ -45,23 +46,51 @@ function BurgerConstructor() {
           <ul className={`${styles.mainGroup} pr-4`}>
             <li className={`${styles.item}`}>
               {
-                orderСomposition.bun && orderСomposition.bun.type === 'bun' && <ConstructorBoundary ingredient={orderСomposition.bun} position='top' />
+                orderСomposition.bun ? (
+                  orderСomposition.bun.type === 'bun' && <ConstructorBoundary ingredient={orderСomposition.bun} position='top' />
+                ) : (
+                  <div className={`${styles.emptyBun} constructor-element constructor-element_pos_top`}>
+                    <p className={`${styles.emptyBunMessage} text_type_main-default text_color_inactive`}>Тут могла быть ваша булка</p>
+                  </div>
+                )
               }
             </li>
             <li className={`${styles.item}`}>
-              <ul className={`${styles.fillingGroup} custom-scroll pr-2`}>
-                {
-                  orderСomposition.ingredients.map((ingredient) => {
-                    if ((ingredient.type === 'sauce') || (ingredient.type === 'main')) {
-                      return <ConstructorFilling key={uuidv4()} ingredient={ingredient} />
-                    } else return null;
-                  })
-                }
-              </ul>
+              {
+                orderСomposition.ingredients.length ? (
+                  <ul className={`${styles.fillingGroup} custom-scroll pr-2`}>
+                    {
+                      orderСomposition.ingredients.map((ingredient, index) => {
+                        if ((ingredient.type === 'sauce') || (ingredient.type === 'main')) {
+                          console.log(ingredient);
+                          return <ConstructorFilling key={index} ingredient={ingredient} />
+                        } else {
+                          return null;
+                        }
+                      })
+                    }
+                  </ul>
+                ) : (
+                  <p className={`${styles.fillingMessage} text text_type_main-default text_color_inactive`}>
+                    {totalPriceState.totalPrice === 0 ? (
+                      'Добавьте булку и ингредиенты'
+                    ) : (
+                      'Добавьте ингредиенты'
+                    )}
+                  </p>
+                )
+              }
+
             </li>
             <li className={`${styles.item}`}>
               {
-                orderСomposition.bun && orderСomposition.bun.type === 'bun' && <ConstructorBoundary ingredient={orderСomposition.bun} position='bottom' />
+                orderСomposition.bun ? (
+                  orderСomposition.bun.type === 'bun' && <ConstructorBoundary ingredient={orderСomposition.bun} position='bottom' />
+                ) : (
+                  <div className={`${styles.emptyBun} constructor-element constructor-element_pos_bottom`}>
+                    <p className={`${styles.emptyBunMessage} text_type_main-default text_color_inactive`}>Тут могла быть ваша булка</p>
+                  </div>
+                )
               }
             </li>
           </ul>

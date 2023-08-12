@@ -26,13 +26,36 @@
   border: 0;
 }
 
+.fillingMessage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 536px;
+  min-height: 80px;
+}
+
+.emptyBun {
+  display: flex;
+  width: 100%;
+}
+
+.emptyBunMessage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
 .item {
   display: flex;
   justify-content: flex-end;
 }
 
 .checkout {
-  width: 100%;
+  max-width: 100%;
   display: flex;
   justify-content: flex-end;
   gap: 40px;

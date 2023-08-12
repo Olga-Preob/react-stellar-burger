@@ -15,7 +15,7 @@ function getIngredients() {
   }).then((res) => getResponseData(res));
 }
 
-function placeAnOrder(ingredientsArrId) {
+function createOrder(ingredientsArrId) {
   return fetch(`${baseUrl}/orders`, {
     method: 'POST',
     headers: headers,
@@ -25,4 +25,4 @@ function placeAnOrder(ingredientsArrId) {
   }).then((res) => getResponseData(res));
 }
 
-export { getIngredients, placeAnOrder }
+export { getIngredients, createOrder }

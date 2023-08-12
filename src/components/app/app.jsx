@@ -1,6 +1,6 @@
 import { useState, useEffect, useReducer } from 'react';
-import { getIngredients, placeAnOrder } from '../../utils/burger-api';
-import { IngredientsDataContext, BurgerInfoContext } from '../../services/app-context';
+import { getIngredients, createOrder } from '../../utils/burger-api';
+import { ingredientsContext, BurgerInfoContext } from '../../services/app-context';
 import AppHeader from '../app-header/app-header';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
@@ -17,13 +17,12 @@ function totalPriceReducer(state, items) {
   return { totalPrice: newTotalPrice };
 }
 
-
 function App() {
   const [state, setState] = useState({
     isLoading: false,
     hasError: false,
   });
-  const [ingredientsData, setIngredientsData] = useState([]);
+  const [ingredients, setIngredients] = useState([]);
   const [orderData, setOrderData] = useState(null);
   const [orderСomposition, setOrderСomposition] = useState({
     bun: null,
@@ -41,7 +40,7 @@ function App() {
     getIngredients()
       .then((data) => {
         console.log(data);
-        setIngredientsData(Object.assign([], data.data));
+        setIngredients(Object.assign([], data.data));
         setOrderСomposition({
           ...orderСomposition,
           bun: data.data.filter((ingredient) => ingredient.type === 'bun')[0],
@@ -74,10 +73,10 @@ function App() {
       {
         !state.isLoading &&
         !state.hasError &&
-        ingredientsData.length &&
+        ingredients.length &&
         (
           <div className={styles.wrap}>
-            <IngredientsDataContext.Provider value={{ ingredientsData, setIngredientsData }}>
+            <ingredientsContext.Provider value={{ ingredients, setIngredients }}>
               <BurgerInfoContext.Provider value={{
                 orderСomposition,
                 setOrderСomposition,
@@ -85,12 +84,12 @@ function App() {
                 totalPriceDispatch,
                 orderData,
                 setOrderData,
-                placeAnOrder
+                createOrder
               }}>
                 <BurgerIngredients />
                 <BurgerConstructor />
               </BurgerInfoContext.Provider>
-            </IngredientsDataContext.Provider>
+            </ingredientsContext.Provider>
           </div>
         )
       }

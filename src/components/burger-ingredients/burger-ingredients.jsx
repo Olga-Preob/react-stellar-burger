@@ -1,7 +1,7 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect, useContext, useMemo } from 'react';
 import { useInView } from 'react-intersection-observer'
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
-import { IngredientsDataContext } from '../../services/app-context';
+import { ingredientsContext } from '../../services/app-context';
 import IngredientsGroup from './ingredients-group/ingredients-group';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import Modal from '../modal/modal';
@@ -16,10 +16,10 @@ function BurgerIngredients() {
     delay: 100
   };
 
-  const { ingredientsData } = useContext(IngredientsDataContext);
+  const { ingredients } = useContext(ingredientsContext);
 
   const [current, setCurrent] = useState('bun');
-  const [ingredientId, setIngredientId] = useState();
+  const [ingredientPopup, setIngredientPopup] = useState(null);
 
   const [bunRef, inViewBun] = useInView(inViewOptions);
   const [mainRef, inViewMain] = useInView(inViewOptions);
@@ -27,9 +27,21 @@ function BurgerIngredients() {
 
   const ingredientInfoModal = useModal(false);
 
-  const bun = ingredientsData.filter((ingredient) => ingredient.type === 'bun');
-  const sauce = ingredientsData.filter((ingredient) => ingredient.type === 'sauce');
-  const main = ingredientsData.filter((ingredient) => ingredient.type === 'main');
+  const bun = useMemo(() => {
+    return ingredients.filter((ingredient) => ingredient.type === 'bun');
+    },
+    [ingredients]
+  );
+  const sauce = useMemo(() => {
+    return ingredients.filter((ingredient) => ingredient.type === 'sauce');
+    },
+    [ingredients]
+  );
+  const main = useMemo(() => {
+    return ingredients.filter((ingredient) => ingredient.type === 'main');
+    },
+    [ingredients]
+  );
 
   useEffect(() => {
     if (inViewBun) {
@@ -73,7 +85,7 @@ function BurgerIngredients() {
             ref={bunRef}
             heading='Булки'
             groupId='bun'
-            setIngredientId={setIngredientId}
+            setIngredientPopup={setIngredientPopup}
             onClick={onClickHandler}
             ingredients={bun}
           />
@@ -81,7 +93,7 @@ function BurgerIngredients() {
             ref={sauceRef}
             heading='Соусы'
             groupId='sauce'
-            setIngredientId={setIngredientId}
+            setIngredientPopup={setIngredientPopup}
             onClick={onClickHandler}
             ingredients={sauce}
           />
@@ -89,7 +101,7 @@ function BurgerIngredients() {
             ref={mainRef}
             heading='Начинки'
             groupId='main'
-            setIngredientId={setIngredientId}
+            setIngredientPopup={setIngredientPopup}
             onClick={onClickHandler}
             ingredients={main}
           />
@@ -103,8 +115,8 @@ function BurgerIngredients() {
           closeModal={() => ingredientInfoModal.onClose()}
         >
           {
-            ingredientId &&
-              <IngredientDetails ingredient={ingredientsData.find((ingredient) => ingredient._id === ingredientId)} />
+            ingredientPopup &&
+              <IngredientDetails ingredient={ingredientPopup} />
           }
         </Modal>
       }

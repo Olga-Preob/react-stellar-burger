@@ -6,13 +6,13 @@ import PropTypes from 'prop-types';
 import styles from './ingredient-item.module.css';
 
 
-function IngredientItem({ ingredient, setIngredientId, onClick }) {
+function IngredientItem({ ingredient, setIngredientPopup, onClick }) {
   const { orderСomposition, setOrderСomposition } = useContext(BurgerInfoContext);
 
   const onClickHandler = () => {
     onClick();
 
-    setIngredientId(ingredient._id);
+    setIngredientPopup(ingredient);
 
     if (ingredient.type === 'bun') {
       setOrderСomposition({
@@ -20,11 +20,11 @@ function IngredientItem({ ingredient, setIngredientId, onClick }) {
         bun: ingredient
       });
     } else {
-      const newArrOfIngredients = Object.assign([], orderСomposition.ingredients);
-      newArrOfIngredients.push(ingredient);
+      const newIngredientsArr = Object.assign([], orderСomposition.ingredients);
+      newIngredientsArr.push(ingredient);
       setOrderСomposition({
         ...orderСomposition,
-        ingredients: newArrOfIngredients
+        ingredients: newIngredientsArr
       });
     }
   }
@@ -49,7 +49,7 @@ function IngredientItem({ ingredient, setIngredientId, onClick }) {
 
 IngredientItem.propTypes = {
   ingredient: PropTypes.shape({ ingredientPropType }).isRequired,
-  setIngredientId: PropTypes.func.isRequired,
+  setIngredientPopup: PropTypes.func.isRequired,
   onClick: PropTypes.func.isRequired
 }
 
