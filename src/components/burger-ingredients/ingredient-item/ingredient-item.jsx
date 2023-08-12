@@ -1,14 +1,32 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { BurgerInfoContext } from '../../../services/app-context';
 import { ingredientPropType } from '../../../utils/prop-types';
 import PropTypes from 'prop-types';
 import styles from './ingredient-item.module.css';
 
 
-function IngredientItem({ ingredient, setIngredientId, onClick }) {
+function IngredientItem({ ingredient, setIngredientPopup, onClick }) {
+  const { orderСomposition, setOrderСomposition } = useContext(BurgerInfoContext);
+
   const onClickHandler = () => {
     onClick();
-    setIngredientId(ingredient._id);
+
+    setIngredientPopup(ingredient);
+
+    if (ingredient.type === 'bun') {
+      setOrderСomposition({
+        ...orderСomposition,
+        bun: ingredient
+      });
+    } else {
+      const newIngredientsArr = Object.assign([], orderСomposition.ingredients);
+      newIngredientsArr.push(ingredient);
+      setOrderСomposition({
+        ...orderСomposition,
+        ingredients: newIngredientsArr
+      });
+    }
   }
 
   return (
@@ -31,7 +49,7 @@ function IngredientItem({ ingredient, setIngredientId, onClick }) {
 
 IngredientItem.propTypes = {
   ingredient: PropTypes.shape({ ingredientPropType }).isRequired,
-  setIngredientId: PropTypes.func.isRequired,
+  setIngredientPopup: PropTypes.func.isRequired,
   onClick: PropTypes.func.isRequired
 }
 

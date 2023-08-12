@@ -1,20 +1,34 @@
-import { useState, useEffect } from 'react';
-import { getIngredients } from '../../utils/burger-api';
+import { useState, useEffect, useReducer } from 'react';
+import { getIngredients, createOrder } from '../../utils/burger-api';
+import { ingredientsContext, BurgerInfoContext } from '../../services/app-context';
 import AppHeader from '../app-header/app-header';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 import styles from './app.module.css';
 
 
+const initialTotalPriceState = { totalPrice: 0 };
+
+function totalPriceReducer(state, items) {
+  const bunPrice = items.bun ? Number(items.bun.price * 2) : 0;
+  const fillingPrice = Number(items.ingredients.reduce((previousValue, ingredient) => previousValue + ingredient.price, 0));
+  const newTotalPrice = Number(bunPrice + fillingPrice);
+
+  return { totalPrice: newTotalPrice };
+}
+
 function App() {
   const [state, setState] = useState({
     isLoading: false,
     hasError: false,
   });
-  const [ingredientsData, setIngredientsData] = useState([]);
-
-  const bunItem = ingredientsData.filter((ingredient) => ingredient.type === 'bun')[0];
-  const fillingItems = ingredientsData.filter((ingredient) => (ingredient.type === 'sauce' || ingredient.type === 'main')).slice(6, 13);
+  const [ingredients, setIngredients] = useState([]);
+  const [orderData, setOrderData] = useState(null);
+  const [orderСomposition, setOrderСomposition] = useState({
+    bun: null,
+    ingredients: []
+  });
+  const [totalPriceState, totalPriceDispatch] = useReducer(totalPriceReducer, initialTotalPriceState);
 
   useEffect(() => {
     setState({
@@ -25,17 +39,23 @@ function App() {
 
     getIngredients()
       .then((data) => {
-        return setIngredientsData(Object.assign([], data.data));
+        console.log(data);
+        setIngredients(Object.assign([], data.data));
+        setOrderСomposition({
+          ...orderСomposition,
+          bun: data.data.filter((ingredient) => ingredient.type === 'bun')[0],
+          ingredients: data.data.filter((ingredient) => (ingredient.type === 'sauce' || ingredient.type === 'main')).slice(12, 13)
+        });
       })
       .catch((err) => {
         console.error(err);
-        return setState({
+        setState({
           ...state,
           hasError: true
         });
       })
       .finally(() => {
-        return setState({
+        setState({
           ...state,
           isLoading: false
         });
@@ -53,11 +73,23 @@ function App() {
       {
         !state.isLoading &&
         !state.hasError &&
-        ingredientsData.length &&
+        ingredients.length &&
         (
           <div className={styles.wrap}>
-            <BurgerIngredients ingredients={ingredientsData} />
-            <BurgerConstructor bunItem={bunItem} fillingItems={fillingItems} />
+            <ingredientsContext.Provider value={{ ingredients, setIngredients }}>
+              <BurgerInfoContext.Provider value={{
+                orderСomposition,
+                setOrderСomposition,
+                totalPriceState,
+                totalPriceDispatch,
+                orderData,
+                setOrderData,
+                createOrder
+              }}>
+                <BurgerIngredients />
+                <BurgerConstructor />
+              </BurgerInfoContext.Provider>
+            </ingredientsContext.Provider>
           </div>
         )
       }
