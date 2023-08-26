@@ -14,7 +14,6 @@ export function fetchCreateOrder(arr, func) {
     createOrder(arr)
       .then((res) => {
         if (res && res.success) {
-          console.log(res);
           dispatch({
             type: CREATE_ORDER_SUCCESS,
             data: Object.assign([], res),

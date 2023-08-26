@@ -88,7 +88,6 @@ function BurgerConstructor() {
                     {
                       burgersData.ingredients.map((ingredient, index) => {
                         if ((ingredient.type === 'sauce') || (ingredient.type === 'main')) {
-                          console.log(ingredient);
                           return <ConstructorFilling
                                     key={ingredient.key}
                                     index={index}
