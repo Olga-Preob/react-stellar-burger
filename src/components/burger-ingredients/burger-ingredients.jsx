@@ -1,7 +1,10 @@
-import { useState, useEffect, useContext, useMemo } from 'react';
+import { useState, useEffect, useMemo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useInView } from 'react-intersection-observer'
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
-import { ingredientsContext } from '../../services/app-context';
+import {
+  REMOVE_CURRENT_INGREDIENT
+} from '../../services/actions/ingredient-details';
 import IngredientsGroup from './ingredients-group/ingredients-group';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import Modal from '../modal/modal';
@@ -16,10 +19,11 @@ function BurgerIngredients() {
     delay: 100
   };
 
-  const { ingredients } = useContext(ingredientsContext);
+  const dispatch = useDispatch();
+  const ingredients = useSelector((state) => state.ingredientsReducer.data);
+  const currentIngredient = useSelector((state) => state.ingredientDetailsReducer.currentIngredient);
 
   const [current, setCurrent] = useState('bun');
-  const [ingredientPopup, setIngredientPopup] = useState(null);
 
   const [bunRef, inViewBun] = useInView(inViewOptions);
   const [mainRef, inViewMain] = useInView(inViewOptions);
@@ -64,6 +68,14 @@ function BurgerIngredients() {
     ingredientInfoModal.onOpen();
   }
 
+  const onCloseHandler = () => {
+    ingredientInfoModal.onClose();
+
+    dispatch({
+      type: REMOVE_CURRENT_INGREDIENT
+    });
+  }
+
   return (
     <>
       <section className={styles.burgerIngredients}>
@@ -85,7 +97,6 @@ function BurgerIngredients() {
             ref={bunRef}
             heading='Булки'
             groupId='bun'
-            setIngredientPopup={setIngredientPopup}
             onClick={onClickHandler}
             ingredients={bun}
           />
@@ -93,7 +104,6 @@ function BurgerIngredients() {
             ref={sauceRef}
             heading='Соусы'
             groupId='sauce'
-            setIngredientPopup={setIngredientPopup}
             onClick={onClickHandler}
             ingredients={sauce}
           />
@@ -101,7 +111,6 @@ function BurgerIngredients() {
             ref={mainRef}
             heading='Начинки'
             groupId='main'
-            setIngredientPopup={setIngredientPopup}
             onClick={onClickHandler}
             ingredients={main}
           />
@@ -112,11 +121,11 @@ function BurgerIngredients() {
         <Modal
           header='Детали ингредиента'
           isModalOpen={ingredientInfoModal.isModalOpen}
-          closeModal={() => ingredientInfoModal.onClose()}
+          closeModal={onCloseHandler}
         >
           {
-            ingredientPopup &&
-              <IngredientDetails ingredient={ingredientPopup} />
+            currentIngredient &&
+              <IngredientDetails />
           }
         </Modal>
       }

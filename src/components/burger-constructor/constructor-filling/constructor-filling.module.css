@@ -3,6 +3,8 @@
   align-items: center;
   justify-content: flex-end;
   gap: 8px;
+  scroll-snap-stop: always;
+  cursor: move;
 }
 
 .item svg {
@@ -10,4 +12,14 @@
   min-height: 24px;
   object-fit: contain;
   object-position: center;
+}
+
+.itemCanDrop {
+  background-color: #252529;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.dragged {
+  transition: all 0.3s ease-in-out;
+  transform: scale(0.9);
 }

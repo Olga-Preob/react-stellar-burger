@@ -9,8 +9,8 @@
 }
 
 .groups::-webkit-scrollbar-thumb {
-  border-radius: 0;
-  border: 0;
+  border-radius: none;
+  border: none;
 }
 
 .groups::-webkit-scrollbar-track {
