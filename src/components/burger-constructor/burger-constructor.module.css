@@ -40,7 +40,7 @@
 }
 
 .fillingMessageCanDrop {
-  color: white;
+  color: #FFF;
   transition: color .3s ease-in-out;
 }
 
@@ -66,7 +66,7 @@
 }
 
 .emptyBunMessageCanDrop {
-  color: #000;
+  color: #FFF;
   transition: color .3s ease-in-out;
 }
 

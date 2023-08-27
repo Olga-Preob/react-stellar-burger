@@ -8,6 +8,7 @@ export const INCREASE_ITEM = 'INCREASE_ITEM';
 export const INCREASE_BUN_ITEM = 'INCREASE_BUN_ITEM'
 export const DECREASE_ITEM = 'DECREASE_ITEM';
 export const DECREASE_BUN_ITEM = 'DECREASE_BUN_ITEM';
+export const CLEAR_ALL_INGREDIENTS_COUNT = 'CLEAR_ALL_INGREDIENTS_COUNT';
 
 export function fetchGetIngredients() {
   return function (dispatch) {
@@ -17,16 +18,17 @@ export function fetchGetIngredients() {
 
     getIngredients()
       .then((res) => {
-        if (res && res.success) {
-          dispatch({
-            type: GET_INGREDIENTS_SUCCESS,
-            data: Object.assign([], res.data),
-          })
-        } else {
-          dispatch({
-            type: GET_INGREDIENTS_ERROR,
-          })
-        }
+        dispatch({
+          type: GET_INGREDIENTS_SUCCESS,
+          data: Object.assign([], res.data),
+        })
       })
+      .catch((err) => {
+        dispatch({
+          type: GET_INGREDIENTS_ERROR,
+        });
+
+        console.log(err);
+      });
   }
 }

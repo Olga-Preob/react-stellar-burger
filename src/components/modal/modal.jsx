@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import ModalOverlay from '../modal-overlay/modal-overlay';
-import{ reactModals } from '../../utils/constants';
+import{ REACT_MODALS } from '../../utils/constants';
 import PropTypes from 'prop-types';
 import styles from './modal.module.css';
 
@@ -48,7 +48,7 @@ function Modal({ header, isModalOpen, closeModal, children }) {
         </div>
       </>
     ),
-    reactModals
+    REACT_MODALS
   );
 }
 

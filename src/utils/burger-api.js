@@ -1,28 +1,45 @@
-import { baseUrl, headers } from './constants';
+import {
+  BASE_URL,
+  ENDPOINTS,
+  HEADERS
+} from './constants';
 
 
-function getResponseData(res) {
-  if (!res.ok) {
-    return Promise.reject(`Что-то пошло не так: ${res.status}`);
+const checkResponse = (res) => {
+  if (res.ok) {
+    return res.json();
   }
-  return res.json();
+  return Promise.reject(`Ошибка: ${res.status}`);
 }
 
-function getIngredients() {
-  return fetch(`${baseUrl}/ingredients`, {
-    method: 'GET',
-    headers: headers
-  }).then((res) => getResponseData(res));
+const checkSuccess = (res) => {
+  if (res && res.success) {
+    return res;
+  }
+  return Promise.reject(`Ответ не success: ${res}`);
 }
 
-function createOrder(ingredientsArrId) {
-  return fetch(`${baseUrl}/orders`, {
-    method: 'POST',
-    headers: headers,
-    body: JSON.stringify({
-      'ingredients': ingredientsArrId
-    })
-  }).then((res) => getResponseData(res));
+const request = (endpoint, options) => {
+  return fetch(`${BASE_URL}${endpoint}`, options)
+    .then((res) => checkResponse(res))
+    .then((res) => checkSuccess(res));
+}
+
+const getIngredients = () => {
+  return request(ENDPOINTS.GET_INGREDIENTS)
+}
+
+const createOrder = (ingredientsArrId) => {
+  return request(
+    ENDPOINTS.CREATE_ORDER,
+    {
+      method: 'POST',
+      headers: HEADERS,
+      body: JSON.stringify({
+        'ingredients': ingredientsArrId
+      })
+    }
+  );
 }
 
 export { getIngredients, createOrder }

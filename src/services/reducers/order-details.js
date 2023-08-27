@@ -7,7 +7,9 @@ import {
 
 const initialState = {
   name: '',
-  order: null,
+  order: {
+    number: null
+  },
   success: false,
   itemsRequest: false,
   itemsFailed: false
@@ -35,7 +37,9 @@ export const orderDetailsReducer = (state = initialState, action) => {
       return {
         ...state,
         name: '',
-        order: null,
+        order: {
+          number: null
+        },
         success: false,
         itemsRequest: false,
         itemsFailed: true,

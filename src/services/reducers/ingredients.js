@@ -6,6 +6,7 @@ import {
   INCREASE_BUN_ITEM,
   DECREASE_ITEM,
   DECREASE_BUN_ITEM,
+  CLEAR_ALL_INGREDIENTS_COUNT
 } from '../actions/ingredients';
 
 
@@ -61,6 +62,13 @@ export const ingredientsReducer = (state = initialState, action) => {
           ...state,
           data: [...state.data].map((item) => {
             return item._id === action._id ? {...item, __v: 0} : item;
+          })
+        }
+      case CLEAR_ALL_INGREDIENTS_COUNT:
+        return {
+          ...state,
+          data: [...state.data].map((item) => {
+            return item.__v !== 0 ? {...item, __v: 0} : item;
           })
         }
     default:

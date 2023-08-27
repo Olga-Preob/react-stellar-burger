@@ -3,6 +3,7 @@ import {
   ADD_INGREDIENT,
   MOVE_INGREDIENT,
   REMOVE_INGREDIENT,
+  CLEAR_CONSTRUCTOR,
   CALC_TOTAL_PRICE
 } from '../actions/burger-constructor';
 
@@ -37,6 +38,8 @@ export const burgerConstructorReducer = (state = initialState, action) => {
         ...state,
         ingredients: newIngredients
       }
+    case CLEAR_CONSTRUCTOR:
+      return initialState;
     case CALC_TOTAL_PRICE:
       if (state.bun) {
         return {

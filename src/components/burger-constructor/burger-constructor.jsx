@@ -1,8 +1,12 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDrop } from 'react-dnd';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { CALC_TOTAL_PRICE } from '../../services/actions/burger-constructor';
+import {
+  CLEAR_CONSTRUCTOR,
+  CALC_TOTAL_PRICE
+} from '../../services/actions/burger-constructor';
+import { CLEAR_ALL_INGREDIENTS_COUNT } from '../../services/actions/ingredients';
 import { fetchCreateOrder } from '../../services/actions/order-details';
 import ConstructorBoundary from './constructor-boundary/constructor-boundary';
 import ConstructorFilling from './constructor-filling/constructor-filling';
@@ -26,6 +30,16 @@ function BurgerConstructor() {
     });
   }, [burgersData.bun, burgersData.ingredients]);
 
+  useEffect(() => {
+    if (orderData.order.number) {
+      orderInfoModal.onOpen();
+
+      clearConstructor();
+    } else if (orderData.itemsFailed === true) {
+      orderInfoModal.onOpen();
+    }
+  }, [orderData.order, orderData.itemsFailed]);
+
   const [{ canDropBunTop }, dropTopBunTarget] = useDrop({
     accept: 'bun',
     collect: monitor => ({
@@ -47,6 +61,16 @@ function BurgerConstructor() {
     })
   });
 
+  const clearConstructor = () => {
+    dispatch({
+      type: CLEAR_CONSTRUCTOR
+    });
+
+    dispatch({
+      type: CLEAR_ALL_INGREDIENTS_COUNT
+    });
+  }
+
   const onClickHandler = () => {
     if ((burgersData.bun) && (burgersData.ingredients.length)) {
       const burgersDataId = [];
@@ -55,7 +79,7 @@ function BurgerConstructor() {
         burgersDataId.push(ingredient._id);
       });
 
-      dispatch(fetchCreateOrder(burgersDataId, orderInfoModal.onOpen()));
+      dispatch(fetchCreateOrder(burgersDataId));
     }
   }
 
@@ -81,6 +105,7 @@ function BurgerConstructor() {
                 )
               }
             </li>
+
             <li className={`${styles.item}`} ref={dropFillingItemTarget}>
               {
                 burgersData.ingredients.length ? (
@@ -113,8 +138,8 @@ function BurgerConstructor() {
                   </p>
                 )
               }
-
             </li>
+
             <li className={`${styles.item}`} ref={dropBottomBunTarget}>
               {
                 burgersData.bun ?
@@ -138,8 +163,15 @@ function BurgerConstructor() {
             </p>
             <CurrencyIcon type='primary' />
           </div>
-          <Button htmlType='button' type='primary' size='large' onClick={onClickHandler} disabled={!burgersData.bun || !burgersData.ingredients.length || orderData.itemsRequest ? true : false}>
-            Оформить заказ
+
+          <Button
+            htmlType='button'
+            type='primary'
+            size='large'
+            onClick={onClickHandler}
+            disabled={!burgersData.bun || !burgersData.ingredients.length || orderData.itemsRequest ? true : false}
+          >
+            {orderData.itemsRequest ? 'Загрузка...' : 'Оформить заказ'}
           </Button>
         </section>
       </section>

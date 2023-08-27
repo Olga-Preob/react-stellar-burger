@@ -18,7 +18,7 @@ function OrderDetails() {
           ) :
           (
             <>
-              <h4 className={`${styles.header} text text_type_digits-large text-shadow pb-8`}>{orderData.order ? orderData.order.number : '...'}</h4>
+              <h4 className={`${styles.header} text text_type_digits-large text-shadow pb-8`}>{orderData.order.number}</h4>
               <p className={'text text_type_main-medium'}>идентификатор заказа</p>
               <img className={`${styles.image} pt-15 pb-15`} src={imageDone} alt='Заказ успешно оформлен.'></img>
               <p className={'text text_type_main-default pb-2'}>Ваш заказ начали готовить</p>
