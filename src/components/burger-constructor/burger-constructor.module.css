@@ -14,16 +14,18 @@
   max-height: calc(100vh - 536px);
   position: relative;
   overflow-y: auto;
+  scroll-snap-type: y proximity;
   scrollbar-gutter: stable;
   left: calc(var(--offset-base-size) * 4);
   margin-left: calc(var(--offset-base-size) * -4);
   gap: 16px;
   padding-left: 0;
+  min-height: max-content;
 }
 
 .fillingGroup::-webkit-scrollbar-thumb {
-  border-radius: 0;
-  border: 0;
+  border-radius: none;
+  border: none;
 }
 
 .fillingMessage {
@@ -33,11 +35,24 @@
   width: 100%;
   max-width: 536px;
   min-height: 80px;
+  color: #8585AD;
+  transition: color .3s ease-in-out;
+}
+
+.fillingMessageCanDrop {
+  color: #FFF;
+  transition: color .3s ease-in-out;
 }
 
 .emptyBun {
   display: flex;
   width: 100%;
+  transition: background-color .3s ease-in-out;
+}
+
+.emptyBunCanDrop {
+  background-color: #8585AD;
+  transition: background-color .3s ease-in-out;
 }
 
 .emptyBunMessage {
@@ -47,6 +62,12 @@
   width: 100%;
   padding: 0;
   margin: 0;
+  transition: color .3s ease-in-out;
+}
+
+.emptyBunMessageCanDrop {
+  color: #FFF;
+  transition: color .3s ease-in-out;
 }
 
 .item {

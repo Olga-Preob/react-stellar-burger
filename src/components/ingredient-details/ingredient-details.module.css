@@ -22,6 +22,7 @@
 
 .header {
   width: 100%;
+  min-height: 30px;
   text-align: center;
 }
 
@@ -44,6 +45,7 @@
 
 .text {
   max-width: 100%;
+  min-height: 24px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;

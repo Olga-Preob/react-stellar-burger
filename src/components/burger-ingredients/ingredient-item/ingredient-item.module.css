@@ -6,7 +6,7 @@
   max-width: 272px;
   position: relative;
   list-style: none;
-  cursor: pointer;
+  cursor: grab;
   padding: 0;
   margin: 0;
 }

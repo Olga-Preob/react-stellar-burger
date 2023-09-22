@@ -1,12 +1,18 @@
-const reactModalsInit = document.createElement('div');
-reactModalsInit.setAttribute('id', 'react-modals');
-document.body.append(reactModalsInit);
+const REACT_MODALS_INIT = document.createElement('div');
+REACT_MODALS_INIT.setAttribute('id', 'react-modals');
+document.body.append(REACT_MODALS_INIT);
 
-const reactModals = document.getElementById('react-modals');
+const REACT_MODALS = document.getElementById('react-modals');
 
-const baseUrl = 'https://norma.nomoreparties.space/api';
-const headers = {
+const BASE_URL = 'https://norma.nomoreparties.space/api';
+
+const ENDPOINTS = {
+  GET_INGREDIENTS: '/ingredients',
+  CREATE_ORDER: '/orders'
+}
+
+const HEADERS = {
   'Content-Type': 'application/json'
 }
 
-export { reactModals, baseUrl, headers }
+export { REACT_MODALS, BASE_URL, ENDPOINTS, HEADERS }
