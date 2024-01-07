@@ -1,0 +1,54 @@
+.main {
+  height: calc(100vh - 88px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 36px;
+}
+
+.wrap {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.number {
+  color: #f2f2f3;
+  font-family: 'Iceland';
+	font-weight: normal;
+	font-size: 244px;
+	line-height: .83;
+  animation: flicker 10s infinite linear;
+  margin: 0;
+}
+
+.logo {
+  width: 180px;
+  height: 180px;
+  font-size: 0;
+  background-image: url(../../images/small-logo.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  animation: rotate 15s infinite ease-in-out;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes flicker {
+  0%, 18%, 22%, 25%, 53%, 57%, 100% {
+    text-shadow: 0px 4px 32px rgba(94, 53, 177, .7),
+                 0px 0px 8px rgba(205, 133, 172, .4),
+                 0px 0px 16px rgba(205, 133, 172, .5);;
+  }
+  20%, 24%, 55% {
+    text-shadow: none;
+  }
+}

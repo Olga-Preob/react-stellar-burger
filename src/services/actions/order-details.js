@@ -1,21 +1,27 @@
-import { createOrder } from '../../utils/burger-api';
+import { createOrder } from '../../utils/api';
 
 
 export const CREATE_ORDER_REQUEST = 'CREATE_ORDER_REQUEST';
 export const CREATE_ORDER_SUCCESS = 'CREATE_ORDER_SUCCESS';
 export const CREATE_ORDER_ERROR = 'CREATE_ORDER_ERROR';
+export const RESET_ORDER = 'RESET_ORDER';
 
-export function fetchCreateOrder(arr) {
+export function fetchCreateOrder(ingredientsArrId) {
+  const accessToken = localStorage.getItem('accessToken');
+  const refreshToken = localStorage.getItem('refreshToken');
+
   return function (dispatch) {
     dispatch({
       type: CREATE_ORDER_REQUEST,
     })
 
-    createOrder(arr)
+    createOrder(accessToken, refreshToken, ingredientsArrId)
       .then((res) => {
         dispatch({
           type: CREATE_ORDER_SUCCESS,
-          data: Object.assign([], res),
+          payload: {
+            data: Object.assign([], res)
+          }
         });
       })
       .catch((err) => {

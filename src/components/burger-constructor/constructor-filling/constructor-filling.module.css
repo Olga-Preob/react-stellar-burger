@@ -3,7 +3,6 @@
   align-items: center;
   justify-content: flex-end;
   gap: 8px;
-  scroll-snap-stop: always;
   cursor: move;
 }
 

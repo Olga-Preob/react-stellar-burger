@@ -1,9 +1,3 @@
-.description {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .wrap {
   width: 100%;
   max-width: 520px;

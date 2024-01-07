@@ -1,5 +1,5 @@
+import { NavLink } from 'react-router-dom';
 import {
-  Button,
   BurgerIcon,
   ListIcon,
   ProfileIcon,
@@ -9,6 +9,9 @@ import styles from './app-header.module.css';
 
 
 function AppHeader() {
+  const activeNavLink =`${styles.link} text text_type_main-default ${styles.active} pt-4 pr-5 pb-4 pl-5`;
+  const inactiveNavLink = `${styles.link} text text_type_main-default text_color_inactive pt-4 pr-5 pb-4 pl-5`;
+
   return (
    <header className={`${styles.header}`}>
       <nav className={`${styles.nav} pt-4 pb-4`}>
@@ -16,41 +19,41 @@ function AppHeader() {
           <li className={`${styles.item} ${styles.start}`}>
             <ul className={styles.nestedMenu}>
               <li className={styles.item}>
-                <Button
-                  htmlType='button'
-                  type='secondary'
-                  size='medium'
-                  extraClass={`${styles.button} text_color_primary pl-5 pr-5`}>
-                  <BurgerIcon type='primary' />
+                <NavLink
+                  to='/'
+                  className={({ isActive }) => isActive ? activeNavLink : inactiveNavLink}
+                >
+                  <BurgerIcon type='secondary' />
                   Конструктор
-                </Button>
+                </NavLink>
               </li>
               <li className={styles.item}>
-                <Button
-                  htmlType='button'
-                  type='secondary'
-                  size='medium'
-                  extraClass={`${styles.button} text_color_inactive pl-5 pr-5`}>
+                <NavLink
+                  to='/feed'
+                  className={({ isActive }) => isActive ? activeNavLink : inactiveNavLink}
+                >
                   <ListIcon type='secondary' />
                   Лента заказов
-                </Button>
+                </NavLink>
               </li>
             </ul>
           </li>
           <li className={styles.item}>
-            <button className={styles.logo} type='button'>
+            <NavLink
+              to='/'
+              className={({ isActive }) => isActive ? `${styles.logo} ${styles.active_logo}` : `${styles.logo} ${styles.inactive_logo}`}
+            >
               <Logo />
-            </button>
+            </NavLink>
           </li>
           <li className={`${styles.item} ${styles.end}`}>
-            <Button
-              htmlType='button'
-              type='secondary'
-              size='medium'
-              extraClass={`${styles.button} text_color_inactive pl-5 pr-5`}>
+            <NavLink
+              to='/profile'
+              className={({ isActive }) => isActive ? activeNavLink : inactiveNavLink}
+            >
               <ProfileIcon type='secondary' />
               Личный кабинет
-            </Button>
+            </NavLink>
           </li>
         </ul>
       </nav>

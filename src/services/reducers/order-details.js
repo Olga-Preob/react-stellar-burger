@@ -1,7 +1,8 @@
 import {
   CREATE_ORDER_REQUEST,
   CREATE_ORDER_SUCCESS,
-  CREATE_ORDER_ERROR
+  CREATE_ORDER_ERROR,
+  RESET_ORDER
 } from '../actions/order-details.js';
 
 
@@ -27,9 +28,9 @@ export const orderDetailsReducer = (state = initialState, action) => {
     case CREATE_ORDER_SUCCESS:
       return {
         ...state,
-        name: action.data.name,
-        order: action.data.order,
-        success: action.data.success,
+        name: action.payload.data.name,
+        order: action.payload.data.order,
+        success: action.payload.data.success,
         itemsRequest: false,
         itemsFailed: false,
       }
@@ -44,6 +45,17 @@ export const orderDetailsReducer = (state = initialState, action) => {
         itemsRequest: false,
         itemsFailed: true,
       }
+      case RESET_ORDER:
+        return {
+          ...state,
+          name: '',
+          order: {
+            number: null
+          },
+          success: false,
+          itemsRequest: false,
+          itemsFailed: false,
+        }
     default:
       return state;
   }
