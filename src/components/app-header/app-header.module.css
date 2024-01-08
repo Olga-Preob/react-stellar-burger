@@ -1,4 +1,6 @@
 .header {
+  display: flex;
+  justify-content: center;
   background-color: #1C1C21;
   box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.04),
               0px 4px 8px 0px rgba(0, 0, 0, 0.04),
@@ -7,6 +9,8 @@
 }
 
 .nav {
+  width: 100%;
+  max-width: 1240px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -20,6 +24,14 @@
   list-style: none;
   padding: 0;
   margin: 0;
+}
+
+.start {
+  justify-self: flex-start;
+}
+
+.end {
+  justify-self: flex-end;
 }
 
 .nestedMenu {
@@ -37,35 +49,50 @@
 }
 
 .logo {
+  font-size: 0;
   background: transparent;
-  cursor: pointer;
   border: none;
   padding: 0;
   margin: 0;
 }
 
-.button {
+.link {
   display: flex;
   align-items: center;
   gap: 8px;
-  transition: none;
+  text-decoration: none;
+  transition: color .3s ease-in-out;
 }
 
-.button svg {
+.link svg {
   min-width: 24px;
   min-height: 24px;
   object-fit: contain;
   object-position: center;
+  transition: fill .3s ease-in-out;
 }
 
-.button:hover svg {
-  fill: #fff;
+.link:hover {
+  color: #f2f2f3;
 }
 
-.start {
-  justify-self: flex-start;
+.link:hover svg {
+   fill: #f2f2f3;
+ }
+
+.active {
+  color: #f2f2f3;
+  cursor: default;
 }
 
-.end {
-  justify-self: flex-end;
+.active svg {
+  fill: #f2f2f3;
+}
+
+.active_logo {
+  cursor: default;
+}
+
+.inactive_logo {
+  cursor: pointer;
 }

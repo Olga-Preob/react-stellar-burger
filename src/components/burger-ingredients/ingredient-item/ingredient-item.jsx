@@ -1,8 +1,10 @@
 import React from 'react';
+import { useLocation, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDrag } from 'react-dnd';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { GET_CURRENT_INGREDIENT } from '../../../services/actions/ingredient-details';
+import { OPEN_MODAL } from '../../../services/actions/modal';
+import { SET_CURRENT_INGREDIENT_ID } from '../../../services/actions/ingredient-details';
 import {
   INCREASE_ITEM,
   INCREASE_BUN_ITEM,
@@ -14,10 +16,11 @@ import PropTypes from 'prop-types';
 import styles from './ingredient-item.module.css';
 
 
-function IngredientItem({ ingredient, onClick }) {
+function IngredientItem({ ingredient }) {
   const dispatch = useDispatch();
+  const location = useLocation();
 
-  const burgersData = useSelector((state) => state.burgerConstructorReducer);
+  const burgerFilling = useSelector((store) => store.burgerConstructorReducer);
 
   const [{ isDragging }, dragRef] = useDrag({
     type: ingredient.type,
@@ -32,21 +35,27 @@ function IngredientItem({ ingredient, onClick }) {
         dispatch(addIngredientWithKey(ingredient));
 
         if (item.type === 'bun') {
-          if (burgersData.bun) {
+          if (burgerFilling.bun) {
             dispatch({
               type: DECREASE_BUN_ITEM,
-              _id: burgersData.bun._id,
+              payload: {
+                _id: burgerFilling.bun._id
+              }
             });
           };
 
           dispatch({
             type: INCREASE_BUN_ITEM,
-            _id: item._id,
+            payload: {
+              _id: item._id
+            }
           });
         } else {
           dispatch({
             type: INCREASE_ITEM,
-            _id: item._id,
+            payload: {
+              _id: item._id
+            }
           });
         }
       }
@@ -57,34 +66,61 @@ function IngredientItem({ ingredient, onClick }) {
 
   const onClickHandler = () => {
     dispatch({
-      type: GET_CURRENT_INGREDIENT,
-      currentIngredient: ingredient
+      type: SET_CURRENT_INGREDIENT_ID,
+      payload: {
+        id: ingredient._id
+      }
     });
 
-    onClick();
+    dispatch({
+      type: OPEN_MODAL,
+      payload: {
+        typeOfModal: 'ingredient'
+      }
+    });
   }
 
   return (
-    <li ref={dragRef} className={styles.item} onClick={onClickHandler} style={{ opacity }}>
-      {ingredient.__v ? <Counter count={ingredient.__v} size='default' /> : null}
-      <img className={`${styles.image} pb-1`} src={ingredient.image} alt={`${ingredient.name}.`} title={ingredient.name} />
-      <div className={`${styles.price} pb-1`}>
-        <p className='text text_type_digits-default pr-2'>
-          {ingredient.price}
-        </p>
-        <CurrencyIcon type='primary' />
-      </div>
-      <p className={`${styles.name} text text_type_main-default`}>
-        {ingredient.name}
-      </p>
+    <li
+      ref={dragRef}
+      className={styles.item}
+      onClick={onClickHandler}
+      style={{ opacity }}
+    >
+      <Link
+        to={`/ingredients/${ingredient._id}`}
+        state={{ background: location }}
+        className={styles.link}
+      >
+        {ingredient.__v ? <Counter count={ingredient.__v} size='default' /> : null}
+
+        <div className={`${styles.description}`}>
+          <img
+            className={`${styles.image}`}
+            src={ingredient.image}
+            alt={`${ingredient.name}.`}
+            title={ingredient.name}
+          />
+
+          <div className={styles.price}>
+            <p className='text text_type_digits-default'>
+              {ingredient.price}
+            </p>
+            <CurrencyIcon type='primary' />
+          </div>
+
+          <p className={`${styles.name} text text_type_main-default`}>
+            {ingredient.name}
+          </p>
+        </div>
+      </Link>
     </li>
   );
 }
 
 
 IngredientItem.propTypes = {
-  ingredient: PropTypes.shape({ ingredientPropType }).isRequired,
-  onClick: PropTypes.func.isRequired
+  ingredient: PropTypes.shape({ ingredientPropType }).isRequired
 }
 
 export default React.memo(IngredientItem);

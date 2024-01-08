@@ -1,0 +1,15 @@
+.main {
+  display: flex;
+  justify-content: center;
+}
+
+.wrap {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1240px;
+  min-height: calc(100vh - 88px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 20px;
+}

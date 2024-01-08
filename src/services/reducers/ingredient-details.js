@@ -1,22 +1,21 @@
 import {
-  GET_CURRENT_INGREDIENT,
-  REMOVE_CURRENT_INGREDIENT
+  SET_CURRENT_INGREDIENT_ID,
+  REMOVE_CURRENT_INGREDIENT_ID
 } from '../actions/ingredient-details';
 
 
 const initialState = {
- currentIngredient: {},
- cash: 1
+ currentIngredientId: ''
 }
 
 export const ingredientDetailsReducer = (state = initialState, action) => {
   switch(action.type) {
-    case GET_CURRENT_INGREDIENT:
+    case SET_CURRENT_INGREDIENT_ID:
       return {
         ...state,
-        currentIngredient: action.currentIngredient
+        currentIngredientId: action.payload.id
       }
-    case REMOVE_CURRENT_INGREDIENT:
+    case REMOVE_CURRENT_INGREDIENT_ID:
       return initialState;
     default:
       return state;

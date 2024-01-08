@@ -1,3 +1,9 @@
+.burgerConstructor {
+  width: 100%;
+  max-width: 600px;
+  height: calc(100vh - 284px);
+}
+
 .mainGroup {
   display: flex;
   flex-direction: column;
@@ -8,13 +14,12 @@
 }
 
 .fillingGroup {
+  width: 100%;
+  max-height: calc(100vh - 526px);
   display: flex;
   flex-direction: column;
-  width: 100%;
-  max-height: calc(100vh - 536px);
   position: relative;
   overflow-y: auto;
-  scroll-snap-type: y proximity;
   scrollbar-gutter: stable;
   left: calc(var(--offset-base-size) * 4);
   margin-left: calc(var(--offset-base-size) * -4);
@@ -24,8 +29,9 @@
 }
 
 .fillingGroup::-webkit-scrollbar-thumb {
-  border-radius: none;
-  border: none;
+  background: #8585AD;
+  border: unset;
+  border-radius: unset;
 }
 
 .fillingMessage {
@@ -40,19 +46,20 @@
 }
 
 .fillingMessageCanDrop {
-  color: #FFF;
+  color: #81c784;
   transition: color .3s ease-in-out;
 }
 
 .emptyBun {
   display: flex;
   width: 100%;
-  transition: background-color .3s ease-in-out;
+  border: 1px solid transparent;
+  transition: border .3s ease-in-out;
 }
 
 .emptyBunCanDrop {
-  background-color: #8585AD;
-  transition: background-color .3s ease-in-out;
+  border: 1px solid #81c784;
+  transition: border .3s ease-in-out;
 }
 
 .emptyBunMessage {
@@ -66,13 +73,14 @@
 }
 
 .emptyBunMessageCanDrop {
-  color: #FFF;
+  color: #81c784;
   transition: color .3s ease-in-out;
 }
 
 .item {
   display: flex;
   justify-content: flex-end;
+  cursor: default;
 }
 
 .checkout {

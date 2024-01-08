@@ -1,50 +1,82 @@
 import { useEffect } from 'react';
-import ReactDOM from 'react-dom';
+import { createPortal } from 'react-dom';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { REACT_MODALS } from '../../utils/constants';
+import { CLOSE_MODAL } from '../../services/actions/modal';
+import { RESET_ORDER } from '../../services/actions/order-details';
 import ModalOverlay from '../modal-overlay/modal-overlay';
-import{ REACT_MODALS } from '../../utils/constants';
 import PropTypes from 'prop-types';
 import styles from './modal.module.css';
 
 
-function Modal({ header, isModalOpen, closeModal, children }) {
+function Modal({ children }) {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const { isVisible, typeOfModal } = useSelector((store) => store.modalReducer);
+
+  const handlerOnClose = () => {
+    dispatch({
+      type: CLOSE_MODAL
+    });
+
+    typeOfModal === 'ingredient' && navigate(-1);
+
+    typeOfModal === 'create-order' && (
+      dispatch({
+        type: RESET_ORDER
+      })
+    );
+  }
+
   useEffect(() => {
-    if (!isModalOpen) {
-      return;
-    }
+    if (!isVisible) return;
 
     const keyDownEsc = (evt) => {
       if (evt.key === 'Escape') {
-        closeModal();
+        dispatch({
+          type: CLOSE_MODAL
+        });
+
+        typeOfModal === 'ingredient' && navigate(-1);
       }
     }
 
     document.addEventListener('keydown', keyDownEsc);
 
-    return () => {
-      document.removeEventListener('keydown', keyDownEsc);
-    }
-  }, [isModalOpen]);
+    return () => document.removeEventListener('keydown', keyDownEsc);
+  }, [dispatch, navigate, isVisible, typeOfModal]);
 
-  return ReactDOM.createPortal(
+  const title = typeOfModal === 'ingredient' ? 'Детали ингредиента' : '';
+
+  return createPortal(
     (
       <>
         <ModalOverlay
-          isModalOpen={isModalOpen}
-          closeModal={closeModal}
+          isVisible={isVisible}
+          onClose={handlerOnClose}
         />
-        <div className={`${styles.wrap} ${isModalOpen && styles.open}`}>
-          <section className={styles.modal}>
-            <div className={`${styles.header} pt-10`}>
-              <h3 className={`${styles.title} text text_type_main-large`}>
-                {header}
-              </h3>
-              <button className={styles.button} type='button' onClick={closeModal}>
-                <CloseIcon type='primary' />
-              </button>
-            </div>
+
+        <div className={`${styles.modal} ${isVisible && styles.open} pt-10 pr-10 pb-15 pl-10`}>
+          <section className={styles.header}>
+            <p className={`${styles.title} text text_type_main-large`}>
+              {title}
+            </p>
+
+            <button
+              className={styles.button}
+              type='button'
+              onClick={handlerOnClose}
+            >
+              <CloseIcon type='primary' />
+            </button>
           </section>
-          {children}
+
+          <section className={styles.description}>
+            {children}
+          </section>
         </div>
       </>
     ),
@@ -54,9 +86,6 @@ function Modal({ header, isModalOpen, closeModal, children }) {
 
 
 Modal.propTypes = {
-  header: PropTypes.string.isRequired,
-  isModalOpen: PropTypes.bool.isRequired,
-  closeModal: PropTypes.func.isRequired,
   children: PropTypes.node
 }
 

@@ -1,15 +1,9 @@
 import { useRef, useCallback } from 'react'
 import { useDrag, useDrop } from 'react-dnd'
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  REMOVE_INGREDIENT,
-  MOVE_INGREDIENT
-} from '../../../services/actions/burger-constructor';
+import { useDispatch } from 'react-redux';
+import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { REMOVE_INGREDIENT, MOVE_INGREDIENT } from '../../../services/actions/burger-constructor';
 import { DECREASE_ITEM } from '../../../services/actions/ingredients';
-import {
-  ConstructorElement,
-  DragIcon
-} from '@ya.praktikum/react-developer-burger-ui-components';
 import { ingredientPropType } from '../../../utils/prop-types';
 import PropTypes from 'prop-types';
 import styles from './constructor-filling.module.css';
@@ -20,13 +14,13 @@ function ConstructorFilling({ ingredient, index }) {
 
   const ref = useRef(null);
 
-  const burgersData = useSelector((state) => state.burgerConstructorReducer);
-
   const moveIngredient = useCallback((dragIndex, hoverIndex) => {
     dispatch({
       type: MOVE_INGREDIENT,
-      dragIndex,
-      hoverIndex
+      payload: {
+        dragIndex,
+        hoverIndex
+      }
     });
   }, []);
 
@@ -76,12 +70,16 @@ function ConstructorFilling({ ingredient, index }) {
   const handleClose = () => {
     dispatch({
       type: REMOVE_INGREDIENT,
-      key: ingredient.key
+      payload: {
+        key: ingredient.key
+      }
     });
 
     dispatch({
       type: DECREASE_ITEM,
-      _id: ingredient._id
+      payload: {
+        _id: ingredient._id
+      }
     });
   }
 

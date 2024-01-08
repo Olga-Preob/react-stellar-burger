@@ -1,0 +1,16 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 24px;
+}
+
+.form_btn {
+  min-height: 56px;
+  display: flex;
+  gap: 20px;
+}
+
+.form p {
+  margin: 2px 0 0 24px;
+}

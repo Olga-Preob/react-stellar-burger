@@ -1,20 +1,43 @@
+.link {
+  width: 100%;
+  max-width: 272px;
+  color: #f2f2f3;
+  text-decoration: none;
+  transition: color .3s ease-in-out;
+}
+
+.link svg {
+  transition: fill .3s ease-in-out;
+}
+
+.link:hover {
+  color: #81c784;
+}
+
+.link:hover svg {
+   fill: #81c784;
+ }
+
 .item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
-  max-width: 272px;
   position: relative;
   list-style: none;
-  cursor: grab;
-  padding: 0;
-  margin: 0;
+}
+
+.description {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
 }
 
 .image {
   width: 100%;
   max-width: 240px;
   min-height: 120px;
+  cursor: grab;
   object-fit: contain;
   object-position: center;
 }
@@ -22,9 +45,11 @@
 .price {
   display: flex;
   align-items: center;
+  gap: 8px;
 }
 
 .name {
   min-height: 48px;
   text-align: center;
+  cursor: pointer;
 }

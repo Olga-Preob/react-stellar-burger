@@ -7,8 +7,6 @@ export const MOVE_INGREDIENT = 'MOVE_INGREDIENTS';
 export const REMOVE_INGREDIENT = 'REMOVE_INGREDIENTS';
 export const CLEAR_CONSTRUCTOR = 'CLEAR_CONSTRUCTOR';
 
-export const CALC_TOTAL_PRICE = 'CALC_TOTAL_PRICE';
-
 export function addIngredientWithKey(ingredient) {
   return (dispatch) => {
     let ingredientWithKey = Object.assign({}, ingredient);
@@ -20,12 +18,16 @@ export function addIngredientWithKey(ingredient) {
     if (ingredient.type === 'bun') {
       dispatch({
         type: ADD_BUN,
-        bun: ingredientWithKey
+        payload: {
+          bun: ingredientWithKey
+        }
       });
     } else {
       dispatch({
         type: ADD_INGREDIENT,
-        ingredient: ingredientWithKey
+        payload: {
+          ingredient: ingredientWithKey
+        }
       });
     }
   }

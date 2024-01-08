@@ -1,44 +1,40 @@
 import { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { useDrop } from 'react-dnd';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import {
-  CLEAR_CONSTRUCTOR,
-  CALC_TOTAL_PRICE
-} from '../../services/actions/burger-constructor';
+import { OPEN_MODAL } from '../../services/actions/modal';
+import { CLEAR_CONSTRUCTOR } from '../../services/actions/burger-constructor';
 import { CLEAR_ALL_INGREDIENTS_COUNT } from '../../services/actions/ingredients';
 import { fetchCreateOrder } from '../../services/actions/order-details';
 import ConstructorBoundary from './constructor-boundary/constructor-boundary';
 import ConstructorFilling from './constructor-filling/constructor-filling';
-import OrderDetails from '../order-details/order-details';
-import Modal from '../modal/modal';
-import useModal from '../../hooks/useModal';
 import styles from './burger-constructor.module.css';
 
 
 function BurgerConstructor() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const burgersData = useSelector((state) => state.burgerConstructorReducer);
-  const orderData = useSelector((state) => state.orderDetailsReducer);
-
-  const orderInfoModal = useModal(false);
-
-  useEffect(() => {
-    dispatch({
-      type: CALC_TOTAL_PRICE
-    });
-  }, [burgersData.bun, burgersData.ingredients]);
+  const burgerFilling = useSelector((store) => store.burgerConstructorReducer);
+  const newOrderInfo = useSelector((store) => store.orderDetailsReducer);
+  const user = useSelector((store) => store.userReducer.user);
 
   useEffect(() => {
-    if (orderData.order.number) {
-      orderInfoModal.onOpen();
-
+    if (newOrderInfo.success) {
       clearConstructor();
-    } else if (orderData.itemsFailed === true) {
-      orderInfoModal.onOpen();
     }
-  }, [orderData.order, orderData.itemsFailed]);
+  }, [newOrderInfo.success]);
+
+  const clearConstructor = () => {
+    dispatch({
+      type: CLEAR_CONSTRUCTOR
+    });
+
+    dispatch({
+      type: CLEAR_ALL_INGREDIENTS_COUNT
+    });
+  }
 
   const [{ canDropBunTop }, dropTopBunTarget] = useDrop({
     accept: 'bun',
@@ -61,57 +57,59 @@ function BurgerConstructor() {
     })
   });
 
-  const clearConstructor = () => {
-    dispatch({
-      type: CLEAR_CONSTRUCTOR
-    });
-
-    dispatch({
-      type: CLEAR_ALL_INGREDIENTS_COUNT
-    });
-  }
-
-  const onClickHandler = () => {
-    if ((burgersData.bun) && (burgersData.ingredients.length)) {
-      const burgersDataId = [];
-      burgersDataId.push(burgersData.bun._id);
-      burgersData.ingredients.forEach((ingredient) => {
-        burgersDataId.push(ingredient._id);
-      });
-
-      dispatch(fetchCreateOrder(burgersDataId));
+  const totalPrice = useMemo(()=> {
+    if (burgerFilling.bun) {
+      return (burgerFilling.bun.price * 2) + burgerFilling.ingredients.reduce((previousValue, ingredient) => previousValue + ingredient.price, 0);
+    } else {
+      return burgerFilling.ingredients.reduce((previousValue, ingredient) => previousValue + ingredient.price, 0);
     }
-  }
+  }, [burgerFilling]);
 
-  const onCloseHandler = () => {
-    orderInfoModal.onClose();
+  const onClick = () => {
+    if (user.name && user.email) {
+      if ((burgerFilling.bun) && (burgerFilling.ingredients.length)) {
+        const burgerFillingId = [];
+        burgerFillingId.push(burgerFilling.bun._id);
+        burgerFilling.ingredients.forEach((ingredient) => {
+          burgerFillingId.push(ingredient._id);
+        });
+
+        dispatch(fetchCreateOrder(burgerFillingId));
+      }
+
+      dispatch({
+        type: OPEN_MODAL,
+        payload: {
+          typeOfModal: 'create-order'
+        }
+      });
+    } else {
+      navigate('/login');
+    }
   }
 
   return (
     <>
-      <section className={`${styles.burgerConstructor} pt-25`} aria-label='Оформление заказа'>
+      <section className={styles.burgerConstructor} aria-label='Оформление заказа'>
         <section className={`${styles.filling} pb-10`} aria-label='Состав заказа'>
           <ul className={`${styles.mainGroup} pr-4`}>
-            <li className={`${styles.item}`} ref={dropTopBunTarget}>
-              {
-                burgersData.bun ? (
-                  burgersData.bun.type === 'bun' && <ConstructorBoundary ingredient={burgersData.bun} position='top' />
+            <li className={styles.item} ref={dropTopBunTarget}>
+              {burgerFilling.bun ? (
+                  burgerFilling.bun.type === 'bun' && <ConstructorBoundary ingredient={burgerFilling.bun} position='top' />
                 )
                   :
                 (
                   <div className={`${styles.emptyBun} ${canDropBunTop ? styles.emptyBunCanDrop : null} constructor-element constructor-element_pos_top`}>
                     <p className={`${styles.emptyBunMessage} ${canDropBunTop ? styles.emptyBunMessageCanDrop : null} text_type_main-default text_color_inactive`}>Тут могла быть ваша булка</p>
                   </div>
-                )
-              }
+                )}
             </li>
 
-            <li className={`${styles.item}`} ref={dropFillingItemTarget}>
-              {
-                burgersData.ingredients.length ? (
+            <li className={styles.item} ref={dropFillingItemTarget}>
+              {burgerFilling.ingredients.length ? (
                   <ul className={`${styles.fillingGroup} custom-scroll pr-1`}>
                     {
-                      burgersData.ingredients.map((ingredient, index) => {
+                      burgerFilling.ingredients.map((ingredient, index) => {
                         if ((ingredient.type === 'sauce') || (ingredient.type === 'main')) {
                           return <ConstructorFilling
                                     key={ingredient.key}
@@ -127,7 +125,7 @@ function BurgerConstructor() {
                 ) : (
                   <p className={`${styles.fillingMessage} ${canDropFilling ? styles.fillingMessageCanDrop : null} text text_type_main-default`}>
                     {
-                      burgersData.totalPrice === 0 ?
+                      totalPrice === 0 ?
                         (
                           'Добавьте булку и ингредиенты'
                         ) :
@@ -136,30 +134,27 @@ function BurgerConstructor() {
                         )
                     }
                   </p>
-                )
-              }
+                )}
             </li>
 
-            <li className={`${styles.item}`} ref={dropBottomBunTarget}>
-              {
-                burgersData.bun ?
+            <li className={styles.item} ref={dropBottomBunTarget}>
+              {burgerFilling.bun ?
                 (
-                  burgersData.bun.type === 'bun' && <ConstructorBoundary ingredient={burgersData.bun} position='bottom' />
+                  burgerFilling.bun.type === 'bun' && <ConstructorBoundary ingredient={burgerFilling.bun} position='bottom' />
                 ) :
                 (
                   <div className={`${styles.emptyBun} ${canDropBunBottom ? styles.emptyBunCanDrop : null} constructor-element constructor-element_pos_bottom`}>
                     <p className={`${styles.emptyBunMessage} ${canDropBunBottom ? styles.emptyBunMessageCanDrop : null} text_type_main-default text_color_inactive`}>Тут могла быть ваша булка</p>
                   </div>
-                )
-              }
+                )}
             </li>
           </ul>
         </section>
 
         <section className={`${styles.checkout} pr-4`} aria-label='Итоговая стоимость'>
-          <div className={`${styles.price}`}>
-            <p className={`text text_type_digits-medium`}>
-              {burgersData.totalPrice}
+          <div className={styles.price}>
+            <p className='text text_type_digits-medium'>
+              {totalPrice}
             </p>
             <CurrencyIcon type='primary' />
           </div>
@@ -168,23 +163,13 @@ function BurgerConstructor() {
             htmlType='button'
             type='primary'
             size='large'
-            onClick={onClickHandler}
-            disabled={!burgersData.bun || !burgersData.ingredients.length || orderData.itemsRequest ? true : false}
+            onClick={onClick}
+            disabled={!burgerFilling.bun || !burgerFilling.ingredients.length || newOrderInfo.itemsRequest ? true : false}
           >
-            {orderData.itemsRequest ? 'Загрузка...' : 'Оформить заказ'}
+            {newOrderInfo.itemsRequest ? 'Загрузка...' : 'Оформить заказ'}
           </Button>
         </section>
       </section>
-
-      {
-        <Modal
-          header=''
-          isModalOpen={orderInfoModal.isModalOpen}
-          closeModal={onCloseHandler}
-        >
-          <OrderDetails />
-        </Modal>
-      }
     </>
   );
 }
