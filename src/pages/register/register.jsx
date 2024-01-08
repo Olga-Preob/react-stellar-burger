@@ -15,7 +15,7 @@ import styles from './register.module.css';
 function Register() {
   const dispatch = useDispatch();
 
-  const isRequest = useSelector((store) => store.userReducer.isRequest);
+  const user = useSelector((store) => store.userReducer);
 
   const [nameValue, setNameValue] = useState('');
   const [emailValue, setEmailValue] = useState('');
@@ -29,7 +29,7 @@ function Register() {
 
   return (
     <main className={`${styles.main}`}>
-      {isRequest && (
+      {user.isRequest && (
         <Preloader />
       )}
 
@@ -37,36 +37,36 @@ function Register() {
         className={`${styles.form}`}
         onSubmit={onSubmit}
       >
-        <h1 className={'text text_type_main-medium'}>Регистрация</h1>
+        <h1 className='text text_type_main-medium'>Регистрация</h1>
 
         <Input
           value={nameValue}
-          name={'name'}
-          placeholder={'Имя'}
-          type={'text'}
+          name='name'
+          placeholder='Имя'
+          type='text'
           onChange={(evt) => setNameValue(evt.target.value)}
         />
 
         <EmailInput
           value={emailValue}
-          name={'email'}
-          placeholder={'E-mail'}
+          name='email'
+          placeholder='E-mail'
           isIcon={false}
-          errorText={'Некорректно указан e-mail'}
+          errorText='Некорректно указан e-mail'
           onChange={(evt) => setEmailValue(evt.target.value)}
         />
 
         <PasswordInput
           value={passwordValue}
-          name={'password'}
-          errorText={'Пароль должен содержать минимум 6 символов'}
+          name='password'
+          errorText='Пароль должен содержать минимум 6 символов'
           onChange={(evt) => setPasswordValue(evt.target.value)}
         />
 
         <Button
-          htmlType={'submit'}
-          type={'primary'}
-          size={'medium'}
+          htmlType='submit'
+          type='primary'
+          size='medium'
           disabled={!nameValue || !emailValue || passwordValue.length < 6 ? true : false}
         >
           Зарегистрироваться
@@ -74,7 +74,7 @@ function Register() {
       </form>
 
       <div className={styles.text}>
-        <p className={'text text_type_main-default text_color_inactive'}>
+        <p className='text text_type_main-default text_color_inactive'>
           Уже зарегистрированы? <Link className={styles.link} to='/login'>Войти</Link>
         </p>
       </div>

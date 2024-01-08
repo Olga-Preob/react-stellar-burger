@@ -3,13 +3,12 @@ import { createPortal } from 'react-dom';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { CLOSE_MODAL } from '../../services/actions/modal';
 import { REACT_MODALS } from '../../utils/constants';
+import { CLOSE_MODAL } from '../../services/actions/modal';
+import { RESET_ORDER } from '../../services/actions/order-details';
 import ModalOverlay from '../modal-overlay/modal-overlay';
 import PropTypes from 'prop-types';
 import styles from './modal.module.css';
-
-import { RESET_ORDER } from '../../services/actions/order-details';
 
 
 function Modal({ children }) {
@@ -61,7 +60,7 @@ function Modal({ children }) {
         />
 
         <div className={`${styles.modal} ${isVisible && styles.open} pt-10 pr-10 pb-15 pl-10`}>
-          <section className={`${styles.header}`}>
+          <section className={styles.header}>
             <p className={`${styles.title} text text_type_main-large`}>
               {title}
             </p>
@@ -75,7 +74,7 @@ function Modal({ children }) {
             </button>
           </section>
 
-          <section className={`${styles.description}`}>
+          <section className={styles.description}>
             {children}
           </section>
         </div>

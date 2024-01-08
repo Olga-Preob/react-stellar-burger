@@ -173,7 +173,7 @@ const patchUserInfo = (accessToken, refreshToken, name, email, password) => {
         authorization: accessToken
       },
       body: JSON.stringify(
-        password !== '******' ?
+        password ?
         {
           'name': name,
           'email': email,

@@ -16,15 +16,15 @@ function BurgerConstructor() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const burgersData = useSelector((store) => store.burgerConstructorReducer);
-  const orderData = useSelector((store) => store.orderDetailsReducer);
+  const burgerFilling = useSelector((store) => store.burgerConstructorReducer);
+  const newOrderInfo = useSelector((store) => store.orderDetailsReducer);
   const user = useSelector((store) => store.userReducer.user);
 
   useEffect(() => {
-    if (orderData.success) {
+    if (newOrderInfo.success) {
       clearConstructor();
     }
-  }, [orderData.success]);
+  }, [newOrderInfo.success]);
 
   const clearConstructor = () => {
     dispatch({
@@ -58,23 +58,23 @@ function BurgerConstructor() {
   });
 
   const totalPrice = useMemo(()=> {
-    if (burgersData.bun) {
-      return (burgersData.bun.price * 2) + burgersData.ingredients.reduce((previousValue, ingredient) => previousValue + ingredient.price, 0);
+    if (burgerFilling.bun) {
+      return (burgerFilling.bun.price * 2) + burgerFilling.ingredients.reduce((previousValue, ingredient) => previousValue + ingredient.price, 0);
     } else {
-      return burgersData.ingredients.reduce((previousValue, ingredient) => previousValue + ingredient.price, 0);
+      return burgerFilling.ingredients.reduce((previousValue, ingredient) => previousValue + ingredient.price, 0);
     }
-  }, [burgersData]);
+  }, [burgerFilling]);
 
   const onClick = () => {
     if (user.name && user.email) {
-      if ((burgersData.bun) && (burgersData.ingredients.length)) {
-        const burgersDataId = [];
-        burgersDataId.push(burgersData.bun._id);
-        burgersData.ingredients.forEach((ingredient) => {
-          burgersDataId.push(ingredient._id);
+      if ((burgerFilling.bun) && (burgerFilling.ingredients.length)) {
+        const burgerFillingId = [];
+        burgerFillingId.push(burgerFilling.bun._id);
+        burgerFilling.ingredients.forEach((ingredient) => {
+          burgerFillingId.push(ingredient._id);
         });
 
-        dispatch(fetchCreateOrder(burgersDataId));
+        dispatch(fetchCreateOrder(burgerFillingId));
       }
 
       dispatch({
@@ -90,12 +90,12 @@ function BurgerConstructor() {
 
   return (
     <>
-      <section className={`${styles.burgerConstructor}`} aria-label='Оформление заказа'>
+      <section className={styles.burgerConstructor} aria-label='Оформление заказа'>
         <section className={`${styles.filling} pb-10`} aria-label='Состав заказа'>
           <ul className={`${styles.mainGroup} pr-4`}>
-            <li className={`${styles.item}`} ref={dropTopBunTarget}>
-              {burgersData.bun ? (
-                  burgersData.bun.type === 'bun' && <ConstructorBoundary ingredient={burgersData.bun} position='top' />
+            <li className={styles.item} ref={dropTopBunTarget}>
+              {burgerFilling.bun ? (
+                  burgerFilling.bun.type === 'bun' && <ConstructorBoundary ingredient={burgerFilling.bun} position='top' />
                 )
                   :
                 (
@@ -105,11 +105,11 @@ function BurgerConstructor() {
                 )}
             </li>
 
-            <li className={`${styles.item}`} ref={dropFillingItemTarget}>
-              {burgersData.ingredients.length ? (
+            <li className={styles.item} ref={dropFillingItemTarget}>
+              {burgerFilling.ingredients.length ? (
                   <ul className={`${styles.fillingGroup} custom-scroll pr-1`}>
                     {
-                      burgersData.ingredients.map((ingredient, index) => {
+                      burgerFilling.ingredients.map((ingredient, index) => {
                         if ((ingredient.type === 'sauce') || (ingredient.type === 'main')) {
                           return <ConstructorFilling
                                     key={ingredient.key}
@@ -137,10 +137,10 @@ function BurgerConstructor() {
                 )}
             </li>
 
-            <li className={`${styles.item}`} ref={dropBottomBunTarget}>
-              {burgersData.bun ?
+            <li className={styles.item} ref={dropBottomBunTarget}>
+              {burgerFilling.bun ?
                 (
-                  burgersData.bun.type === 'bun' && <ConstructorBoundary ingredient={burgersData.bun} position='bottom' />
+                  burgerFilling.bun.type === 'bun' && <ConstructorBoundary ingredient={burgerFilling.bun} position='bottom' />
                 ) :
                 (
                   <div className={`${styles.emptyBun} ${canDropBunBottom ? styles.emptyBunCanDrop : null} constructor-element constructor-element_pos_bottom`}>
@@ -152,8 +152,8 @@ function BurgerConstructor() {
         </section>
 
         <section className={`${styles.checkout} pr-4`} aria-label='Итоговая стоимость'>
-          <div className={`${styles.price}`}>
-            <p className={`text text_type_digits-medium`}>
+          <div className={styles.price}>
+            <p className='text text_type_digits-medium'>
               {totalPrice}
             </p>
             <CurrencyIcon type='primary' />
@@ -164,9 +164,9 @@ function BurgerConstructor() {
             type='primary'
             size='large'
             onClick={onClick}
-            disabled={!burgersData.bun || !burgersData.ingredients.length || orderData.itemsRequest ? true : false}
+            disabled={!burgerFilling.bun || !burgerFilling.ingredients.length || newOrderInfo.itemsRequest ? true : false}
           >
-            {orderData.itemsRequest ? 'Загрузка...' : 'Оформить заказ'}
+            {newOrderInfo.itemsRequest ? 'Загрузка...' : 'Оформить заказ'}
           </Button>
         </section>
       </section>

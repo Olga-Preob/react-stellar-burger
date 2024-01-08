@@ -54,28 +54,28 @@ function ResetPassword() {
               className={`${styles.form}`}
               onSubmit={onSubmit}
             >
-              <h1 className={'text text_type_main-medium'}>Восстановление пароля</h1>
+              <h1 className='text text_type_main-medium'>Восстановление пароля</h1>
 
               <PasswordInput
                 value={passwordValue}
-                name={'password'}
-                placeholder={'Введите новый пароль'}
-                errorText={'Пароль должен содержать минимум 6 символов'}
+                name='password'
+                placeholder='Введите новый пароль'
+                errorText='Пароль должен содержать минимум 6 символов'
                 onChange={(evt) => setPasswordValue(evt.target.value)}
               />
 
               <Input
                 value={codeValue}
-                name={'code'}
-                placeholder={'Введите код из письма'}
-                type={'text'}
+                name='code'
+                placeholder='Введите код из письма'
+                type='text'
                 onChange={(evt) => setCodeValue(evt.target.value)}
               />
 
               <Button
-                htmlType={'submit'}
-                type={'primary'}
-                size={'medium'}
+                htmlType='submit'
+                type='primary'
+                size='medium'
                 disabled={passwordValue.length < 6 || !codeValue ? true : false}
               >
                 Сохранить
@@ -83,7 +83,7 @@ function ResetPassword() {
             </form>
 
             <div className={styles.text}>
-              <p className={'text text_type_main-default text_color_inactive'}>
+              <p className='text text_type_main-default text_color_inactive'>
                 Вспомнили пароль? <Link className={styles.link} to='/login' replace>Войти</Link>
               </p>
             </div>
@@ -92,15 +92,15 @@ function ResetPassword() {
 
         {localStorage.getItem('isResetFailed') && (
           <>
-            <h2 className={'text text_type_main-large text_color_inactive'}>
+            <h2 className='text text_type_main-large text_color_inactive'>
               Ошибка восстановления пароля
             </h2>
 
             <Link to='/forgot-password' replace>
               <Button
-                htmlType={'button'}
-                type={'primary'}
-                size={'medium'}
+                htmlType='button'
+                type='primary'
+                size='medium'
                 onClick={resetСheck}
               >
                 Попробовать снова
@@ -108,7 +108,7 @@ function ResetPassword() {
             </Link>
 
             <div className={styles.text}>
-              <p className={'text text_type_main-default text_color_inactive'}>
+              <p className='text text_type_main-default text_color_inactive'>
                 Вспомнили пароль? <Link className={styles.link} to='/login' replace>Войти</Link>
               </p>
             </div>

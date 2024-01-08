@@ -14,12 +14,12 @@ function NotFound404() {
         <span className={`${styles.number}`}>4</span>
       </div>
 
-      <h2 className={`text text_type_main-medium text_color_inactive`}>Странно, но такой страницы нет</h2>
+      <h2 className='text text_type_main-medium text_color_inactive'>Странно, но такой страницы нет</h2>
 
       <Button
-        htmlType={'button'}
-        type={'primary'}
-        size={'medium'}
+        htmlType='button'
+        type='primary'
+        size='medium'
         onClick={() => navigate('/', { replace: true })}
       >
         Собрать бургер

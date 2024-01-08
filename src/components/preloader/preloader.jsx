@@ -4,14 +4,14 @@ import styles from './preloader.module.css';
 
 function Preloader({ isModal = false }) {
   return (
-    <div className={isModal ? `${styles.wrap_modal}` : `${styles.wrap}`}>
-      <ul className={`${styles.list}`}>
+    <div className={isModal ? styles.wrap_modal : styles.wrap}>
+      <ul className={styles.list}>
         <li className={`${styles.item} ${styles.item_after}`}></li>
         <li className={`${styles.item} ${styles.item_after}`}></li>
         <li className={`${styles.item} ${styles.item_after}`}></li>
       </ul>
-      <span className={`${styles.logo}`}></span>
-      <ul className={`${styles.list}`}>
+      <span className={styles.logo}></span>
+      <ul className={styles.list}>
         <li className={`${styles.item} ${styles.item_before}`}></li>
         <li className={`${styles.item} ${styles.item_before}`}></li>
         <li className={`${styles.item} ${styles.item_before}`}></li>

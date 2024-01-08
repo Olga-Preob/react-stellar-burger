@@ -13,7 +13,7 @@ function AppHeader() {
   const inactiveNavLink = `${styles.link} text text_type_main-default text_color_inactive pt-4 pr-5 pb-4 pl-5`;
 
   return (
-   <header className={`${styles.header}`}>
+   <header className={styles.header}>
       <nav className={`${styles.nav} pt-4 pb-4`}>
         <ul className={styles.menu}>
           <li className={`${styles.item} ${styles.start}`}>

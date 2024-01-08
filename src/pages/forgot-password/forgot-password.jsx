@@ -10,7 +10,7 @@ function ForgotPassword() {
   const navigate = useNavigate();
 
   const [emailValue, setEmailValue] = useState('');
-  const [isLoadin, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const onSubmit = (evt) => {
     evt.preventDefault();
@@ -36,7 +36,7 @@ function ForgotPassword() {
 
   return (
     <main className={`${styles.main}`}>
-      {isLoadin && (
+      {isLoading && (
         <Preloader />
       )}
 
@@ -44,21 +44,21 @@ function ForgotPassword() {
         className={`${styles.form}`}
         onSubmit={onSubmit}
       >
-        <h1 className={'text text_type_main-medium'}>Восстановление пароля</h1>
+        <h1 className='text text_type_main-medium'>Восстановление пароля</h1>
 
         <EmailInput
           value={emailValue}
-          name={'email'}
-          placeholder={'Укажите e-mail'}
+          name='email'
+          placeholder='Укажите e-mail'
           isIcon={false}
-          errorText={'Некорректно указан e-mail'}
+          errorText='Некорректно указан e-mail'
           onChange={(evt) => setEmailValue(evt.target.value)}
         />
 
         <Button
-          htmlType={'submit'}
-          type={'primary'}
-          size={'medium'}
+          htmlType='submit'
+          type='primary'
+          size='medium'
           disabled={!emailValue ? true : false}
         >
           Восстановить
@@ -66,7 +66,7 @@ function ForgotPassword() {
       </form>
 
       <div className={styles.text}>
-        <p className={'text text_type_main-default text_color_inactive'}>
+        <p className='text text_type_main-default text_color_inactive'>
           Вспомнили пароль? <Link className={styles.link} to='/login'>Войти</Link>
         </p>
       </div>

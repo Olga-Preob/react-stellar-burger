@@ -20,7 +20,7 @@ function IngredientItem({ ingredient }) {
   const dispatch = useDispatch();
   const location = useLocation();
 
-  const burgersData = useSelector((store) => store.burgerConstructorReducer);
+  const burgerFilling = useSelector((store) => store.burgerConstructorReducer);
 
   const [{ isDragging }, dragRef] = useDrag({
     type: ingredient.type,
@@ -35,11 +35,11 @@ function IngredientItem({ ingredient }) {
         dispatch(addIngredientWithKey(ingredient));
 
         if (item.type === 'bun') {
-          if (burgersData.bun) {
+          if (burgerFilling.bun) {
             dispatch({
               type: DECREASE_BUN_ITEM,
               payload: {
-                _id: burgersData.bun._id
+                _id: burgerFilling.bun._id
               }
             });
           };
@@ -90,7 +90,7 @@ function IngredientItem({ ingredient }) {
       <Link
         to={`/ingredients/${ingredient._id}`}
         state={{ background: location }}
-        className={`${styles.link}`}
+        className={styles.link}
       >
         {ingredient.__v ? <Counter count={ingredient.__v} size='default' /> : null}
 
@@ -102,7 +102,7 @@ function IngredientItem({ ingredient }) {
             title={ingredient.name}
           />
 
-          <div className={`${styles.price}`}>
+          <div className={styles.price}>
             <p className='text text_type_digits-default'>
               {ingredient.price}
             </p>

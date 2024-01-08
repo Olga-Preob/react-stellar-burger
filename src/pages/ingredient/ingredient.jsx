@@ -38,7 +38,7 @@ function Ingredient() {
       )}
 
       {!itemsRequest && data.length && !requestedIngredient && (
-        <h2 className={`text text_type_main-large text_color_inactive`}>
+        <h2 className='text text_type_main-large text_color_inactive'>
           Такого ингредиента к нам не завозили
         </h2>
       )}

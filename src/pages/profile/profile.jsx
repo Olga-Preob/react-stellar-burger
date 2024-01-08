@@ -8,14 +8,14 @@ import styles from './profile.module.css';
 function Profile() {
   const dispatch = useDispatch();
 
-  const isRequest = useSelector((store) => store.userReducer.isRequest);
+  const user = useSelector((store) => store.userReducer);
 
   const activeNavLink =`${styles.link} text text_type_main-medium ${styles.active} pl-5 pr-5`;
   const inactiveNavLink = `${styles.link} text text_type_main-medium text_color_inactive pl-5 pr-5`;
 
   return (
     <main className={`${styles.main}`}>
-      {isRequest && (
+      {user.isRequest && (
         <Preloader />
       )}
 
