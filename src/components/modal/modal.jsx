@@ -1,34 +1,31 @@
 import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { REACT_MODALS } from '../../utils/constants';
 import { CLOSE_MODAL } from '../../services/actions/modal';
-import { RESET_ORDER } from '../../services/actions/order-details';
 import ModalOverlay from '../modal-overlay/modal-overlay';
 import PropTypes from 'prop-types';
 import styles from './modal.module.css';
 
 
-function Modal({ children }) {
-  const navigate = useNavigate();
+function Modal({ title = '', children }) {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const { isVisible, typeOfModal } = useSelector((store) => store.modalReducer);
+  const { number } = useParams();
 
-  const handlerOnClose = () => {
+  const typeOfModal = useSelector((store) => store.modalReducer.typeOfModal);
+  const isVisible = useSelector((store) => store.modalReducer.isVisible);
+
+  const handleOnClose = () => {
     dispatch({
       type: CLOSE_MODAL
     });
 
-    typeOfModal === 'ingredient' && navigate(-1);
-
-    typeOfModal === 'create-order' && (
-      dispatch({
-        type: RESET_ORDER
-      })
-    );
+    typeOfModal === 'ingredientInfo' && navigate(-1, {replace: true});
+    typeOfModal === 'orderInfo' && navigate(-1, {replace: true});
   }
 
   useEffect(() => {
@@ -40,7 +37,8 @@ function Modal({ children }) {
           type: CLOSE_MODAL
         });
 
-        typeOfModal === 'ingredient' && navigate(-1);
+        typeOfModal === 'ingredientInfo' && navigate(-1, {replace: true});
+        typeOfModal === 'orderInfo' && navigate(-1, {replace: true});
       }
     }
 
@@ -49,26 +47,33 @@ function Modal({ children }) {
     return () => document.removeEventListener('keydown', keyDownEsc);
   }, [dispatch, navigate, isVisible, typeOfModal]);
 
-  const title = typeOfModal === 'ingredient' ? 'Детали ингредиента' : '';
-
   return createPortal(
     (
       <>
         <ModalOverlay
           isVisible={isVisible}
-          onClose={handlerOnClose}
+          onClose={handleOnClose}
         />
 
         <div className={`${styles.modal} ${isVisible && styles.open} pt-10 pr-10 pb-15 pl-10`}>
           <section className={styles.header}>
-            <p className={`${styles.title} text text_type_main-large`}>
-              {title}
-            </p>
+
+            {typeOfModal === 'orderInfo' && (
+              <p className={`${styles.title} text text_type_digits-default`}>
+                {`#${number.toString().padStart(6, 0)}`}
+              </p>
+            )}
+
+            {typeOfModal !== 'orderInfo' && (
+              <p className={`${styles.title} text text_type_main-large`}>
+                {title}
+              </p>
+            )}
 
             <button
               className={styles.button}
               type='button'
-              onClick={handlerOnClose}
+              onClick={handleOnClose}
             >
               <CloseIcon type='primary' />
             </button>
@@ -86,7 +91,8 @@ function Modal({ children }) {
 
 
 Modal.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
+  title: PropTypes.string
 }
 
 export default Modal;

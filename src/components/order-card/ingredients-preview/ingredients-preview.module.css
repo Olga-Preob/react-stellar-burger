@@ -1,0 +1,42 @@
+.ingredientsPreview {
+  box-sizing: border-box;
+  position: relative;
+  width: 64px;
+  height: 64px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid transparent;
+  border-radius: 50%;
+  background: linear-gradient(#131316, #131316) padding-box,
+              linear-gradient(45deg, #801AB2, #4C4CFF) border-box;
+}
+
+.ingredientsPreview:not(:first-child) {
+  margin-left: -16px;
+}
+
+.img {
+  width: 112px;
+  height: 56px;
+  border-radius: 50%;
+}
+
+.ingredientsCounter {
+  position: absolute;
+  max-width: 58px;
+  z-index: 10;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.imgCover {
+  box-sizing: border-box;
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #1c1c21;
+  opacity: .6;
+}

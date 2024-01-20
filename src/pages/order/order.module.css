@@ -1,0 +1,23 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding: 40px 0;
+}
+
+.title {
+  width: 100%;
+  max-width: 640px;
+  min-height: 64px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.titleSpan {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}

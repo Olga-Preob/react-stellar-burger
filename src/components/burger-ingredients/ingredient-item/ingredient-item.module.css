@@ -1,6 +1,5 @@
 .link {
   width: 100%;
-  max-width: 272px;
   color: #f2f2f3;
   text-decoration: none;
   transition: color .3s ease-in-out;
@@ -11,14 +10,16 @@
 }
 
 .link:hover {
-  color: #81c784;
+  color: #9ede33;
 }
 
 .link:hover svg {
-   fill: #81c784;
+   fill: #9ede33;
  }
 
 .item {
+  width: 100%;
+  max-width: 272px;
   display: flex;
   flex-direction: column;
   align-items: center;

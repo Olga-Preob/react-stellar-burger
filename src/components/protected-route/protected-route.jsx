@@ -6,7 +6,8 @@ import PropTypes from 'prop-types';
 function Protected({ onlyUnAuth = false, component }) {
   const location = useLocation();
 
-  const { user, isAuthChecked } = useSelector((store) => store.userReducer);
+  const user = useSelector((store) => store.userReducer.user);
+  const isAuthChecked = useSelector((store) => store.userReducer.isAuthChecked);
 
   if (!isAuthChecked) {
     return null;

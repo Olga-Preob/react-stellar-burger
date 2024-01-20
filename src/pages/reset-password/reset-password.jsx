@@ -43,7 +43,7 @@ function ResetPassword() {
 
   if (location.state && location.state.isRedirect) {
     return (
-      <main className={`${styles.main}`}>
+      <main className='centeredContainer'>
         {isLoadin && (
           <Preloader />
         )}
@@ -51,7 +51,7 @@ function ResetPassword() {
         {!localStorage.getItem('isResetFailed') && (
           <>
             <form
-              className={`${styles.form}`}
+              className={styles.form}
               onSubmit={onSubmit}
             >
               <h1 className='text text_type_main-medium'>Восстановление пароля</h1>

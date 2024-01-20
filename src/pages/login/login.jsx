@@ -14,7 +14,8 @@ import styles from './login.module.css';
 function Login() {
   const dispatch = useDispatch();
 
-  const { isRequest, isFailed } = useSelector((store) => store.userReducer);
+  const isRequest = useSelector((store) => store.userReducer.isRequest);
+  const isFailed = useSelector((store) => store.userReducer.isFailed);
 
   const [emailValue, setEmailValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
@@ -36,7 +37,7 @@ function Login() {
   }
 
   return (
-    <main className={`${styles.main}`}>
+    <main className='centeredContainer'>
       {isRequest && (
         <Preloader />
       )}
@@ -44,7 +45,7 @@ function Login() {
       {!isFailed && !isRequest && (
         <>
           <form
-            className={`${styles.form}`}
+            className={styles.form}
             onSubmit={onSubmit}
           >
             <h1 className='text text_type_main-medium'>Вход</h1>

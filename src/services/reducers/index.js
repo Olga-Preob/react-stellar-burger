@@ -1,17 +1,21 @@
 import { combineReducers } from 'redux';
 import { ingredientsReducer } from './ingredients';
+import { ordersFeedReducer } from './orders-feed';
 import { userReducer } from './user';
 import { burgerConstructorReducer } from './burger-constructor';
-import { ingredientDetailsReducer } from './ingredient-details';
-import { orderDetailsReducer } from './order-details';
+import { currentValuesReducer } from './current-values';
+import { orderInteractionReducer } from './order-interaction';
 import { modalReducer } from './modal';
+import { socketReducer } from './socket';
 
 
 export const rootReducer = combineReducers({
   ingredientsReducer,
+  ordersFeedReducer,
   userReducer,
   burgerConstructorReducer,
-  ingredientDetailsReducer,
-  orderDetailsReducer,
-  modalReducer
+  currentValuesReducer,
+  orderInteractionReducer,
+  modalReducer,
+  socketReducer
 });

@@ -1,8 +1,66 @@
 .main {
-  height: calc(100vh - 88px);
+  display: flex;
+  justify-content: center;
+  padding: 40px 0 0 0;
+}
+
+.wrap {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1280px;
+  min-height: calc(100vh - 88px);
   display: flex;
   flex-direction: column;
+  gap: 40px;
+  padding: 0 20px;
+}
+
+.content {
+  width: 100%;
+  display: flex;
   justify-content: center;
-  align-items: center;
-  gap: 80px;
+  align-items: flex-start;
+  gap: 40px;
+}
+
+.sectionOrderCard {
+  width: 100%;
+  max-width: 50%;
+  max-height: calc(100vh - 208px);
+  scrollbar-gutter: stable;
+  overflow-y: scroll;
+}
+
+.sectionOrderCard::-webkit-scrollbar {
+  width: 8px;
+}
+
+.sectionOrderCard::-webkit-scrollbar-track {
+  background: #2F2F37;
+  margin: 40px 0;
+}
+
+.sectionOrderCard::-webkit-scrollbar-thumb {
+  background: #8585AD;
+  border: unset;
+  border-radius: unset;
+}
+
+.orderCardList {
+  box-sizing: border-box;
+  max-width: calc(100% - 8px);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sectionFeedStatus {
+  width: 100%;
+  max-width: 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
 }

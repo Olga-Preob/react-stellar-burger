@@ -7,21 +7,20 @@ import styles from './ingredient-details.module.css';
 function IngredientDetails() {
   const { id } = useParams();
 
-  const { data } = useSelector((store) => store.ingredientsReducer);
+  const ingredientsArr = useSelector((store) => store.ingredientsReducer.ingredients);
+  const currentIngredientId = useSelector((store) => store.currentValuesReducer.currentIngredientId);
 
-  const { currentIngredientId } = useSelector((store) => store.ingredientDetailsReducer);
+  const ingredientId = getIngredient(ingredientsArr, currentIngredientId ? currentIngredientId : id);
 
-  const currentIngredient = getIngredient(data, currentIngredientId ? currentIngredientId : id);
-
-  return currentIngredient && (
+  return ingredientId && (
     <div className={styles.wrap}>
-      {currentIngredient.image_large || currentIngredient.image ?
+      {ingredientId.image_large || ingredientId.image ?
         (
           <img
             className={`${styles.image} pb-4`}
-            src={currentIngredient.image_large || currentIngredient.image}
-            alt={`${currentIngredient.name}.`}
-            title={currentIngredient.name}
+            src={ingredientId.image_large || ingredientId.image}
+            alt={`${ingredientId.name}.`}
+            title={ingredientId.name}
           />
         ):
         (
@@ -29,18 +28,18 @@ function IngredientDetails() {
         )
       }
 
-      <h2 className={`${styles.header} text text_type_main-medium pb-8`}>
+      <h1 className={`${styles.header} text text_type_main-medium pb-8`}>
         {
-          currentIngredient.name ? currentIngredient.name : ''
+          ingredientId.name ? ingredientId.name : ''
         }
-      </h2>
+      </h1>
 
       <ul className={styles.list}>
         <li className={styles.item}>
           <p className={`${styles.text} text text_type_main-default text_color_inactive`}>Калории,ккал</p>
           <p className={`${styles.text} text text_type_digits-default text_color_inactive`}>
             {
-              currentIngredient.calories ? currentIngredient.calories : null
+              ingredientId.calories ? ingredientId.calories : null
             }
           </p>
         </li>
@@ -49,7 +48,7 @@ function IngredientDetails() {
           <p className={`${styles.text} text text_type_main-default text_color_inactive`}>Белки, г</p>
           <p className={`${styles.text} text text_type_digits-default text_color_inactive`}>
             {
-              currentIngredient.proteins ? currentIngredient.proteins : null
+              ingredientId.proteins ? ingredientId.proteins : null
             }
           </p>
         </li>
@@ -58,7 +57,7 @@ function IngredientDetails() {
           <p className={`${styles.text} text text_type_main-default text_color_inactive`}>Жиры, г</p>
           <p className={`${styles.text} text text_type_digits-default text_color_inactive`}>
             {
-              currentIngredient.fat ? currentIngredient.fat : null
+              ingredientId.fat ? ingredientId.fat : null
             }
           </p>
         </li>
@@ -67,7 +66,7 @@ function IngredientDetails() {
           <p className={`${styles.text} text text_type_main-default text_color_inactive`}>Углеводы, г</p>
           <p className={`${styles.text} text text_type_digits-default text_color_inactive`}>
             {
-              currentIngredient.carbohydrates ? currentIngredient.carbohydrates : null
+              ingredientId.carbohydrates ? ingredientId.carbohydrates : null
             }
           </p>
         </li>

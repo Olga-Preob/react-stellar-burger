@@ -19,11 +19,21 @@ const request = (endpoint, options) => {
     .then((res) => checkResponse(res))
 }
 
-const getIngredients = () => {
+export const getIngredients = () => {
   return request(ENDPOINTS.GET_INGREDIENTS)
 }
 
-const login = (email, password) => {
+export const getOrderInfo = (orderNumber) => {
+  return request(
+    `/orders/${orderNumber}`,
+    {
+      method: 'GET',
+      headers: HEADERS
+    }
+  )
+}
+
+export const login = (email, password) => {
   return request(
     ENDPOINTS.LOGIN,
     {
@@ -37,7 +47,7 @@ const login = (email, password) => {
   );
 }
 
-const logout = (refreshToken) => {
+export const logout = (refreshToken) => {
   return request(
     ENDPOINTS.LOGOUT,
     {
@@ -50,7 +60,7 @@ const logout = (refreshToken) => {
   );
 }
 
-const newUserRegistration = (name, email, password) => {
+export const newUserRegistration = (name, email, password) => {
   return request(
     ENDPOINTS.NEW_USER_REGISTRATION,
     {
@@ -65,7 +75,7 @@ const newUserRegistration = (name, email, password) => {
   );
 }
 
-const checkUserEmail = (email) => {
+export const checkUserEmail = (email) => {
   return request(
     ENDPOINTS.CHECK_USER_EMAIL,
     {
@@ -78,7 +88,7 @@ const checkUserEmail = (email) => {
   );
 }
 
-const passwordReset = (password, tokenFromEmail) => {
+export const passwordReset = (password, tokenFromEmail) => {
   return request(
     ENDPOINTS.PASSWORD_RESET,
     {
@@ -132,7 +142,7 @@ const fetchWithRefresh = async (endpoint, options, refreshToken) => {
   }
 }
 
-const getUserInfo = (accessToken, refreshToken) => {
+export const getUserInfo = (accessToken, refreshToken) => {
   return fetchWithRefresh(
     ENDPOINTS.USER_INFO,
     {
@@ -146,7 +156,7 @@ const getUserInfo = (accessToken, refreshToken) => {
   );
 }
 
-const createOrder = (accessToken, refreshToken, ingredientsArrId) => {
+export const createOrder = (accessToken, refreshToken, ingredientsArrId) => {
   return fetchWithRefresh(
     ENDPOINTS.CREATE_ORDER,
     {
@@ -163,7 +173,7 @@ const createOrder = (accessToken, refreshToken, ingredientsArrId) => {
   );
 }
 
-const patchUserInfo = (accessToken, refreshToken, name, email, password) => {
+export const patchUserInfo = (accessToken, refreshToken, name, email, password) => {
   return fetchWithRefresh(
     ENDPOINTS.USER_INFO,
     {
@@ -187,16 +197,4 @@ const patchUserInfo = (accessToken, refreshToken, name, email, password) => {
     },
     refreshToken
   );
-}
-
-export {
-  getIngredients,
-  createOrder,
-  login,
-  logout,
-  newUserRegistration,
-  checkUserEmail,
-  passwordReset,
-  getUserInfo,
-  patchUserInfo
 }

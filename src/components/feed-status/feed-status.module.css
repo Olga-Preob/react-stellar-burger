@@ -1,0 +1,35 @@
+.orderNumbers {
+  width: 100%;
+  display: flex;
+  gap: 20px;
+}
+
+.ordersListWrap {
+  width: 100%;
+  max-width: 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.ordersList {
+  max-height: 314px;
+  display: flex;
+  flex-direction: column;
+  align-content: flex-start;
+  flex-wrap: wrap;
+  list-style: none;
+  gap: 8px 12px;
+  padding: 0;
+  margin: 0;
+}
+
+.done {
+  color: #00cccc;
+}
+
+.textShadow {
+  text-shadow:  0px 4px 32px rgba(51, 51, 255, .5),
+                0px 0px 8px rgba(51, 51, 255, .25),
+                0px 0px 16px rgba(51, 51, 255, .25);
+}

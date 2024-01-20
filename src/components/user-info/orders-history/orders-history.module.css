@@ -1,0 +1,39 @@
+.section {
+  width: 100%;
+  max-width: 860px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto;
+  scrollbar-color: #2F2F37 #8585AD;
+  scrollbar-gutter: stable;
+}
+
+.section::-webkit-scrollbar {
+  width: 8px;
+}
+
+.section::-webkit-scrollbar-track {
+  background: #2F2F37;
+  margin: 40px 0;
+}
+
+.section::-webkit-scrollbar-thumb {
+  background: #8585AD;
+  border: unset;
+  border-radius: unset;
+}
+
+.userOrderCardList {
+  box-sizing: border-box;
+  max-width: calc(100% - 16px);
+  height: 100%;
+  max-height: calc(100vh - 128px);
+  min-height: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}

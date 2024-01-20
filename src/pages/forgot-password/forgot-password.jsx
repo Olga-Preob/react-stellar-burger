@@ -35,13 +35,13 @@ function ForgotPassword() {
   }
 
   return (
-    <main className={`${styles.main}`}>
+    <main className='centeredContainer'>
       {isLoading && (
         <Preloader />
       )}
 
       <form
-        className={`${styles.form}`}
+        className={styles.form}
         onSubmit={onSubmit}
       >
         <h1 className='text text_type_main-medium'>Восстановление пароля</h1>

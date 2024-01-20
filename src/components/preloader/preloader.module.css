@@ -13,7 +13,7 @@
   gap: 24px;
 }
 
-.wrap_modal {
+.modalWrap {
   display: flex;
   align-items: center;
   gap: 24px;
@@ -46,7 +46,7 @@
   animation: grow 2s ease-in-out infinite;
 }
 
-.item_after:nth-child(1) {
+.itemAfter:nth-child(1) {
   animation-delay: -1.4s;
   background: #ffff00;
   box-shadow: 0 0 21px #ffff00,
@@ -57,7 +57,7 @@
               0 0 151px #ffff00;
 }
 
-.item_after:nth-child(2) {
+.itemAfter:nth-child(2) {
   animation-delay: -1.2s;
   background: #81c784;;
   box-shadow: 0 0 21px #81c784,
@@ -68,7 +68,7 @@
               0 0 151px #81c784;
 }
 
-.item_after:nth-child(3) {
+.itemAfter:nth-child(3) {
   animation-delay: -1s;
   background: #f06292;
   box-shadow: 0 0 21px #f06292,
@@ -79,7 +79,7 @@
               0 0 151px #f06292;
 }
 
-.item_before:nth-child(1) {
+.itemBefore:nth-child(1) {
   animation-delay: -0.8s;
   background: #00cccc;
   box-shadow: 0 0 21px #00cccc,
@@ -90,7 +90,7 @@
               0 0 151px #00cccc;
 }
 
-.item_before:nth-child(2) {
+.itemBefore:nth-child(2) {
   animation-delay: -0.6s;
   background: #8585ad;
   box-shadow: 0 0 21px #8585ad,
@@ -101,7 +101,7 @@
               0 0 151px #8585ad;
 }
 
-.item_before:nth-child(3) {
+.itemBefore:nth-child(3) {
   animation-delay: -0.4s;
   background: #f57c00;
   box-shadow: 0 0 21px #f57c00,

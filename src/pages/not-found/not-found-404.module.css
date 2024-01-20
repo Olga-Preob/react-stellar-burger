@@ -4,7 +4,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 36px;
+  gap: 40px;
 }
 
 .wrap {
@@ -44,9 +44,9 @@
 
 @keyframes flicker {
   0%, 18%, 22%, 25%, 53%, 57%, 100% {
-    text-shadow: 0px 4px 32px rgba(94, 53, 177, .7),
-                 0px 0px 8px rgba(205, 133, 172, .4),
-                 0px 0px 16px rgba(205, 133, 172, .5);;
+    text-shadow:  0px 4px 32px rgba(51, 51, 255, .5),
+                  0px 0px 8px rgba(51, 51, 255, .25),
+                  0px 0px 16px rgba(51, 51, 255, .25);
   }
   20%, 24%, 55% {
     text-shadow: none;

@@ -166,16 +166,22 @@ export const userReducer = (state = initialState, action) => {
     case RESET_FAILED:
       return {
         ...state,
-        user: {
-          name: null,
-          email: null
-        },
         isRequest: false,
         isSuccess: false,
         isFailed: false
       }
     case RESET_USER_INFO:
-      return initialState
+      return {
+        ...state,
+        user: {
+          name: null,
+          email: null
+        },
+        isAuthChecked: false,
+        isRequest: false,
+        isSuccess: false,
+        isFailed: false
+      }
     default:
       return state;
   }
