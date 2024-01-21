@@ -49,7 +49,7 @@ function BurgerConstructor() {
 
   const handleOnClick = () => {
     if (user.name && user.email) {
-      if ((burgerBun) && (burgerFilling.length)) {
+      if ((burgerBun) && (burgerFilling.length > 0)) {
         const burgerFillingId = [];
         burgerFillingId.push(burgerBun._id);
         burgerFilling.forEach((ingredient) => {
@@ -63,7 +63,7 @@ function BurgerConstructor() {
     }
   }
 
-  const isFullFilling = !burgerBun || !burgerFilling.length || isRequestNewOrderInfo;
+  const isFullFilling = !burgerBun || !(burgerFilling.length > 0) || isRequestNewOrderInfo;
 
   return (
     <>
@@ -83,7 +83,7 @@ function BurgerConstructor() {
             </li>
 
             <li className={styles.item} ref={dropFillingItemTarget}>
-              {burgerFilling.length ? (
+              {burgerFilling.length > 0 ? (
                   <ul className={`${styles.fillingGroup} custom-scroll pr-2`}>
                     {
                       burgerFilling.map((ingredient, index) => {

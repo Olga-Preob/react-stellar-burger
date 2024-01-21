@@ -3,7 +3,6 @@ import { useLocation, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDrag } from 'react-dnd';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { OPEN_MODAL } from '../../../services/actions/modal';
 import { SET_CURRENT_INGREDIENT_ID } from '../../../services/actions/current-values';
 import {
   INCREASE_ITEM,
@@ -69,13 +68,6 @@ function IngredientItem({ ingredient }) {
       type: SET_CURRENT_INGREDIENT_ID,
       payload: {
         currentIngredientId: ingredient._id
-      }
-    });
-
-    dispatch({
-      type: OPEN_MODAL,
-      payload: {
-        typeOfModal: 'ingredientInfo'
       }
     });
   }

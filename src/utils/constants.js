@@ -45,3 +45,35 @@ export const ORDER_STATUSES = {
     color: '#e52b1a',
   },
 }
+
+export const STATE_OF_MODAL_BY_TYPE = {
+  ingredientInfo: {
+    typeOfModal: 'ingredientInfo',
+    titleIsDigits: false,
+    titleContent: 'Детали ингредиента',
+    navigateState: {
+      isNavigate: true,
+      to: -1,
+      replace: false
+    }
+  },
+  orderInfo: {
+    typeOfModal: 'orderInfo',
+    titleIsDigits: true,
+    navigateState: {
+      isNavigate: true,
+      to: -1,
+      replace: false
+    }
+  },
+  orderCreatedInfo: {
+    typeOfModal: 'orderCreatedInfo',
+    titleIsDigits: false,
+    titleContent: '',
+    navigateState: {
+      isNavigate: false,
+      to: null,
+      replace: false
+    }
+  },
+}

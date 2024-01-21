@@ -5,7 +5,6 @@ import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burge
 import { getIngredient } from '../../utils/utils';
 import { ORDER_STATUSES } from '../../utils/constants';
 import { SET_CURRENT_ORDER_NUMBER } from '../../services/actions/current-values';
-import { fetchGetIngredients } from '../../services/actions/ingredients';
 import { fetchGetOrderInfo } from '../../services/actions/order-interaction';
 import OrderListItem from './order-list-item/order-list-item';
 import Preloader from '../preloader/preloader';
@@ -25,15 +24,7 @@ function OrderList ({ isModal = false }) {
   const isRequest = useSelector((store) => store.orderInteractionReducer.isRequest);
   const isFailed = useSelector((store) => store.orderInteractionReducer.isFailed);
 
-  const orderNumber = currentOrderNumber ? currentOrderNumber : number;
-
   useEffect(() => {
-    ingredientsArr.length === 0 && dispatch(fetchGetIngredients());
-
-    !requestedOrder && !isRequest && (
-      dispatch(fetchGetOrderInfo(orderNumber))
-    );
-
     !currentOrderNumber && (
       dispatch({
         type: SET_CURRENT_ORDER_NUMBER,
@@ -42,7 +33,13 @@ function OrderList ({ isModal = false }) {
         }
       })
     );
-  }, [ingredientsArr, requestedOrder, currentOrderNumber]);
+  }, [currentOrderNumber, number, dispatch]);
+
+  useEffect(() => {
+    currentOrderNumber && !requestedOrder && !isRequest && (
+      dispatch(fetchGetOrderInfo(currentOrderNumber))
+    );
+  }, [currentOrderNumber, requestedOrder, isRequest, dispatch]);
 
   const orderIngredientsArr = useMemo(() => (
     requestedOrder?.ingredients.map((id) => getIngredient(ingredientsArr, id))
@@ -66,11 +63,7 @@ function OrderList ({ isModal = false }) {
     }));
 
     return (
-      fillingArr.sort((a, b) => {
-        if (b.price > a.price) return 1;
-        if (b.price === a.price) return 0;
-        if (b.price < a.price) return -1;
-      })
+      fillingArr.sort((a, b) => b?.price - a?.price)
     );
   }, [orderIngredientsArr, requestedOrder]);
 
@@ -102,7 +95,7 @@ function OrderList ({ isModal = false }) {
         </div>
       )}
 
-      {requestedOrder && !isRequest && !isFailed && ingredientsArr.length && (
+      {requestedOrder && !isRequest && !isFailed && ingredientsArr.length > 0 && (
         <>
           <div className={styles.header}>
             <h1 className={`${isModal ? styles.orderName : ''} text text_type_main-medium`}>

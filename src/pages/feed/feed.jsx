@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { fetchGetIngredients } from '../../services/actions/ingredients';
 import {
   GET_ALL_ORDERS_INFO_FAILED,
   wsConnectFeedWithoutToken
@@ -26,10 +25,6 @@ function Feed() {
 
   const wsConnected = useSelector((store) => store.socketReducer.wsConnected);
   const wsError = useSelector((store) => store.socketReducer.wsError);
-
-  useEffect(() => {
-    !ingredientsArr.length && dispatch(fetchGetIngredients());
-  }, [ingredientsArr, dispatch]);
 
   useEffect(() => {
     !wsConnected && dispatch(wsConnectFeedWithoutToken());

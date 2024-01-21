@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { OnlyAuth, OnlyUnAuth } from '../protected-route/protected-route';
+import { STATE_OF_MODAL_BY_TYPE } from '../../utils/constants';
 import { fetchCheckUserAuth } from '../../services/actions/user';
 import { fetchGetIngredients } from '../../services/actions/ingredients';
 import { OPEN_MODAL } from '../../services/actions/modal';
@@ -45,19 +46,24 @@ function App() {
   }, [ingredientsArr, dispatch]);
 
   useEffect(() => {
-    background?.pathname === '/' && dispatch({
-      type: OPEN_MODAL,
-      payload: {
-        typeOfModal: 'ingredientInfo'
-      }
-    });
+    background?.pathname === '/' && (
+      dispatch({
+        type: OPEN_MODAL,
+        payload: {
+          ...STATE_OF_MODAL_BY_TYPE.ingredientInfo
+        }
+      })
+    );
 
-    (background?.pathname === '/feed' || background?.pathname === '/profile/orders') && dispatch({
-      type: OPEN_MODAL,
-      payload: {
-        typeOfModal: 'orderInfo'
-      }
-    });
+    (background?.pathname === '/feed' || background?.pathname === '/profile/orders') && (
+      dispatch({
+        type: OPEN_MODAL,
+        payload: {
+          ...STATE_OF_MODAL_BY_TYPE.orderInfo,
+          titleContent: `#${location?.pathname?.split('/').slice(-1).toString().padStart(6, 0)}`
+        }
+      })
+    );
   }, [background, dispatch]);
 
   return (
@@ -93,7 +99,7 @@ function App() {
             path='/ingredients/:id'
             element={
               typeOfModal === 'ingredientInfo' && (
-                <Modal title='Детали ингредиента'>
+                <Modal>
                   <IngredientDetails />
                 </Modal>
               )

@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams, Link } from 'react-router-dom';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { SET_CURRENT_ORDER_NUMBER } from '../../services/actions/current-values';
-import { fetchGetIngredients } from '../../services/actions/ingredients';
 import { fetchGetOrderInfo } from '../../services/actions/order-interaction';
 import { getIngredient } from '../../utils/utils';
 import OrderList from '../../components/order-list/order-list';
@@ -23,8 +22,6 @@ function Order() {
   const isFailed = useSelector((store) => store.orderInteractionReducer.isFailed);
 
   useEffect(() => {
-    ingredientsArr.length === 0 && dispatch(fetchGetIngredients());
-
     number && (
       dispatch(fetchGetOrderInfo(number))
     );
@@ -35,7 +32,7 @@ function Order() {
         currentOrderNumber: number
       }
     });
-  }, [ingredientsArr, number, dispatch]);
+  }, [number, dispatch]);
 
   const orderIngredientsArr = useMemo(() => (
     requestedOrder?.ingredients?.map((id) => (getIngredient(ingredientsArr, id)))
@@ -48,10 +45,10 @@ function Order() {
   const filling = useMemo(() => (
     orderIngredientsArr
       ?.filter((ing) => ing.type !== 'bun')
-      .sort((a, b) => b.price - a.price)
+      .sort((a, b) => b?.price - a?.price)
   ), [orderIngredientsArr]);
 
-  const isCorrectOrder = bun.length === 1 && filling.length && orderIngredientsArr.length && !orderIngredientsArr.includes(undefined);
+  const isCorrectOrder = bun.length === 1 && filling.length > 0 && orderIngredientsArr.length > 0 && !orderIngredientsArr.includes(undefined);
 
   return (
     <>

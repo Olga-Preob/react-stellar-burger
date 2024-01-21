@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { useForm } from '../../hooks/useForm';
 import {
   Input,
   EmailInput,
@@ -15,12 +16,14 @@ import styles from './register.module.css';
 function Register() {
   const dispatch = useDispatch();
 
+  const { values, handleChange } = useForm({
+    name: '',
+    email: '',
+    password: ''
+  });
+
   const isRequest = useSelector((store) => store.userReducer.isRequest);
   const isFailed = useSelector((store) => store.userReducer.isFailed);
-
-  const [nameValue, setNameValue] = useState('');
-  const [emailValue, setEmailValue] = useState('');
-  const [passwordValue, setPasswordValue] = useState('');
 
   useEffect(() => {
     resetState();
@@ -35,7 +38,7 @@ function Register() {
   const onSubmit = (evt) => {
     evt.preventDefault();
 
-    dispatch(fetchNewUserRegistration(nameValue, emailValue, passwordValue));
+    dispatch(fetchNewUserRegistration(values.name, values.email, values.password));
   }
 
   return (
@@ -53,34 +56,34 @@ function Register() {
             <h1 className='text text_type_main-medium'>Регистрация</h1>
 
             <Input
-              value={nameValue}
+              value={values.name}
               name='name'
               placeholder='Имя'
               type='text'
-              onChange={(evt) => setNameValue(evt.target.value)}
+              onChange={handleChange}
             />
 
             <EmailInput
-              value={emailValue}
+              value={values.email}
               name='email'
               placeholder='E-mail'
               isIcon={false}
               errorText='Некорректно указан e-mail'
-              onChange={(evt) => setEmailValue(evt.target.value)}
+              onChange={handleChange}
             />
 
             <PasswordInput
-              value={passwordValue}
+              value={values.password}
               name='password'
               errorText='Пароль должен содержать минимум 6 символов'
-              onChange={(evt) => setPasswordValue(evt.target.value)}
+              onChange={handleChange}
             />
 
             <Button
               htmlType='submit'
               type='primary'
               size='medium'
-              disabled={!nameValue || !emailValue || passwordValue.length < 6 ? true : false}
+              disabled={!values.name || !values.email || values.password.length < 6 ? true : false}
             >
               Зарегистрироваться
             </Button>

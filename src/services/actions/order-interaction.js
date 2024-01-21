@@ -2,6 +2,7 @@ import { createOrder, getOrderInfo } from '../../utils/api';
 import { OPEN_MODAL } from './modal';
 import { CLEAR_CONSTRUCTOR } from './burger-constructor';
 import { CLEAR_ALL_INGREDIENTS_COUNT } from './ingredients';
+import { STATE_OF_MODAL_BY_TYPE } from '../../utils/constants';
 
 
 export const CREATE_ORDER_REQUEST = 'CREATE_ORDER_REQUEST';
@@ -24,7 +25,7 @@ export function fetchCreateOrder(ingredientsArrId) {
     dispatch({
       type: OPEN_MODAL,
       payload: {
-        typeOfModal: 'orderCreatedInfo'
+        ...STATE_OF_MODAL_BY_TYPE.orderCreatedInfo
       }
     });
 
@@ -60,13 +61,6 @@ export function fetchGetOrderInfo(orderNumber) {
   return function (dispatch) {
     dispatch({
       type: GET_ORDER_INFO_REQUEST
-    });
-
-    dispatch({
-      type: OPEN_MODAL,
-      payload: {
-        typeOfModal: 'orderInfo'
-      }
     });
 
     getOrderInfo(orderNumber)

@@ -1,9 +1,7 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { fetchGetIngredients } from '../../services/actions/ingredients';
 import BurgerIngredients from '../../components/burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../../components/burger-constructor/burger-constructor';
 import Preloader from '../../components/preloader/preloader';
@@ -11,15 +9,9 @@ import styles from './home.module.css';
 
 
 function Home() {
-  const dispatch = useDispatch();
-
   const ingredientsArr = useSelector((store) => store.ingredientsReducer.ingredients);
   const isRequest = useSelector((store) => store.ingredientsReducer.isRequest);
   const isFailed = useSelector((store) => store.ingredientsReducer.isFailed);
-
-  useEffect(() => {
-    ingredientsArr.length === 0 && dispatch(fetchGetIngredients());
-  }, [ingredientsArr, dispatch]);
 
   return (
     <>

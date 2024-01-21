@@ -6,7 +6,14 @@ import {
 
 const initialState = {
   isVisible: false,
-  typeOfModal: ''
+  typeOfModal: '',
+  titleIsDigits: false,
+  titleContent: '',
+  navigateState: {
+    isNavigate: false,
+    to: null,
+    replace: false
+  }
 }
 
 export const modalReducer = (state = initialState, action) => {
@@ -15,7 +22,7 @@ export const modalReducer = (state = initialState, action) => {
       return {
         ...state,
         isVisible: true,
-        typeOfModal: action.payload.typeOfModal
+        ...action.payload
       }
     case CLOSE_MODAL:
       return initialState;

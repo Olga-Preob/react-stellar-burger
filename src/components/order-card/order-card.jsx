@@ -50,7 +50,7 @@ function OrderCard({ order }) {
     });
   }
 
-  const isCorrectOrder = bun.length === 1 && filling.length && orderIngredientsArr.length && !orderIngredientsArr.includes(undefined);
+  const isCorrectOrder = bun.length === 1 && filling.length > 0 && orderIngredientsArr.length > 0 && !orderIngredientsArr.includes(undefined);
 
   return isCorrectOrder ? (
     <li
