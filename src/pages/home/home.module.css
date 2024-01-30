@@ -6,10 +6,10 @@
 .wrap {
   box-sizing: border-box;
   width: 100%;
-  max-width: 1240px;
+  max-width: 1280px;
   min-height: calc(100vh - 88px);
   display: flex;
   justify-content: center;
-  align-items: center;
+  gap: 40px;
   padding: 0 20px;
 }

@@ -21,7 +21,7 @@ export function fetchGetIngredients() {
         dispatch({
           type: GET_INGREDIENTS_SUCCESS,
           payload: {
-            data: Object.assign([], res.data)
+            ingredients: Object.assign([], res.data)
           }
         })
       })

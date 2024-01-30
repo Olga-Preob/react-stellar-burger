@@ -11,7 +11,7 @@ const IngredientsGroup = React.forwardRef(({ heading, groupId, ingredients }, re
       <h2 className='text text_type_main-medium'>
         {heading}
       </h2>
-      <ul ref={ref} className={`${styles.group} pl-4 pr-2`}>
+      <ul ref={ref} className={`${styles.group} pl-4`}>
         {
           ingredients.map((ingredient) => (
             <IngredientItem

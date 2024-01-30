@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import thunk from 'redux-thunk';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { applyMiddleware, createStore } from 'redux';
+import { socketMiddleware, wsActions } from './services/middleware/socket-middleware';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { Provider } from 'react-redux';
 import { rootReducer } from './services/reducers/index';
@@ -11,7 +12,8 @@ import App from './components/app/app';
 import './index.css';
 
 
-const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
+const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk, socketMiddleware(wsActions))));
+
 const root = createRoot(document.getElementById('root'));
 
 root.render(

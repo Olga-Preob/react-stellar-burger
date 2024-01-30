@@ -5,6 +5,7 @@ import {
   getUserInfo,
   patchUserInfo
 } from '../../utils/api';
+import { REMOVE_USER_ORDERS_INFO } from './orders-feed';
 
 
 export const USER_LOGIN_REQUEST = 'USER_LOGIN_REQUEST';
@@ -92,6 +93,10 @@ export function fetchLogout() {
           type: RESET_USER_INFO
         });
 
+        dispatch({
+          type: REMOVE_USER_ORDERS_INFO
+        });
+
         localStorage.removeItem('refreshToken');
         localStorage.removeItem('accessToken');
       })
@@ -162,7 +167,6 @@ export function fetchGetUserInfo() {
 
         console.log(err);
       })
-
   }
 }
 

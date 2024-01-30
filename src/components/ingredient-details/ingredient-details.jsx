@@ -1,27 +1,39 @@
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { SET_CURRENT_INGREDIENT_ID } from '../../services/actions/current-values';
 import { getIngredient } from '../../utils/utils';
 import styles from './ingredient-details.module.css';
 
 
 function IngredientDetails() {
+  const dispatch = useDispatch();
+
   const { id } = useParams();
 
-  const { data } = useSelector((store) => store.ingredientsReducer);
+  const ingredientsArr = useSelector((store) => store.ingredientsReducer.ingredients);
+  const currentIngredientId = useSelector((store) => store.currentValuesReducer.currentIngredientId);
 
-  const { currentIngredientId } = useSelector((store) => store.ingredientDetailsReducer);
+  useEffect(() => {
+    currentIngredientId !== id && dispatch({
+      type: SET_CURRENT_INGREDIENT_ID,
+      payload: {
+        currentIngredientId: id
+      }
+    });
+  }, [currentIngredientId, id, dispatch]);
 
-  const currentIngredient = getIngredient(data, currentIngredientId ? currentIngredientId : id);
+  const ingredient = getIngredient(ingredientsArr, currentIngredientId);
 
-  return currentIngredient && (
+  return ingredient && (
     <div className={styles.wrap}>
-      {currentIngredient.image_large || currentIngredient.image ?
+      {ingredient.image_large || ingredient.image ?
         (
           <img
             className={`${styles.image} pb-4`}
-            src={currentIngredient.image_large || currentIngredient.image}
-            alt={`${currentIngredient.name}.`}
-            title={currentIngredient.name}
+            src={ingredient.image_large || ingredient.image}
+            alt={`${ingredient.name}.`}
+            title={ingredient.name}
           />
         ):
         (
@@ -29,18 +41,18 @@ function IngredientDetails() {
         )
       }
 
-      <h2 className={`${styles.header} text text_type_main-medium pb-8`}>
+      <h1 className={`${styles.header} text text_type_main-medium pb-8`}>
         {
-          currentIngredient.name ? currentIngredient.name : ''
+          ingredient.name ? ingredient.name : ''
         }
-      </h2>
+      </h1>
 
       <ul className={styles.list}>
         <li className={styles.item}>
           <p className={`${styles.text} text text_type_main-default text_color_inactive`}>Калории,ккал</p>
           <p className={`${styles.text} text text_type_digits-default text_color_inactive`}>
             {
-              currentIngredient.calories ? currentIngredient.calories : null
+              ingredient.calories ? ingredient.calories : null
             }
           </p>
         </li>
@@ -49,7 +61,7 @@ function IngredientDetails() {
           <p className={`${styles.text} text text_type_main-default text_color_inactive`}>Белки, г</p>
           <p className={`${styles.text} text text_type_digits-default text_color_inactive`}>
             {
-              currentIngredient.proteins ? currentIngredient.proteins : null
+              ingredient.proteins ? ingredient.proteins : null
             }
           </p>
         </li>
@@ -58,7 +70,7 @@ function IngredientDetails() {
           <p className={`${styles.text} text text_type_main-default text_color_inactive`}>Жиры, г</p>
           <p className={`${styles.text} text text_type_digits-default text_color_inactive`}>
             {
-              currentIngredient.fat ? currentIngredient.fat : null
+              ingredient.fat ? ingredient.fat : null
             }
           </p>
         </li>
@@ -67,7 +79,7 @@ function IngredientDetails() {
           <p className={`${styles.text} text text_type_main-default text_color_inactive`}>Углеводы, г</p>
           <p className={`${styles.text} text text_type_digits-default text_color_inactive`}>
             {
-              currentIngredient.carbohydrates ? currentIngredient.carbohydrates : null
+              ingredient.carbohydrates ? ingredient.carbohydrates : null
             }
           </p>
         </li>

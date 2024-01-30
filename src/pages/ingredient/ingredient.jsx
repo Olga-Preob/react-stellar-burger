@@ -1,8 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { fetchGetIngredients } from '../../services/actions/ingredients';
-import { SET_CURRENT_INGREDIENT_ID } from '../../services/actions/ingredient-details';
+import { SET_CURRENT_INGREDIENT_ID } from '../../services/actions/current-values';
 import { getIngredient } from '../../utils/utils';
 import Preloader from '../../components/preloader/preloader';
 import IngredientDetails from '../../components/ingredient-details/ingredient-details';
@@ -14,40 +13,38 @@ function Ingredient() {
 
   const { id } = useParams();
 
-  const { data, itemsSuccess, itemsRequest, itemsFailed } = useSelector((store) => store.ingredientsReducer);
+  const ingredientsArr = useSelector((store) => store.ingredientsReducer.ingredients);
+  const isRequest = useSelector((store) => store.ingredientsReducer.isRequest);
+  const isFailed = useSelector((store) => store.ingredientsReducer.isFailed);
 
   useEffect(() => {
-    if (!itemsSuccess) {
-      dispatch(fetchGetIngredients());
-    }
-
     dispatch({
       type: SET_CURRENT_INGREDIENT_ID,
       payload: {
-        id: id
+        currentIngredientId: id
       }
     });
-  }, [itemsSuccess, id, dispatch]);
+  }, [id, dispatch]);
 
-  const requestedIngredient = getIngredient(data, id) || false;
+  const requestedIngredient = getIngredient(ingredientsArr, id) || false;
 
   return (
     <main className={styles.main}>
-      {itemsRequest && (
+      {isRequest && (
           <Preloader />
       )}
 
-      {!itemsRequest && data.length && !requestedIngredient && (
+      {!isRequest && ingredientsArr.length > 0 && !requestedIngredient && (
         <h2 className='text text_type_main-large text_color_inactive'>
           Такого ингредиента к нам не завозили
         </h2>
       )}
 
-      {!itemsRequest && !itemsFailed && data.length && requestedIngredient && (
+      {!isRequest && !isFailed && ingredientsArr.length > 0 && requestedIngredient && (
         <>
-          <h1 className={`${styles.title} text text_type_main-large`}>
+          <p className={`${styles.title} text text_type_main-large`}>
             Детали ингредиента
-          </h1>
+          </p>
 
           <IngredientDetails />
         </>

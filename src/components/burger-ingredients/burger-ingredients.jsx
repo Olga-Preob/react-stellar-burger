@@ -13,7 +13,7 @@ function BurgerIngredients() {
     delay: 100
   };
 
-  const ingredients = useSelector((store) => store.ingredientsReducer.data);
+  const ingredientsArr = useSelector((store) => store.ingredientsReducer.ingredients);
 
   const [current, setCurrent] = useState('bun');
 
@@ -22,19 +22,19 @@ function BurgerIngredients() {
   const [sauceRef, inViewSauce] = useInView(inViewOptions);
 
   const bun = useMemo(() => {
-    return ingredients.filter((ingredient) => ingredient.type === 'bun');
+    return ingredientsArr.filter((ingredient) => ingredient.type === 'bun');
     },
-    [ingredients]
+    [ingredientsArr]
   );
   const sauce = useMemo(() => {
-    return ingredients.filter((ingredient) => ingredient.type === 'sauce');
+    return ingredientsArr.filter((ingredient) => ingredient.type === 'sauce');
     },
-    [ingredients]
+    [ingredientsArr]
   );
   const main = useMemo(() => {
-    return ingredients.filter((ingredient) => ingredient.type === 'main');
+    return ingredientsArr.filter((ingredient) => ingredient.type === 'main');
     },
-    [ingredients]
+    [ingredientsArr]
   );
 
   useEffect(() => {
@@ -56,8 +56,8 @@ function BurgerIngredients() {
 
   return (
     <section className={styles.burgerIngredients}>
-      <h1 className='text text_type_main-large pt-10 pb-5'>Соберите бургер</h1>
-      <div className={`${styles.tabs} pb-10`}>
+      <h1 className='text text_type_main-large pt-10'>Соберите бургер</h1>
+      <div className={styles.tabs}>
         <Tab value='bun' active={current === 'bun'} onClick={() => setTab('bun')}>
           Булки
         </Tab>

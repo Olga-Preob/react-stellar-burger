@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
+import { useForm } from '../../hooks/useForm';
 import { Input, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { passwordReset } from '../../utils/api';
 import Preloader from '../../components/preloader/preloader';
@@ -10,9 +11,12 @@ function ResetPassword() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const [passwordValue, setPasswordValue] = useState('');
-  const [codeValue, setCodeValue] = useState('');
-  const [isLoadin, setIsLoading] = useState(false);
+  const { values, handleChange } = useForm({
+    password: '',
+    code: ''
+  });
+
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     resetСheck();
@@ -25,7 +29,7 @@ function ResetPassword() {
 
     setIsLoading(true);
 
-    passwordReset(passwordValue, codeValue)
+    passwordReset(values.password, values.code)
       .then((res) => {
         if (res.success) {
           navigate('/login', { replace: true });
@@ -43,40 +47,40 @@ function ResetPassword() {
 
   if (location.state && location.state.isRedirect) {
     return (
-      <main className={`${styles.main}`}>
-        {isLoadin && (
+      <main className='centeredContainer'>
+        {isLoading && (
           <Preloader />
         )}
 
         {!localStorage.getItem('isResetFailed') && (
           <>
             <form
-              className={`${styles.form}`}
+              className={styles.form}
               onSubmit={onSubmit}
             >
               <h1 className='text text_type_main-medium'>Восстановление пароля</h1>
 
               <PasswordInput
-                value={passwordValue}
+                value={values.password}
                 name='password'
                 placeholder='Введите новый пароль'
                 errorText='Пароль должен содержать минимум 6 символов'
-                onChange={(evt) => setPasswordValue(evt.target.value)}
+                onChange={handleChange}
               />
 
               <Input
-                value={codeValue}
+                value={values.code}
                 name='code'
                 placeholder='Введите код из письма'
                 type='text'
-                onChange={(evt) => setCodeValue(evt.target.value)}
+                onChange={handleChange}
               />
 
               <Button
                 htmlType='submit'
                 type='primary'
                 size='medium'
-                disabled={passwordValue.length < 6 || !codeValue ? true : false}
+                disabled={values.password.length < 6 || !values.code ? true : false}
               >
                 Сохранить
               </Button>

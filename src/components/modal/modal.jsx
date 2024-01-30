@@ -5,30 +5,28 @@ import { useDispatch, useSelector } from 'react-redux';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { REACT_MODALS } from '../../utils/constants';
 import { CLOSE_MODAL } from '../../services/actions/modal';
-import { RESET_ORDER } from '../../services/actions/order-details';
 import ModalOverlay from '../modal-overlay/modal-overlay';
 import PropTypes from 'prop-types';
 import styles from './modal.module.css';
 
 
 function Modal({ children }) {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const { isVisible, typeOfModal } = useSelector((store) => store.modalReducer);
+  const isVisible = useSelector((store) => store.modalReducer.isVisible);
+  const titleIsDigits = useSelector((store) => store.modalReducer.titleIsDigits);
+  const titleContent = useSelector((store) => store.modalReducer.titleContent);
+  const navigateState = useSelector((store) => store.modalReducer.navigateState);
 
-  const handlerOnClose = () => {
+  const extraTitleStyles = titleIsDigits ? 'text text_type_digits-default' : 'text text_type_main-large';
+
+  const handleOnClose = () => {
     dispatch({
       type: CLOSE_MODAL
     });
 
-    typeOfModal === 'ingredient' && navigate(-1);
-
-    typeOfModal === 'create-order' && (
-      dispatch({
-        type: RESET_ORDER
-      })
-    );
+    navigateState.isNavigate && navigate(navigateState.to, { replace: navigateState.replace });
   }
 
   useEffect(() => {
@@ -36,39 +34,32 @@ function Modal({ children }) {
 
     const keyDownEsc = (evt) => {
       if (evt.key === 'Escape') {
-        dispatch({
-          type: CLOSE_MODAL
-        });
-
-        typeOfModal === 'ingredient' && navigate(-1);
+        handleOnClose();
       }
     }
 
     document.addEventListener('keydown', keyDownEsc);
 
     return () => document.removeEventListener('keydown', keyDownEsc);
-  }, [dispatch, navigate, isVisible, typeOfModal]);
-
-  const title = typeOfModal === 'ingredient' ? 'Детали ингредиента' : '';
+  }, [isVisible, navigateState, navigate, dispatch]);
 
   return createPortal(
     (
       <>
         <ModalOverlay
           isVisible={isVisible}
-          onClose={handlerOnClose}
+          onClose={handleOnClose}
         />
 
         <div className={`${styles.modal} ${isVisible && styles.open} pt-10 pr-10 pb-15 pl-10`}>
           <section className={styles.header}>
-            <p className={`${styles.title} text text_type_main-large`}>
-              {title}
+            <p className={`${styles.title} ${extraTitleStyles}`}>
+              {titleContent}
             </p>
-
             <button
               className={styles.button}
               type='button'
-              onClick={handlerOnClose}
+              onClick={handleOnClose}
             >
               <CloseIcon type='primary' />
             </button>
@@ -86,7 +77,7 @@ function Modal({ children }) {
 
 
 Modal.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
 }
 
 export default Modal;

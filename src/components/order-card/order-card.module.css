@@ -1,0 +1,85 @@
+.orderCard {
+  border-radius: 40px;
+  background-color: #1c1c21;
+  box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, .04),
+              0px 0px 2px 0px rgba(0, 0, 0, .06),
+              0px 4px 8px 0px rgba(0, 0, 0, .04);
+}
+
+.link {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  color: #f2f2f3;
+  text-decoration: none;
+}
+
+.link:hover .titleText,
+.link:hover .numberText,
+.link:hover .priceText {
+  color: #9ede33;
+}
+
+.link:hover .priceIcon svg {
+  fill: #9ede33;
+}
+
+.titleText,
+.numberText,
+.priceText {
+  transition: color .3s ease-in-out;
+}
+
+.orderCardNumber {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.orderCardTitle {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.orderCardPreview {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.ingredientsPreviewList {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.orderCardPreviewPrice {
+  box-sizing: border-box;
+  display: flex;
+  gap: 8px;
+}
+
+.priceText {
+  width: 100%;
+  max-width: 140px;
+}
+
+.numberText,
+.priceText {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.priceIcon {
+  display: block;
+  font-size: 0;
+}
+
+.priceIcon svg {
+  transition: fill .3s ease-in-out;
+}

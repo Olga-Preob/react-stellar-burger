@@ -1,10 +1,9 @@
-import React from 'react';
+import { memo } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDrag } from 'react-dnd';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { OPEN_MODAL } from '../../../services/actions/modal';
-import { SET_CURRENT_INGREDIENT_ID } from '../../../services/actions/ingredient-details';
+import { SET_CURRENT_INGREDIENT_ID } from '../../../services/actions/current-values';
 import {
   INCREASE_ITEM,
   INCREASE_BUN_ITEM,
@@ -20,7 +19,7 @@ function IngredientItem({ ingredient }) {
   const dispatch = useDispatch();
   const location = useLocation();
 
-  const burgerFilling = useSelector((store) => store.burgerConstructorReducer);
+  const burgerBun = useSelector((store) => store.burgerConstructorReducer.bun);
 
   const [{ isDragging }, dragRef] = useDrag({
     type: ingredient.type,
@@ -35,11 +34,11 @@ function IngredientItem({ ingredient }) {
         dispatch(addIngredientWithKey(ingredient));
 
         if (item.type === 'bun') {
-          if (burgerFilling.bun) {
+          if (burgerBun) {
             dispatch({
               type: DECREASE_BUN_ITEM,
               payload: {
-                _id: burgerFilling.bun._id
+                _id: burgerBun._id
               }
             });
           };
@@ -64,18 +63,11 @@ function IngredientItem({ ingredient }) {
 
   const opacity = isDragging ? .4 : 1;
 
-  const onClickHandler = () => {
+  const handleOnClick = () => {
     dispatch({
       type: SET_CURRENT_INGREDIENT_ID,
       payload: {
-        id: ingredient._id
-      }
-    });
-
-    dispatch({
-      type: OPEN_MODAL,
-      payload: {
-        typeOfModal: 'ingredient'
+        currentIngredientId: ingredient._id
       }
     });
   }
@@ -84,7 +76,7 @@ function IngredientItem({ ingredient }) {
     <li
       ref={dragRef}
       className={styles.item}
-      onClick={onClickHandler}
+      onClick={handleOnClick}
       style={{ opacity }}
     >
       <Link
@@ -123,4 +115,4 @@ IngredientItem.propTypes = {
   ingredient: PropTypes.shape({ ingredientPropType }).isRequired
 }
 
-export default React.memo(IngredientItem);
+export default memo(IngredientItem);

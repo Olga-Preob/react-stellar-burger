@@ -29,6 +29,7 @@ function AppHeader() {
               </li>
               <li className={styles.item}>
                 <NavLink
+                  end
                   to='/feed'
                   className={({ isActive }) => isActive ? activeNavLink : inactiveNavLink}
                 >
@@ -41,13 +42,14 @@ function AppHeader() {
           <li className={styles.item}>
             <NavLink
               to='/'
-              className={({ isActive }) => isActive ? `${styles.logo} ${styles.active_logo}` : `${styles.logo} ${styles.inactive_logo}`}
+              className={({ isActive }) => isActive ? `${styles.logo} ${styles.activeLogo}` : `${styles.logo} ${styles.inactiveLogo}`}
             >
               <Logo />
             </NavLink>
           </li>
           <li className={`${styles.item} ${styles.end}`}>
             <NavLink
+              end
               to='/profile'
               className={({ isActive }) => isActive ? activeNavLink : inactiveNavLink}
             >

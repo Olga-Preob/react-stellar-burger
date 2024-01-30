@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { useForm } from '../../hooks/useForm';
 import {
   EmailInput,
   PasswordInput,
@@ -14,10 +15,13 @@ import styles from './login.module.css';
 function Login() {
   const dispatch = useDispatch();
 
-  const { isRequest, isFailed } = useSelector((store) => store.userReducer);
+  const { values, handleChange } = useForm({
+    email: '',
+    password: ''
+  });
 
-  const [emailValue, setEmailValue] = useState('');
-  const [passwordValue, setPasswordValue] = useState('');
+  const isRequest = useSelector((store) => store.userReducer.isRequest);
+  const isFailed = useSelector((store) => store.userReducer.isFailed);
 
   useEffect(() => {
     resetState();
@@ -32,11 +36,11 @@ function Login() {
   const onSubmit = (evt) => {
     evt.preventDefault();
 
-    dispatch(fetchLogin(emailValue, passwordValue));
+    dispatch(fetchLogin(values.email, values.password));
   }
 
   return (
-    <main className={`${styles.main}`}>
+    <main className='centeredContainer'>
       {isRequest && (
         <Preloader />
       )}
@@ -44,32 +48,32 @@ function Login() {
       {!isFailed && !isRequest && (
         <>
           <form
-            className={`${styles.form}`}
+            className={styles.form}
             onSubmit={onSubmit}
           >
             <h1 className='text text_type_main-medium'>Вход</h1>
 
             <EmailInput
-              value={emailValue}
+              value={values.email}
               name='email'
               placeholder='E-mail'
               isIcon={false}
               errorText='Некорректно указан e-mail'
-              onChange={(evt) => setEmailValue(evt.target.value)}
+              onChange={handleChange}
             />
 
             <PasswordInput
-              value={passwordValue}
+              value={values.password}
               name='password'
               errorText='Пароль должен содержать минимум 6 символов'
-              onChange={(evt) => setPasswordValue(evt.target.value)}
+              onChange={handleChange}
             />
 
             <Button
               htmlType='submit'
               type='primary'
               size='medium'
-              disabled={passwordValue.length < 6 || !emailValue ? true : false}
+              disabled={values.password.length < 6 || !values.email ? true : false}
             >
               Войти
             </Button>

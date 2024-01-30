@@ -1,10 +1,15 @@
 .burgerConstructor {
   width: 100%;
-  max-width: 600px;
-  height: calc(100vh - 284px);
+  max-width: 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding-top: 120px;
 }
 
 .mainGroup {
+  width: 100%;
+  max-width: 568px;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -21,11 +26,20 @@
   position: relative;
   overflow-y: auto;
   scrollbar-gutter: stable;
-  left: calc(var(--offset-base-size) * 4);
-  margin-left: calc(var(--offset-base-size) * -4);
+  scrollbar-color: #2F2F37 #8585AD;
+  left: 8px;
+  margin-left: -8px;
   gap: 16px;
   padding-left: 0;
   min-height: max-content;
+}
+
+.fillingGroup::-webkit-scrollbar {
+  width: 8px;
+}
+
+.fillingGroup::-webkit-scrollbar-track {
+  background: #2F2F37;
 }
 
 .fillingGroup::-webkit-scrollbar-thumb {
@@ -46,19 +60,19 @@
 }
 
 .fillingMessageCanDrop {
-  color: #81c784;
+  color: #9ede33;
   transition: color .3s ease-in-out;
 }
 
 .emptyBun {
   display: flex;
   width: 100%;
-  border: 1px solid transparent;
+  border: 2px solid transparent;
   transition: border .3s ease-in-out;
 }
 
 .emptyBunCanDrop {
-  border: 1px solid #81c784;
+  border: 2px solid #9ede33;
   transition: border .3s ease-in-out;
 }
 
@@ -73,7 +87,7 @@
 }
 
 .emptyBunMessageCanDrop {
-  color: #81c784;
+  color: #9ede33;
   transition: color .3s ease-in-out;
 }
 
@@ -84,7 +98,7 @@
 }
 
 .checkout {
-  max-width: 100%;
+  max-width: 568px;
   display: flex;
   justify-content: flex-end;
   gap: 40px;
@@ -95,6 +109,7 @@
   justify-content: center;
   align-items: center;
   gap: 8px;
+  transition: opacity .3s ease-in-out;
 }
 
 .price svg {

@@ -2,15 +2,15 @@
   display: flex;
   justify-content: center;
   gap: 60px;
+  padding: 40px 0 0 0;
 }
 
 .wrap {
   box-sizing: border-box;
   width: 100%;
-  max-width: 1240px;
-  height: calc(100vh - 88px);
+  max-width: 1280px;
   display: flex;
-  align-items: center;
+  align-items: stretch;
   gap: 60px;
 }
 
@@ -42,11 +42,11 @@
 }
 
 .link:hover,
-.btn_logout:hover {
+.btnLogout:hover {
   color: #f2f2f3;
 }
 
-.btn_logout {
+.btnLogout {
   cursor: pointer;
   background: transparent;
   border: none;
