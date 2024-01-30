@@ -1,8 +1,8 @@
 # 🍔 **Stellar Burgers**
       
       
-Проектная работа от Яндекс.Практикума в рамках курса «Фулстек-разработчик».      
-      
+Проектная работа от Яндекс.Практикума в рамках курса «Фулстек-разработчик».<br>
+<br>
 _Stellar Burgers – это космическая бургерная, главной особенностью которой является конструктор бургеров, позволяющий в режиме реального времени прямо на сайте собрать любой бургер на свой вкус и отправить его на кухню одной кнопкой! Никто не улетит голодным!_ 🛸
       
       
@@ -13,13 +13,14 @@ _Stellar Burgers – это космическая бургерная, глав�
       
       
 ## 📌 Используемые материалы
-      
-      
-[Макеты в Figma](https://www.figma.com/file/ocw9a6hNGeAejl4F3G9fp8/React-_-%D0%9F%D1%80%D0%BE%D0%B5%D0%BA%D1%82%D0%BD%D1%8B%D0%B5-%D0%B7%D0%B0%D0%B4%D0%B0%D1%87%D0%B8-(3-%D0%BC%D0%B5%D1%81%D1%8F%D1%86%D0%B0)_external_link?type=design&node-id=2-1&mode=design)      
-[React Developer Burger UI Components](https://yandex-practicum.github.io/react-developer-burger-ui-components/docs/)      
-[Стандарты Яндекс.Практикума по оформлению HTML и CSS кода](https://code.s3.yandex.net/web-developer/static/design-rules/index.html)
-      
-      
+<br>
+<br>
+[Макеты в Figma](https://www.figma.com/file/ocw9a6hNGeAejl4F3G9fp8/React-_-%D0%9F%D1%80%D0%BE%D0%B5%D0%BA%D1%82%D0%BD%D1%8B%D0%B5-%D0%B7%D0%B0%D0%B4%D0%B0%D1%87%D0%B8-(3-%D0%BC%D0%B5%D1%81%D1%8F%D1%86%D0%B0)_external_link?type=design&node-id=2-1&mode=design)<br>
+[React Developer Burger UI Components](https://yandex-practicum.github.io/react-developer-burger-ui-components/docs/)<br>
+[Стандарты Яндекс.Практикума по оформлению HTML и CSS кода](https://code.s3.yandex.net/web-developer/static/design-rules/index.html)<br>
+<br>
+<br>
+
 ## ⭐ Используемые технологии
       
       
