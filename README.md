@@ -12,11 +12,7 @@
 
 <br>
 
-## 🌐 Демонстрация проекта на GH Pages
-
-<br>
-
-[Посмотреть](https://olga-preob.github.io/react-stellar-burger/) 👀
+### [Демонстрация проекта на GH Pages](https://olga-preob.github.io/react-stellar-burger/)
 
 <br>
 
@@ -35,7 +31,7 @@
 <br>
 <br>
 
-![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white) ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white) ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E) ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white) ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB) ![React Router](https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white) ![Redux](https://img.shields.io/badge/redux-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white) ![Webpack](https://img.shields.io/badge/webpack-%238DD6F9.svg?style=for-the-badge&logo=webpack&logoColor=black) ![Babel](https://img.shields.io/badge/Babel-F9DC3e?style=for-the-badge&logo=babel&logoColor=black) ![Figma](https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white) ![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)
+[![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)]() ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white) ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E) ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white) ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB) ![React Router](https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white) ![Redux](https://img.shields.io/badge/redux-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white) ![Webpack](https://img.shields.io/badge/webpack-%238DD6F9.svg?style=for-the-badge&logo=webpack&logoColor=black) ![Babel](https://img.shields.io/badge/Babel-F9DC3e?style=for-the-badge&logo=babel&logoColor=black) ![Figma](https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white) ![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)
 
 <br>
 
@@ -43,8 +39,8 @@
 
 <br>
 
-**E-mail:** test@test.test     
-**Пароль:** test123
+**_E-mail:_** test@test.test     
+**_Пароль:_** test123
 
 <br>
 
@@ -52,11 +48,11 @@
 
 <br>
 
-#### _Установка Node.js_
+**_Установка Node.js_**     
 Cкачайте дистрибутив с [официального сайта](https://nodejs.org/en/) в соответствии с вашей операционной системой.     
 Рекомендуется использовать LTS сборку: она более стабильна и содержит всё необходимое.
 
-#### _Клонирование репозитория_
+**_Клонирование репозитория_**     
 Скопируйте адрес репозитория с GitHub.     
 Откройте терминал и перейдите в папку, где собираетесь сохранить репозиторий.     
 Введите команду `git clone` и адрес репозитория.     
@@ -64,12 +60,12 @@ Cкачайте дистрибутив с [официального сайта](
 Пример:     
 `git clone https://github.com/Olga-Preob/react-stellar-burger.git`
 
-#### _Установка зависимостей_
+**_Установка зависимостей_**
 Перейдите в директорию проекта командой `cd react-stellar-burger`     
 Введите команду `npm i`     
 Дождитесь окончания установки всех пакетов.
 
-#### _Запуск проекта_
+**_Запуск проекта_**
 Находясь в директории проекта введите команду `npm start`     
 
 После этого проект автоматически откроется в браузере.     
@@ -86,4 +82,4 @@ ovpreob@yandex.ru
 
 <br>
 
-_Изначальный дизайн - Яндекс.Практикум_     
+_Изначальный дизайн - Яндекс.Практикум_
