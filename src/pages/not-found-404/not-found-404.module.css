@@ -30,7 +30,7 @@
   background-image: url(../../images/small-logo.svg);
   background-repeat: no-repeat;
   background-size: contain;
-  animation: rotate 15s infinite ease-in-out;
+  animation: rotate 10s infinite alternate ease-in-out;
 }
 
 @keyframes rotate {

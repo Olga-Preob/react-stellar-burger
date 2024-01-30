@@ -34,11 +34,7 @@ function Modal({ children }) {
 
     const keyDownEsc = (evt) => {
       if (evt.key === 'Escape') {
-        dispatch({
-          type: CLOSE_MODAL
-        });
-
-        navigateState.isNavigate && navigate(navigateState.to, { replace: navigateState.replace });
+        handleOnClose();
       }
     }
 
