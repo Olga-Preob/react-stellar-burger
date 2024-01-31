@@ -1,5 +1,5 @@
 .section {
-  max-width: 584px;
+  max-width: 576px;
   display: flex;
   flex-direction: column;
   gap: 24px;

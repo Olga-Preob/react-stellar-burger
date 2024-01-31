@@ -12,21 +12,5 @@
 
 .groups {
   max-height: calc(100vh - 304px);
-  scrollbar-gutter: stable;
   overflow-y: auto;
-}
-
-.groups::-webkit-scrollbar {
-  width: 8px;
-}
-
-.groups::-webkit-scrollbar-track {
-  background: #2F2F37;
-  margin: 0 0 40px 0;
-}
-
-.groups::-webkit-scrollbar-thumb {
-  background: #8585AD;
-  border: unset;
-  border-radius: unset;
 }

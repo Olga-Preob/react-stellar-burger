@@ -81,8 +81,8 @@ function Feed() {
               <h1 className='text text_type_main-large'>Лента заказов</h1>
 
               <div className={styles.content}>
-                <section className={styles.sectionOrderCard}>
-                  <ul className={`${styles.orderCardList} custom-scroll`}>
+                <section className={`${styles.sectionOrderCard} custom-scroll`}>
+                  <ul className={styles.orderCardList}>
                     {
                       orders.map((order) => (
                         <OrderCard key={order._id} order={order} />

@@ -1,7 +1,9 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import thunk from 'redux-thunk';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { HashRouter as Router } from 'react-router-dom';
+// import { BrowserRouter as Router } from 'react-router-dom';
+// GitHub pages doesn't support the tech used by the BrowserRouter
 import { applyMiddleware, createStore } from 'redux';
 import { socketMiddleware, wsActions } from './services/middleware/socket-middleware';
 import { composeWithDevTools } from 'redux-devtools-extension';

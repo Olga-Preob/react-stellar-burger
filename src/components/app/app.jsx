@@ -67,7 +67,7 @@ function App() {
   }, [background, dispatch]);
 
   return (
-    <div className={`${styles.app} ${styles.scroll}`}>
+    <div className={`${styles.app} custom-scroll`}>
       <AppHeader />
 
       <Routes location={background || location}>

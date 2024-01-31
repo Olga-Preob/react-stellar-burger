@@ -35,19 +35,7 @@
 }
 
 .listWrap {
-  scrollbar-gutter: stable;
   overflow-y: auto;
-}
-
-.listWrap::-webkit-scrollbar {
-  width: 8px;
-  margin-left: 10px;
-}
-
-.listWrap::-webkit-scrollbar-thumb {
-  background: #8585AD;
-  border: unset;
-  border-radius: unset;
 }
 
 .list {

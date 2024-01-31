@@ -17,11 +17,11 @@
 .link:hover .titleText,
 .link:hover .numberText,
 .link:hover .priceText {
-  color: #9ede33;
+  color: #bcef65;
 }
 
 .link:hover .priceIcon svg {
-  fill: #9ede33;
+  fill: #bcef65;
 }
 
 .titleText,

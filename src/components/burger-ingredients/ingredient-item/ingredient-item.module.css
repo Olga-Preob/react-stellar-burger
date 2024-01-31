@@ -10,16 +10,16 @@
 }
 
 .link:hover {
-  color: #9ede33;
+  color: #BCEF65;
 }
 
 .link:hover svg {
-   fill: #9ede33;
+   fill: #bcef65;
  }
 
 .item {
   width: 100%;
-  max-width: 272px;
+  max-width: 266px;
   display: flex;
   flex-direction: column;
   align-items: center;

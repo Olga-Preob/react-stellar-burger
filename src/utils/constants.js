@@ -34,7 +34,7 @@ export const ORDER_STATUSES = {
   },
   pending: {
     text: 'Готовится',
-    color: '#9ede33',
+    color: '#bcef65',
   },
   done: {
     text: 'Выполнен',
