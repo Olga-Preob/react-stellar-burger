@@ -13,19 +13,33 @@
 }
 
 .ordersList {
-  max-height: 314px;
+  box-sizing: border-box;
+  max-height: 210px;
   display: flex;
   flex-direction: column;
   align-content: flex-start;
   flex-wrap: wrap;
+  gap: 12px 30px;
   list-style: none;
-  gap: 8px 12px;
-  padding: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0 0 12px 0;
   margin: 0;
+}
+
+.ordersListNumber {
+  font-size: 24px;
 }
 
 .done {
   color: #00cccc;
+}
+
+.textTypeDigitsCustomMedium {
+  font-family: 'Iceland';
+	font-weight: normal;
+	font-size: 96px;
+	line-height: 1;
 }
 
 .textShadow {

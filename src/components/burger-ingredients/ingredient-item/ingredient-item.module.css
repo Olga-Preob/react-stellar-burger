@@ -10,11 +10,11 @@
 }
 
 .link:hover {
-  color: #BCEF65;
+  color: #69f0ae;
 }
 
 .link:hover svg {
-   fill: #bcef65;
+   fill: #69f0ae;
  }
 
 .item {
