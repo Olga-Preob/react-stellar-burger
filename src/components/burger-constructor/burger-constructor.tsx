@@ -42,7 +42,7 @@ function BurgerConstructor() {
     })
   });
 
-  const totalPrice = useMemo<number>(()=> {
+  const totalPrice = useMemo(()=> {
     if (burgerBun) {
       return (burgerBun.price * 2) + burgerFilling.reduce((acc, ing) => acc += ing.price, 0);
     } else {

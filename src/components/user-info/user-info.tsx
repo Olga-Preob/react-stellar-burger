@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, type FormEvent } from 'react';
+import { useEffect, useState, useRef, useCallback, type FormEvent } from 'react';
 import { useForm } from '../../hooks/useForm';
 import { Input, EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
@@ -22,13 +22,9 @@ function UserInfo() {
 
   const nameRef = useRef<HTMLInputElement>(null);
 
-  const [isBtnVisible, setIsBtnVisible] = useState<boolean>(false);
+  const [isBtnVisible, setIsBtnVisible] = useState(false);
 
-  const [isNameDisabled, setIsNameDisabled] = useState<boolean>(true);
-
-  useEffect(() => {
-    resetInput();
-  }, [user]);
+  const [isNameDisabled, setIsNameDisabled] = useState(true);
 
   const onSubmit = (evt: FormEvent) => {
     evt.preventDefault();
@@ -48,22 +44,26 @@ function UserInfo() {
     }, 0);
   }
 
-  const resetInput = () => {
-    setValues({
-      ...values,
-      name: user.name,
-      email: user.email,
-      password: ''
-    });
+  const resetInput = useCallback((name, email) => {
+    setValues((prev) => ({
+      ...prev,
+      'name': name,
+      'email': email,
+      'password': ''
+    }));
 
     setIsBtnVisible(false);
-  }
+  }, [setValues]);
 
   const resetState = () => {
-    resetInput();
+    resetInput(user.name, user.email);
 
     dispatch(resetFailed());
   }
+
+  useEffect(() => {
+    userStatus === 'resolved' && resetInput(user.name, user.email);
+  }, [user, userStatus, resetInput]);
 
   return (
     <>
@@ -108,8 +108,8 @@ function UserInfo() {
                 errorText='Имя не может содержать меньше 1 символа'
                 onIconClick={onNameIconClick}
                 onBlur={() => setIsNameDisabled(true)}
-                onChange={handleChange}
                 disabled={isNameDisabled}
+                onChange={handleChange}
               />
 
               <EmailInput
@@ -117,14 +117,12 @@ function UserInfo() {
                 name='email'
                 placeholder='Логин'
                 isIcon={true}
-                errorText='Некорректно указан e-mail'
                 onChange={handleChange}
               />
 
               <PasswordInput
                 value={values.password}
                 name='password'
-                errorText='Пароль должен содержать минимум 6 символов'
                 icon='EditIcon'
                 onChange={handleChange}
               />
@@ -136,7 +134,7 @@ function UserInfo() {
                       htmlType='reset'
                       type='secondary'
                       size='medium'
-                      onClick={resetInput}
+                      onClick={() => resetInput(user.name, user.email)}
                     >
                       Отмена
                     </Button>

@@ -5,9 +5,9 @@ import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { useAppSelector } from '../../hooks/useAppSelector';
 import { fetchGetOrderInfo } from '../../services/slices/order-interaction';
 import { setCurrentOrderNumber } from '../../services/slices/current-values';
-import { Order, RequestedOrder, Ingredient } from '../../services/types/data';
-import { ingredientsToShow, statusInfo } from '../../utils/constants';
-import { getIngredient } from '../../utils/utils';
+import { Order, RequestedOrder } from '../../services/types/data';
+import { ingredientsToShow, statusInfo, emptyIngredients } from '../../utils/constants';
+import { getOrderIngredientsArr } from '../../utils/utils';
 import IngredientsPreview from './ingredients-preview/ingredients-preview';
 import styles from './order-card.module.css';
 
@@ -24,42 +24,25 @@ function OrderCard({ order }: Props) {
 
   const ingredientsArr = useAppSelector((store) => store.ingredients.ingredients);
 
-  const orderIngredientsArr = useMemo<Ingredient[]>(() => {
-    return order.ingredients.map((id) => {
-      const ingredients = getIngredient(ingredientsArr, id);
-      const emptyIngredients: Ingredient = {
-        _id: '',
-        name: '',
-        type: '',
-        proteins: 0,
-        fat: 0,
-        carbohydrates: 0,
-        calories: 0,
-        price: 0,
-        image: '',
-        image_mobile: '',
-        image_large: '',
-        __v: 0
-      };
-      return ingredients ? ingredients : emptyIngredients;
-    });
+  const orderIngredientsArr = useMemo(() => {
+    return getOrderIngredientsArr(order, ingredientsArr, emptyIngredients);
   }, [order, ingredientsArr]);
 
-  const bun = useMemo<Ingredient[]>(() => (
+  const bun = useMemo(() => (
     [...new Set(orderIngredientsArr.filter((ing) => ing.type === 'bun'))]
   ), [orderIngredientsArr]);
 
-  const filling = useMemo<Ingredient[]>(() => (
+  const filling = useMemo(() => (
     orderIngredientsArr
       .filter((ing) => ing.type === 'sauce' || ing.type === 'main')
       .sort((a, b) => b.price - a.price)
   ), [orderIngredientsArr]);
 
-  const totalPrice = useMemo<number>(() => (
+  const totalPrice = useMemo(() => (
     bun.reduce((acc, ing) => acc + ing.price * 2, 0) + filling.reduce((acc, ing) => acc + ing.price, 0)
   ), [bun, filling]);
 
-  const ingredientsPreviewArr = useMemo<Ingredient[]>(() => (
+  const ingredientsPreviewArr = useMemo(() => (
     [...bun, ...new Set(filling)]
   ), [bun, filling]);
 

@@ -3,7 +3,6 @@ import { useAppSelector } from '../../hooks/useAppSelector';
 import { useInView } from 'react-intersection-observer'
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import { IngredientsByCategory } from '../../services/types';
-import { Ingredient } from '../../services/types/data';
 import IngredientsGroup from './ingredients-group/ingredients-group';
 import styles from './burger-ingredients.module.css';
 
@@ -17,23 +16,23 @@ function BurgerIngredients() {
 
   const ingredientsArr = useAppSelector((store) => store.ingredients.ingredients);
 
-  const [current, setCurrent] = useState<string>('bun');
+  const [current, setCurrent] = useState('bun');
 
   const [bunRef, inViewBun] = useInView(inViewOptions);
   const [mainRef, inViewMain] = useInView(inViewOptions);
   const [sauceRef, inViewSauce] = useInView(inViewOptions);
 
-  const bun = useMemo<Ingredient[]>(() => {
+  const bun = useMemo(() => {
     return ingredientsArr.filter((ingredient) => ingredient.type === 'bun');
     },
     [ingredientsArr]
   );
-  const sauce = useMemo<Ingredient[]>(() => {
+  const sauce = useMemo(() => {
     return ingredientsArr.filter((ingredient) => ingredient.type === 'sauce');
     },
     [ingredientsArr]
   );
-  const main = useMemo<Ingredient[]>(() => {
+  const main = useMemo(() => {
     return ingredientsArr.filter((ingredient) => ingredient.type === 'main');
     },
     [ingredientsArr]

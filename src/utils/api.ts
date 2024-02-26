@@ -29,8 +29,8 @@ const request = <T>(endpoint: string, options: Options): Promise<T> => {
     .then((res) => checkResponse(res))
 }
 
-export const getIngredients = (): Promise<GetIngredientsPromise> => {
-  return request(
+export const getIngredients = () => {
+  return request<GetIngredientsPromise>(
     endpoints.getIngredients,
     {
       method: 'GET',
@@ -39,8 +39,8 @@ export const getIngredients = (): Promise<GetIngredientsPromise> => {
   )
 }
 
-export const getOrderInfo = (orderNumber: string): Promise<GetOrderInfoPromise> => {
-  return request(
+export const getOrderInfo = (orderNumber: string) => {
+  return request<GetOrderInfoPromise>(
     `/orders/${orderNumber}`,
     {
       method: 'GET',
@@ -49,8 +49,8 @@ export const getOrderInfo = (orderNumber: string): Promise<GetOrderInfoPromise> 
   )
 }
 
-export const login = (email: string, password: string): Promise<LoginPromise> => {
-  return request(
+export const login = (email: string, password: string) => {
+  return request<LoginPromise>(
     endpoints.login,
     {
       method: 'POST',
@@ -63,8 +63,8 @@ export const login = (email: string, password: string): Promise<LoginPromise> =>
   );
 }
 
-export const logout = (refreshToken: string): Promise<LogoutPromise> => {
-  return request(
+export const logout = (refreshToken: string) => {
+  return request<LogoutPromise>(
     endpoints.logout,
     {
       method: 'POST',
@@ -76,8 +76,8 @@ export const logout = (refreshToken: string): Promise<LogoutPromise> => {
   );
 }
 
-export const newUserRegistration = (name: string, email: string, password: string): Promise<NewUserRegistrationPromise> => {
-  return request(
+export const newUserRegistration = (name: string, email: string, password: string) => {
+  return request<NewUserRegistrationPromise>(
     endpoints.newUserRegistration,
     {
       method: 'POST',
@@ -91,8 +91,8 @@ export const newUserRegistration = (name: string, email: string, password: strin
   );
 }
 
-export const checkUserEmail = (email: string): Promise<CheckUserEmailPromise> => {
-  return request(
+export const checkUserEmail = (email: string) => {
+  return request<CheckUserEmailPromise>(
     endpoints.checkUserEmail,
     {
       method: 'POST',
@@ -104,8 +104,8 @@ export const checkUserEmail = (email: string): Promise<CheckUserEmailPromise> =>
   );
 }
 
-export const passwordReset = (password: string, tokenFromEmail: string): Promise<PasswordResetPromise> => {
-  return request(
+export const passwordReset = (password: string, tokenFromEmail: string) => {
+  return request<PasswordResetPromise>(
     endpoints.passwordReset,
     {
       method: 'POST',
@@ -118,8 +118,8 @@ export const passwordReset = (password: string, tokenFromEmail: string): Promise
   );
 }
 
-const refreshTokenRequest = (refreshToken: string): Promise<RefreshTokenPromise> => {
-  return request(
+const refreshTokenRequest = (refreshToken: string) => {
+  return request<RefreshTokenPromise>(
     endpoints.refreshToken,
     {
       method: 'POST',
@@ -160,8 +160,8 @@ const fetchWithRefresh = async <T>(endpoint: string, options: Options, refreshTo
   }
 }
 
-export const getUserInfo = (accessToken: string, refreshToken: string): Promise<GetUserInfoPromise> => {
-  return fetchWithRefresh(
+export const getUserInfo = (accessToken: string, refreshToken: string) => {
+  return fetchWithRefresh<GetUserInfoPromise>(
     endpoints.userInfo,
     {
       method: 'GET',
@@ -174,8 +174,8 @@ export const getUserInfo = (accessToken: string, refreshToken: string): Promise<
   );
 }
 
-export const createOrder = (accessToken: string, refreshToken: string, ingredientsArrId: string[]): Promise<CreateOrderPromise> => {
-  return fetchWithRefresh(
+export const createOrder = (accessToken: string, refreshToken: string, ingredientsArrId: string[]) => {
+  return fetchWithRefresh<CreateOrderPromise>(
     endpoints.createOrder,
     {
       method: 'POST',
@@ -191,8 +191,8 @@ export const createOrder = (accessToken: string, refreshToken: string, ingredien
   );
 }
 
-export const patchUserInfo = (accessToken: string, refreshToken: string, name: string, email: string, password: string): Promise<PatchUserInfoPromise> => {
-  return fetchWithRefresh(
+export const patchUserInfo = (accessToken: string, refreshToken: string, name: string, email: string, password: string) => {
+  return fetchWithRefresh<PatchUserInfoPromise>(
     endpoints.userInfo,
     {
       method: 'PATCH',

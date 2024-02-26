@@ -93,5 +93,6 @@ export type StatusInfo = {
   [key in OrderStatus]: OrderStatusTextAndColor;
 }
 
-
 export type MoveIngredientCallback = (dragIndex: number, hoverIndex: number) => void;
+
+export type GetOrderIngredientsArr = (order: Order | RequestedOrder, ingredientsArr: Ingredient[], emptyIngredients: Ingredient) => Ingredient[];

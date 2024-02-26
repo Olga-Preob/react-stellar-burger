@@ -1,4 +1,4 @@
-import { useEffect, type FormEvent } from 'react';
+import { useEffect, useCallback, type FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { useAppSelector } from '../../hooks/useAppSelector';
@@ -19,19 +19,19 @@ function Login() {
 
   const userStatus = useAppSelector((store) => store.user.status);
 
-  useEffect(() => {
-    resetState();
-  }, []);
-
-  const resetState = () => {
+  const resetState = useCallback(() => {
     dispatch(resetFailed());
-  }
+  }, [dispatch]);
 
   const onSubmit = (evt: FormEvent) => {
     evt.preventDefault();
 
     dispatch(fetchLogin(values.email, values.password));
   }
+
+  useEffect(() => {
+    resetState();
+  });
 
   return (
     <main className='centeredContainer'>
@@ -52,14 +52,12 @@ function Login() {
               name='email'
               placeholder='E-mail'
               isIcon={false}
-              errorText='Некорректно указан e-mail'
               onChange={handleChange}
             />
 
             <PasswordInput
               value={values.password}
               name='password'
-              errorText='Пароль должен содержать минимум 6 символов'
               onChange={handleChange}
             />
 

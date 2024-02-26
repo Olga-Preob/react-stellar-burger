@@ -16,9 +16,9 @@ function ResetPassword() {
     code: ''
   });
 
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const [codeWasEdit, setCodeWasEdit] = useState<boolean>(false);
+  const [codeWasEdit, setCodeWasEdit] = useState(false);
 
   useEffect(() => {
     resetСheck();
@@ -66,7 +66,6 @@ function ResetPassword() {
                 value={values.password}
                 name='password'
                 placeholder='Введите новый пароль'
-                errorText='Пароль должен содержать минимум 6 символов'
                 onChange={handleChange}
               />
 

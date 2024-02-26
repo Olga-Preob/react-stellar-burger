@@ -26,7 +26,7 @@ function ConstructorFilling({ ingredient, index }: Props) {
       dragIndex,
       hoverIndex
     }));
-  }, []);
+  }, [dispatch]);
 
   const [{ isDragging }, drag] = useDrag({
     type: 'fillingIngredients',

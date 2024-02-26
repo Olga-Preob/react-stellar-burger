@@ -1,13 +1,7 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { removeUserOrdersInfo } from './orders-feed';
-import {
-  login,
-  logout,
-  newUserRegistration,
-  getUserInfo,
-  patchUserInfo
-} from '../../utils/api';
+import { login, logout, newUserRegistration, getUserInfo, patchUserInfo } from '../../utils/api';
 import { UserState } from '../types';
 
 

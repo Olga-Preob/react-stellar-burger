@@ -1,4 +1,4 @@
-import { useState, useEffect, type FormEvent } from 'react';
+import { useState, useEffect, useCallback, type FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { useAppSelector } from '../../hooks/useAppSelector';
@@ -20,21 +20,21 @@ function Register() {
 
   const userStatus = useAppSelector((store) => store.user.status);
 
-  const [nameWasEdit, setNameWasEdit] = useState<boolean>(false);
+  const [nameWasEdit, setNameWasEdit] = useState(false);
 
-  useEffect(() => {
-    resetState();
-  }, []);
-
-  const resetState = () => {
+  const resetState = useCallback(() => {
     dispatch(resetFailed());
-  }
+  }, [dispatch]);
 
   const onSubmit = (evt: FormEvent) => {
     evt.preventDefault();
 
     dispatch(fetchNewUserRegistration(values.name, values.email, values.password));
   }
+
+  useEffect(() => {
+    resetState();
+  });
 
   return (
     <main className='centeredContainer'>
@@ -68,14 +68,12 @@ function Register() {
               name='email'
               placeholder='E-mail'
               isIcon={false}
-              errorText='Некорректно указан e-mail'
               onChange={handleChange}
             />
 
             <PasswordInput
               value={values.password}
               name='password'
-              errorText='Пароль должен содержать минимум 6 символов'
               onChange={handleChange}
             />
 

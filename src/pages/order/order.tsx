@@ -5,8 +5,8 @@ import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { useAppSelector } from '../../hooks/useAppSelector';
 import { setCurrentOrderNumber } from '../../services/slices/current-values';
 import { fetchGetOrderInfo } from '../../services/slices/order-interaction';
-import { Ingredient } from '../../services/types/data';
-import { getIngredient } from '../../utils/utils';
+import { emptyIngredients } from '../../utils/constants';
+import { getOrderIngredientsArr } from '../../utils/utils';
 import OrderList from '../../components/order-list/order-list';
 import Preloader from '../../components/preloader/preloader';
 import styles from './order.module.css';
@@ -34,38 +34,21 @@ function Order() {
     }
   }, [number, dispatch]);
 
-  const orderIngredientsArr = useMemo<Ingredient[]>(() => {
-    return requestedOrder.ingredients.map((id) => {
-      const ingredients = getIngredient(ingredientsArr, id);
-      const emptyIngredients: Ingredient = {
-        _id: '',
-        name: '',
-        type: '',
-        proteins: 0,
-        fat: 0,
-        carbohydrates: 0,
-        calories: 0,
-        price: 0,
-        image: '',
-        image_mobile: '',
-        image_large: '',
-        __v: 0
-      };
-      return ingredients ? ingredients : emptyIngredients;
-    });
+  const orderIngredientsArr = useMemo(() => {
+    return getOrderIngredientsArr(requestedOrder, ingredientsArr, emptyIngredients);
   }, [requestedOrder, ingredientsArr]);
 
-  const bun = useMemo<Ingredient[]>(() => (
+  const bun = useMemo(() => (
     [...new Set(orderIngredientsArr.filter((ing) => ing.type === 'bun'))]
   ), [orderIngredientsArr]);
 
-  const filling = useMemo<Ingredient[]>(() => (
+  const filling = useMemo(() => (
     orderIngredientsArr
       .filter((ing) => ing.type === 'sauce' || ing.type === 'main')
       .sort((a, b) => b.price - a.price)
   ), [orderIngredientsArr]);
 
-  const isCorrectOrder = bun.length === 1 && filling.length > 0 && orderIngredientsArr.length > 0 && requestedOrder.name;
+  const isCorrectOrder = bun.length === 1 && filling.length > 0 && orderIngredientsArr.length > 0 && requestedOrder.name !== '';
 
   return (
     <>

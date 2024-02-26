@@ -6,8 +6,8 @@ import { useAppSelector } from '../../hooks/useAppSelector';
 import { setCurrentOrderNumber } from '../../services/slices/current-values';
 import { fetchGetOrderInfo } from '../../services/slices/order-interaction';
 import { Ingredient } from '../../services/types/data';
-import { getIngredient } from '../../utils/utils';
-import { statusInfo } from '../../utils/constants';
+import { statusInfo, emptyIngredients } from '../../utils/constants';
+import { getOrderIngredientsArr } from '../../utils/utils';
 import OrderListItem from './order-list-item/order-list-item';
 import Preloader from '../preloader/preloader';
 import styles from './order-list.module.css';
@@ -39,30 +39,13 @@ function OrderList ({ isModal = false }: Props) {
   }, [currentOrderNumber, number, dispatch]);
 
   useEffect(() => {
-    currentOrderNumber && !requestedOrder.name && requestedOrderStatus !== 'loading' && (
+    currentOrderNumber && requestedOrder.name === '' && requestedOrderStatus !== 'loading' && (
       dispatch(fetchGetOrderInfo(currentOrderNumber))
     );
   }, [currentOrderNumber, requestedOrder, requestedOrderStatus, dispatch]);
 
-  const orderIngredientsArr = useMemo<Ingredient[]>(() => {
-    return requestedOrder.ingredients.map((id) => {
-      const ingredients = getIngredient(ingredientsArr, id);
-      const emptyIngredients: Ingredient = {
-        _id: '',
-        name: '',
-        type: '',
-        proteins: 0,
-        fat: 0,
-        carbohydrates: 0,
-        calories: 0,
-        price: 0,
-        image: '',
-        image_mobile: '',
-        image_large: '',
-        __v: 0
-      };
-      return ingredients ? ingredients : emptyIngredients;
-    });
+  const orderIngredientsArr = useMemo(() => {
+    return getOrderIngredientsArr(requestedOrder, ingredientsArr, emptyIngredients);
   }, [requestedOrder, ingredientsArr]);
 
   const bun = useMemo<Ingredient[]>(() => (
@@ -75,23 +58,20 @@ function OrderList ({ isModal = false }: Props) {
   ), [orderIngredientsArr]);
 
   const filling = useMemo<Ingredient[]>(() => {
-    const fillingArr = Array.from(new Set(
-      orderIngredientsArr.filter((ing) => ing.type === 'sauce' || ing.type === 'main')
+    const fillingArr = Array.from(new Set(orderIngredientsArr.filter((ing) => ing.type === 'sauce' || ing.type === 'main')
     )).map((ing) => ({
       ...ing,
       __v: requestedOrder.ingredients.reduce((acc, id) => acc + (id === ing._id ? 1 : 0), 0)
     }));
 
-    return (
-      fillingArr.sort((a, b) => b.price - a.price)
-    );
+    return fillingArr.sort((a, b) => b.price - a.price);
   }, [orderIngredientsArr, requestedOrder]);
 
-  const orderListArr = useMemo<Ingredient[]>(() => (
+  const orderListArr = useMemo(() => (
     [...bun, ...filling]
   ), [bun, filling]);
 
-  const totalPrice = useMemo<number>(() => (
+  const totalPrice = useMemo(() => (
     orderListArr.reduce((acc, ing) => (acc + (ing.__v * ing.price)), 0)
   ), [orderListArr]);
 
@@ -115,7 +95,7 @@ function OrderList ({ isModal = false }: Props) {
         </div>
       )}
 
-      {requestedOrderStatus === 'resolved' && requestedOrder.name && (
+      {requestedOrderStatus === 'resolved' && requestedOrder.name !== '' && (
         <>
           <div className={styles.header}>
             <h1 className={`${isModal ? styles.orderName : ''} text text_type_main-medium`}>

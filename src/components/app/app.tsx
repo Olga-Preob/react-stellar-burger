@@ -57,7 +57,7 @@ function App() {
         titleContent: `#${location?.pathname?.split('/').slice(-1).toString().padStart(6, '0')}`
       }))
     );
-  }, [background, dispatch]);
+  }, [background, location, dispatch]);
 
   return (
     <div className={`${styles.app} custom-scroll`}>

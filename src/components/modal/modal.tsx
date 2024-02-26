@@ -1,4 +1,4 @@
-import { useEffect, type ReactNode } from 'react';
+import { useEffect, useCallback, type ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import { useNavigate } from 'react-router-dom';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -28,14 +28,14 @@ function Modal({ children }: Props) {
 
   const extraTitleStyles = titleIsDigits ? 'text text_type_digits-default' : 'text text_type_main-large';
 
-  const handleOnClose = () => {
+  const handleOnClose = useCallback(() => {
     dispatch(closeModal());
 
     if (isNavigate) {
       typeof(navigateTo) === 'number' && navigate(navigateTo);
       typeof(navigateTo) === 'string' && navigate(navigateTo, { replace: isReplace });
     }
-  }
+  }, [isNavigate, navigateTo, isReplace, dispatch, navigate]);
 
   useEffect(() => {
     if (!isVisible) return;
@@ -49,7 +49,7 @@ function Modal({ children }: Props) {
     document.addEventListener('keydown', keyDownEsc);
 
     return () => document.removeEventListener('keydown', keyDownEsc);
-  }, [isVisible]);
+  }, [isVisible, handleOnClose]);
 
   return createPortal(
     (

@@ -85,7 +85,6 @@ function ForgotPassword() {
               name='email'
               placeholder='Укажите e-mail'
               isIcon={false}
-              errorText='Некорректно указан e-mail'
               onChange={handleChange}
             />
 
