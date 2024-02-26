@@ -20,7 +20,7 @@
   justify-content: center;
   align-items: center;
   background: linear-gradient(#131316, #131316) padding-box,
-              linear-gradient(45deg, #801AB2, #4C4CFF) border-box;
+              linear-gradient(45deg, #801ab2, #4c4cff) border-box;
   border: 2px solid transparent;
   border-radius: 50%;
 }

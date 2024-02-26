@@ -8,7 +8,7 @@
   box-sizing: border-box;
   width: 100%;
   max-width: 1280px;
-  min-height: calc(100vh - 88px);
+  min-height: calc(100vh - 128px);
   display: flex;
   flex-direction: column;
   gap: 40px;
@@ -27,6 +27,7 @@
   width: 100%;
   max-width: 50%;
   max-height: calc(100vh - 208px);
+  min-height: 585px;
   overflow-y: auto;
 }
 
@@ -46,5 +47,5 @@
   max-width: 50%;
   display: flex;
   flex-direction: column;
-  gap: 60px;
+  gap: 24px;
 }

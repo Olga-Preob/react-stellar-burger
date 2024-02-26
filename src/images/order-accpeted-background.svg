@@ -5,15 +5,15 @@
 <defs>
 <radialGradient id="paint0_radial_2196_4169" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(53 51) rotate(-46.1458) scale(70.7248 53.2019)">
 <stop stop-color="#801AB3" stop-opacity="0"/>
-<stop offset="1" stop-color="#4C4CFF"/>
+<stop offset="1" stop-color="#4c4cff"/>
 </radialGradient>
 <radialGradient id="paint1_radial_2196_4169" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(53.5 51) rotate(-43.0632) scale(73.2274 55.0025)">
 <stop stop-color="#801AB3" stop-opacity="0"/>
-<stop offset="1" stop-color="#4C4CFF"/>
+<stop offset="1" stop-color="#4c4cff"/>
 </radialGradient>
 <radialGradient id="paint2_radial_2196_4169" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(53 50.6667) rotate(136.146) scale(47.1499 35.4679)">
 <stop stop-color="#801AB3" stop-opacity="0"/>
-<stop offset="1" stop-color="#4C4CFF" stop-opacity="0.5"/>
+<stop offset="1" stop-color="#4c4cff" stop-opacity="0.5"/>
 </radialGradient>
 </defs>
 </svg>
